@@ -16,7 +16,6 @@ sequelize.sync().then(() => {
     .then(() => console.log("Product created"))
     .catch((error) => console.error(error));
 });
-
 //todo ende
 app.use("/api/v1", ProductController);
 
