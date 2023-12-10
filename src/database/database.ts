@@ -5,14 +5,11 @@ import { Sequelize } from "sequelize";
 //   storage: "productionEnvironment.sqlite",
 // });
 
-export const sequelize = new Sequelize("database", "username", "password", {
-  host: "localhost",
-  dialect: "postgres",
+export const sequelize = new Sequelize("test_db", "root", "root", {
+  host: "localhost", // oder die IP-Adresse des Docker-Containers
   port: 5432,
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000,
+  dialect: "postgres",
+  define: {
+    timestamps: false, // für das Lesen von Legacy-Tabellen
   },
 });

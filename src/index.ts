@@ -9,7 +9,6 @@ const port = 3000;
 app.use(express.json());
 
 //todo auslagern
-
 sequelize.sync().then(() => {
   console.log("Database connected");
   createProduct()
@@ -19,6 +18,7 @@ sequelize.sync().then(() => {
 //todo ende
 app.use("/api/v1", ProductController);
 
+//testing delete by production
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

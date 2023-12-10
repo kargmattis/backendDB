@@ -5,6 +5,7 @@ class Product extends Model {
   public id!: number;
   public name!: string;
   public price!: number;
+  public hello!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -12,8 +13,8 @@ class Product extends Model {
 Product.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
     },
     name: {
@@ -24,9 +25,13 @@ Product.init(
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+    hello: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
-    tableName: "products",
+    tableName: "product",
     sequelize,
   }
 );
