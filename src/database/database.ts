@@ -10,6 +10,6 @@ export const sequelize = new Sequelize("test_db", "root", "root", {
   port: 5432,
   dialect: "postgres",
   define: {
-    timestamps: false, // für das Lesen von Legacy-Tabellen
-  },
+    timestamps: false // für das Lesen von Legacy-Tabellen
+  }
 });

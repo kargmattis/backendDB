@@ -1,4 +1,4 @@
-import { DataTypes, Model, Sequelize } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
 
 class Product extends Model {
@@ -15,24 +15,24 @@ Product.init(
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
-      primaryKey: true,
+      primaryKey: true
     },
     name: {
       type: new DataTypes.STRING(128),
-      allowNull: false,
+      allowNull: false
     },
     price: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: false
     },
     hello: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
+      allowNull: false
+    }
   },
   {
     tableName: "product",
-    sequelize,
+    sequelize
   }
 );
 

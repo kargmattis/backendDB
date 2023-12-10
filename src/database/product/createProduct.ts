@@ -1,13 +1,13 @@
 import Product from "./product";
 
-export async function createProduct() {
+export async function createProduct(): Promise<void> {
   try {
     const newProduct = await Product.create({
       name: "Product Name",
       price: 100.0,
-      hello: "Hello World",
+      hello: "Hello World"
     });
-    const product = await Product.findOne({ where: { id: newProduct.id } });
+    await Product.findOne({ where: { id: newProduct.id } });
     console.log(`Product created with ID: ${newProduct.id}`);
   } catch (error) {
     console.error("Error creating product:", error);
