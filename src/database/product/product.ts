@@ -3,9 +3,9 @@ import { sequelize } from "../database";
 
 class Product extends Model {
   public id!: number;
-  public name!: string;
+  public title!: string;
   public price!: number;
-  public hello!: string;
+  public image!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -17,7 +17,7 @@ Product.init(
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
     },
-    name: {
+    title: {
       type: new DataTypes.STRING(128),
       allowNull: false
     },
@@ -25,7 +25,7 @@ Product.init(
       type: DataTypes.FLOAT,
       allowNull: false
     },
-    hello: {
+    image: {
       type: DataTypes.STRING,
       allowNull: false
     }

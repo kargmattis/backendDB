@@ -3,9 +3,9 @@ import Product from "./product";
 export async function createProduct(): Promise<void> {
   try {
     const newProduct = await Product.create({
-      name: "Product Name",
-      price: 100.0,
-      hello: "Hello World"
+      title: "Orangenmenü",
+      price: 5.99,
+      image: ""
     });
     await Product.findOne({ where: { id: newProduct.id } });
     console.log(`Product created with ID: ${newProduct.id}`);

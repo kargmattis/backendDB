@@ -1,4 +1,5 @@
 import express from "express";
+import { createProduct } from "../database/product/createProduct";
 
 export const ProductController = express.Router();
 
@@ -8,6 +9,7 @@ ProductController.get("/product", (req, res) => {
 
 ProductController.post("/product", (req, res) => {
   res.send("Create Post product request");
+  createProduct();
 });
 
 ProductController.put("/product", (req, res) => {
