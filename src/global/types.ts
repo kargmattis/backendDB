@@ -1,1 +1,8 @@
-// hier kommen typdefintionen rein, die global verwendet werden
+export type KundeCreationAttributes = {
+  email: string;
+  vorname: string;
+  nachname: string;
+  passwort: string;
+  telefonnummer: string;
+  zeitungsaboablaufdatum: Date;
+};

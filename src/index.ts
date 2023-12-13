@@ -6,12 +6,11 @@ import { errorChecking } from "./utilities/errorChecking";
 const app = express();
 const port = 3000;
 
-app.use(express.json());
-
 // todo auslagern
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 sequelize.sync();
 // todo ende
+app.use(express.json());
 app.use("/api/v1", ProductController);
 // handelt errors die davor nicht abgefangen werden konnten
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

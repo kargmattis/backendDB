@@ -11,11 +11,11 @@ import CustomError from "./error";
  * @throws {CustomError} - If the error is not an instance of CustomError, it throws a new CustomError.
  */
 
-export function errorChecking(error: Error): CustomError {
+export function errorChecking(error: Error | unknown): CustomError {
   if (error instanceof CustomError) {
     throw error;
   } else {
-    console.error(error.stack);
+    console.error(error);
     console.error("Error throwed as Unkown:", error);
     throw new CustomError(ErrorHandle.ServerError, "unknown");
   }
