@@ -1,5 +1,6 @@
 import express from "express";
 import { createProduct } from "../database/product/operations/createProduct";
+import CustomError from "../utilities/error";
 
 export const ProductController = express.Router();
 
@@ -8,14 +9,11 @@ ProductController.get("/product", (_req, res) => {
 });
 
 ProductController.post("/product", async (_req, res) => {
-  try {
-    await createProduct();
-    res.send("Create Post product request");
-  } catch (error) {
-    // Handle the error appropriately, don't just swallow it.
-    console.error(error);
-    res.status(500).send("An error occurred while creating the product");
-  }
+  createProduct()
+    .then((product) => res.status(201).json(product))
+    .catch((error: CustomError) => {
+      res.status(error.statusCode).send(error.message);
+    });
 });
 
 ProductController.put("/product", (_req, res) => {
