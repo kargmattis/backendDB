@@ -2,6 +2,7 @@ import express, { type NextFunction, Request, Response } from "express";
 import { ProductController } from "./controller/productCotroller";
 import { sequelize } from "./database/database";
 import { errorChecking } from "./utilities/errorChecking";
+import { KundeController } from "./controller/kundeController";
 
 const app = express();
 const port = 3000;
@@ -11,7 +12,7 @@ const port = 3000;
 sequelize.sync();
 // todo ende
 app.use(express.json());
-app.use("/api/v1", ProductController);
+app.use("/api/v1", ProductController, KundeController);
 // handelt errors die davor nicht abgefangen werden konnten
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
