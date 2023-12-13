@@ -48,6 +48,9 @@ web_modules/
 # TypeScript cache
 *.tsbuildinfo
 
+# ignore sqlite files
+*.sqlite
+
 # Optional npm cache directory
 .npm
 
