@@ -7,7 +7,6 @@ export async function createKunde(
 ): Promise<Kunde> {
   try {
     const kunde = await Kunde.create(kundeData);
-    console.log("Kunde erfolgreich erstellt:", kunde.toJSON());
     return kunde;
   } catch (error) {
     throw errorChecking(error);
