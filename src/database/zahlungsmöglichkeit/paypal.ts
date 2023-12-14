@@ -2,6 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
 
 class Paypal extends Model {
+  public kundenId!: string;
   public zahlungsId!: string;
   public email!: string;
   public readonly createdAt!: Date;
@@ -14,6 +15,10 @@ Paypal.init(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
+    },
+    kundenId: {
+      type: DataTypes.UUID,
+      allowNull: false
     },
     email: {
       type: new DataTypes.STRING(128),
