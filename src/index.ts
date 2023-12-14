@@ -3,13 +3,16 @@ import { ProductController } from "./controller/productController";
 import { sequelize } from "./database/database";
 import { errorChecking } from "./utilities/errorChecking";
 import { KundeController } from "./controller/kundeController";
+import { addBestellung } from "./database/bestellung/operations/addBestellung";
 
 const app = express();
 const port = 3000;
 
 // todo auslagern
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
-sequelize.sync().then(() => {});
+sequelize.sync().then(() => {
+  // addBestellung(["b4c3ac10-9ab3-11ee-aa5e-6172dcbe40d0"]);
+});
 
 // todo ende
 app.use(express.json());
