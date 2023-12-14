@@ -1,5 +1,5 @@
 import express, { type NextFunction, Request, Response } from "express";
-import { ProductController } from "./controller/productCotroller";
+import { ProductController } from "./controller/productController";
 import { sequelize } from "./database/database";
 import { errorChecking } from "./utilities/errorChecking";
 import { KundeController } from "./controller/kundeController";
@@ -9,7 +9,8 @@ const port = 3000;
 
 // todo auslagern
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
-sequelize.sync();
+sequelize.sync().then(() => {});
+
 // todo ende
 app.use(express.json());
 app.use("/api/v1", ProductController, KundeController);
