@@ -1,5 +1,6 @@
-import { DataTypes, Model } from "sequelize";
+import { BelongsToManyAddAssociationMixin, DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
+import Product from "../product/product";
 
 class Bestellung extends Model {
   public bestellungsId!: string;
@@ -7,6 +8,7 @@ class Bestellung extends Model {
   public gewünschtesLieferdatum!: Date;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+  public addProduct!: BelongsToManyAddAssociationMixin<Product, string>;
 }
 
 Bestellung.init(
