@@ -13,6 +13,8 @@ import CustomError from "./error";
 
 export function errorChecking(error: Error | unknown): CustomError {
   if (error instanceof CustomError) {
+    console.log("Error throwed as CustomError:", error);
+
     throw error;
   } else {
     console.error(error);
