@@ -1,10 +1,10 @@
 import Bestellung from "./bestellung/bestellung";
-import { sequelize } from "./database";
+import Bestellungposition from "./bestellungsPosition/bestellungsPosition";
 import Product from "./product/product";
 
 Product.belongsToMany(Bestellung, {
-  through: "bestellung_product"
+  through: Bestellungposition
 });
 Bestellung.belongsToMany(Product, {
-  through: "bestellung_product"
+  through: Bestellungposition
 });
