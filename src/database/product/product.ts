@@ -28,6 +28,10 @@ Product.init(
     image: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    kundenId: {
+      type: DataTypes.UUID,
+      allowNull: true
     }
   },
   {
