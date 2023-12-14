@@ -21,7 +21,7 @@ Adresse.init(
       primaryKey: true
     },
     postleitzahl: {
-      type: new DataTypes.STRING(128),
+      type: new DataTypes.STRING(10),
       allowNull: false
     },
     isthaupadresse: {
