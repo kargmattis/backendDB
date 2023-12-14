@@ -3,7 +3,8 @@ import { ProductController } from "./controller/productController";
 import { sequelize } from "./database/database";
 import { errorChecking } from "./utilities/errorChecking";
 import { KundeController } from "./controller/kundeController";
-import { addBestellung } from "./database/bestellung/operations/addBestellung";
+import { PayPalController } from "./controller/paypalController";
+import { AddressController } from "./controller/addressController";
 
 const app = express();
 const port = 3000;
@@ -16,7 +17,13 @@ sequelize.sync().then(() => {
 
 // todo ende
 app.use(express.json());
-app.use("/api/v1", ProductController, KundeController);
+app.use(
+  "/api/v1",
+  ProductController,
+  KundeController,
+  PayPalController,
+  AddressController
+);
 // handelt errors die davor nicht abgefangen werden konnten
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
