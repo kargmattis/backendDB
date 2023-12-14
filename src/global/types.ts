@@ -6,3 +6,14 @@ export type KundeCreationAttributes = {
   telefonnummer: string;
   zeitungsaboablaufdatum: Date;
 };
+
+export type AdresseCreationAttributes = {
+  adressId: string;
+  kundenId: string;
+  postleitzahl: string;
+  isthaupadresse: boolean;
+  straße: string;
+  hausnummer: string;
+  ort: string;
+  hausnummerzusatz: string;
+};
