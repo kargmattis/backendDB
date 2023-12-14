@@ -18,8 +18,9 @@ export async function findKunde(kundenId: string): Promise<Kunde> {
 // Funktion, um mehrere Kunden zu suchen
 export async function findKunden(email: string) {
   try {
+    // TODO
     const kunden = await Kunde.findAll({ where: { email } });
-    console.log(`${kunden.length} Kunden gefunden`);
+    return kunden;
   } catch (error) {
     errorChecking(error);
   }
