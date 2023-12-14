@@ -3,6 +3,7 @@ import { sequelize } from "../database";
 
 class Adresse extends Model {
   public adressId!: string;
+  public kundenId!: string;
   public postleitzahl!: string;
   public isthaupadresse!: boolean;
   public straße!: string;
@@ -19,6 +20,10 @@ Adresse.init(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
+    },
+    kundenId: {
+      type: DataTypes.UUID,
+      allowNull: false
     },
     postleitzahl: {
       type: new DataTypes.STRING(10),
