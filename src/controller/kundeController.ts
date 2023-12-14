@@ -5,10 +5,18 @@ import CustomError from "../utilities/error";
 
 export const KundeController = express.Router();
 
-KundeController.get("/kunde/:id", async (req, res) => {
+KundeController.get("/kunde", async (req, res) => {
   try {
-    const id = req.params.id;
-    const kunde = await findKunde(id);
+    const id = req.query.id;
+    const email = req.query.email;
+    console.log("id: ", id, "email: ", email);
+    console.log("id: ", id, "email: ", email);
+
+    const kunde = await findKunde(id as string)
+      .then((kunde) => res.status(200).json(kunde))
+      .catch((error: CustomError) => {
+        res.status(error.statusCode).send(error.message);
+      });
     res.json(kunde);
   } catch (error) {
     res.status(500).send("An error occurred while creating the product");
