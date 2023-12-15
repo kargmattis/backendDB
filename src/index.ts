@@ -5,6 +5,7 @@ import { errorChecking } from "./utilities/errorChecking";
 import { KundeController } from "./controller/kundeController";
 import { PayPalController } from "./controller/paypalController";
 import { AddressController } from "./controller/addressController";
+import { IngredientController } from "./controller/ingredientController";
 
 const app = express();
 const port = 3000;
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(
   "/api/v1",
   ProductController,
+  IngredientController,
   KundeController,
   PayPalController,
   AddressController

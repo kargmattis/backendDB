@@ -3,8 +3,10 @@ import { sequelize } from "../database";
 
 class Zutat extends Model {
   public zutatsId!: string;
+  public zutatsname!: string;
   public zutatseigenschaft!: string;
   public zutatsprice!: number;
+  public zutatseinheit!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
