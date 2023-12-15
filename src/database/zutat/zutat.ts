@@ -18,12 +18,20 @@ Zutat.init(
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
     },
-    zutatsEigenschaft: {
+    zutatsname: {
+      type: new DataTypes.STRING(128),
+      allowNull: false
+    },
+    zutatseigenschaft: {
       type: new DataTypes.STRING(128),
       allowNull: false
     },
     zutatsprice: {
       type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    zutatseinheit: {
+      type: new DataTypes.STRING(128),
       allowNull: false
     }
   },
