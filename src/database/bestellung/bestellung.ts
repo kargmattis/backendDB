@@ -4,6 +4,8 @@ import Product from "../product/product";
 
 class Bestellung extends Model {
   public bestellungsId!: string;
+  public adressId!: string;
+  public paypalId!: string;
   public bestellDatum!: Date;
   public gewünschtesLieferdatum!: Date;
   public readonly createdAt!: Date;
@@ -17,6 +19,20 @@ Bestellung.init(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
+    },
+    adressId: {
+      type: DataTypes.UUID,
+      references: {
+        model: "Adresse",
+        key: "adressId"
+      }
+    },
+    paypalId: {
+      type: DataTypes.UUID,
+      references: {
+        model: "Paypal",
+        key: "paypalId"
+      }
     },
     bestellDatum: {
       type: DataTypes.DATE,

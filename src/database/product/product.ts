@@ -12,7 +12,7 @@ class Product extends Model {
 
 Product.init(
   {
-    id: {
+    productId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
@@ -31,7 +31,11 @@ Product.init(
     },
     kundenId: {
       type: DataTypes.UUID,
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: "Kunde",
+        key: "kundenId"
+      }
     }
   },
   {

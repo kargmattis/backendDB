@@ -4,8 +4,6 @@ import Product from "../product/product";
 
 class Bestellungposition extends Model {
   public bestellungsId!: string;
-  public adressId!: string;
-  public zahlungsid!: string;
   public productId!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -15,15 +13,23 @@ Bestellungposition.init(
   {
     bestellungsId: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV1,
+      references: {
+        model: "Bestellung",
+        key: "bestellungsId"
+      },
       primaryKey: true
     },
-    bestellDatum: {
-      type: DataTypes.DATE,
-      allowNull: false
+    productId: {
+      type: DataTypes.UUID,
+      references: {
+        model: "Product",
+        key: "productId"
+      },
+      allowNull: false,
+      primaryKey: true
     },
-    gewünschtesLieferdatum: {
-      type: DataTypes.DATE,
+    bestellmenge: {
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   },

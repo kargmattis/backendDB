@@ -18,7 +18,10 @@ Paypal.init(
     },
     kundenId: {
       type: DataTypes.UUID,
-      allowNull: false
+      references: {
+        model: "Kunde",
+        key: "kundenId"
+      }
     },
     email: {
       type: new DataTypes.STRING(128),

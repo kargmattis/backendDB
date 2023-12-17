@@ -23,7 +23,10 @@ Adresse.init(
     },
     kundenId: {
       type: DataTypes.UUID,
-      allowNull: false
+      references: {
+        model: "Kunde",
+        key: "kundenId"
+      }
     },
     postleitzahl: {
       type: new DataTypes.STRING(10),

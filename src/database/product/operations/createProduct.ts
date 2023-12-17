@@ -6,7 +6,8 @@ export async function createProduct(): Promise<Product> {
     const newProduct = await Product.create({
       title: "Orangenmenü 1",
       price: 5.99,
-      image: ""
+      image: "",
+      kundenId: "3841d240-9cdc-11ee-8e14-ef878a35fbb4"
     });
     return newProduct;
   } catch (error) {
