@@ -1,9 +1,9 @@
 import { errorChecking } from "../../../utilities/errorChecking";
-import Ingredient from "../zutat";
+import Zutat from "../zutat";
 
-export async function createIngredient(): Promise<Ingredient> {
+export async function createIngredient(): Promise<Zutat> {
   try {
-    const newIngredient = await Ingredient.create({
+    const newIngredient = await Zutat.create({
       zutatsname: "Mehl",
       zutatseigenschaft: "vegan",
       zutatsprice: 1,

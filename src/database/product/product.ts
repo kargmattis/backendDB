@@ -35,7 +35,7 @@ Product.init(
     }
   },
   {
-    tableName: "product",
+    tableName: "Product",
     sequelize
   }
 );
