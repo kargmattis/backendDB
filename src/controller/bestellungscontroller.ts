@@ -2,9 +2,9 @@ import express, { Request } from "express";
 import CustomError from "../utilities/error";
 import { createAdress } from "../database/adresse/operation/addAdress";
 
-export const AddressController = express.Router();
+export const BestellungsController = express.Router();
 
-AddressController.get("/addresse", async (req, res) => {
+BestellungsController.get("/bestellung", async (req, res) => {
   try {
     res.json("TODO need to implememt");
   } catch (error) {
@@ -12,7 +12,8 @@ AddressController.get("/addresse", async (req, res) => {
   }
 });
 
-AddressController.post("/addresse", async (req: Request, res) => {
+BestellungsController.post("/bestellung", async (req: Request, res) => {
+  console.log(req.body);
   const paypal = await createAdress(req.body)
     .then((paypal) => res.status(200).json(paypal))
     .catch((error: CustomError) => {

@@ -1,5 +1,7 @@
+import { SequelizeScopeError, ValidationError } from "sequelize";
 import { ErrorHandle } from "../global/enums";
 import CustomError from "./error";
+import { ErrorOptions } from "sequelize/types/errors/base-error";
 
 /**
  * This function checks if the provided error is an instance of CustomError.
@@ -16,9 +18,12 @@ export function errorChecking(error: Error | unknown): CustomError {
     console.log("Error throwed as CustomError:", error);
 
     throw error;
+  } else if (error instanceof ValidationError) {
+    if (error.name === "SequelizeForeignKeyConstraintError") {
+      throw new CustomError(ErrorHandle.ServerError, "id does not exist");
+    }
+    throw new CustomError(ErrorHandle.DatabaseError, error.message);
   } else {
-    console.error(error);
-    console.error("Error throwed as Unkown:", error);
     throw new CustomError(ErrorHandle.ServerError, "unknown");
   }
 }

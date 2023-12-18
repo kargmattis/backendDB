@@ -8,10 +8,9 @@ export type KundeCreationAttributes = {
 };
 
 export type AdresseCreationAttributes = {
-  adressId: string;
   kundenId: string;
   postleitzahl: string;
-  isthaupadresse: boolean;
+  isthauptadresse: boolean;
   straße: string;
   hausnummer: string;
   ort: string;

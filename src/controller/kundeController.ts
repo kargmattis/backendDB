@@ -9,8 +9,6 @@ KundeController.get("/kunde", async (req, res) => {
   try {
     const id = req.query.id;
     const email = req.query.email;
-    console.log("id: ", id, "email: ", email);
-    console.log("id: ", id, "email: ", email);
 
     const kunde = await findKunde(id as string)
       .then((kunde) => res.status(200).json(kunde))
