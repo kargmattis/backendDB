@@ -6,7 +6,7 @@ class Adresse extends Model {
   public kundenId!: string;
   public postleitzahl!: string;
   public isthauptadresse!: boolean;
-  public straße!: string;
+  public strasse!: string;
   public hausnummer!: string;
   public ort!: string;
   public hausnummerzusatz!: string;
@@ -36,7 +36,7 @@ Adresse.init(
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
-    straße: {
+    strasse: {
       type: new DataTypes.STRING(128),
       allowNull: false
     },
