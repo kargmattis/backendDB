@@ -1,15 +1,15 @@
 import { errorChecking } from "../../../utilities/errorChecking";
-import Product from "../product";
+import Produkt from "../produkt";
 
-export async function createProduct(): Promise<Product> {
+export async function createProdukt(): Promise<Produkt> {
   try {
-    const newProduct = await Product.create({
+    const newProdukt = await Produkt.create({
       title: "Orangenmenü 1",
       price: 5.99,
       image: ""
       // kundenId: "3841d240-9cdc-11ee-8e14-ef878a35fbb4"
     });
-    return newProduct;
+    return newProdukt;
   } catch (error) {
     console.error("Error creating product:", error);
     throw errorChecking(error);

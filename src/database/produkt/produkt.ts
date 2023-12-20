@@ -1,31 +1,31 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
 
-class Product extends Model {
+class Produkt extends Model {
   public productId!: string;
-  public title!: string;
-  public price!: number;
-  public image!: string;
+  public titel!: string;
+  public preis!: number;
+  public bild!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-Product.init(
+Produkt.init(
   {
-    productId: {
+    produktId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
     },
-    title: {
+    titel: {
       type: new DataTypes.STRING(128),
       allowNull: false
     },
-    price: {
+    preis: {
       type: DataTypes.FLOAT,
       allowNull: false
     },
-    image: {
+    bild: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -44,4 +44,4 @@ Product.init(
   }
 );
 
-export default Product;
+export default Produkt;

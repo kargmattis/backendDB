@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
 
 class Adresse extends Model {
-  public adressId!: string;
+  public adressenId!: string;
   public kundenId!: string;
   public postleitzahl!: string;
   public isthauptadresse!: boolean;
@@ -16,7 +16,7 @@ class Adresse extends Model {
 
 Adresse.init(
   {
-    adressId: {
+    adressenId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true

@@ -3,10 +3,10 @@ import { errorChecking } from "../../../utilities/errorChecking";
 import Kunde from "../kunde";
 
 export async function createKunde(
-  kundeData: KundeCreationAttributes
+  kundenData: KundeCreationAttributes
 ): Promise<Kunde> {
   try {
-    const kunde = await Kunde.create(kundeData);
+    const kunde = await Kunde.create(kundenData);
     return kunde;
   } catch (error) {
     throw errorChecking(error);

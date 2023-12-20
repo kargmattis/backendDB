@@ -1,11 +1,11 @@
 import express, { type NextFunction, Request, Response } from "express";
-import { ProductController } from "./controller/productController";
+import { ProduktController } from "./controller/produktController";
 import { sequelize } from "./database/database";
 import { errorChecking } from "./utilities/errorChecking";
 import { KundeController } from "./controller/kundeController";
 import { PayPalController } from "./controller/paypalController";
-import { AddressController } from "./controller/addressController";
-import { IngredientController } from "./controller/ingredientController";
+import { AdresseController } from "./controller/adresseController";
+import { ZutatController } from "./controller/zutatController";
 
 const app = express();
 const port = 3000;
@@ -20,11 +20,11 @@ sequelize.sync().then(() => {
 app.use(express.json());
 app.use(
   "/api/v1",
-  ProductController,
-  IngredientController,
+  ProduktController,
+  ZutatController,
   KundeController,
   PayPalController,
-  AddressController
+  AdresseController
 );
 app.get("/", (req, res) => {
   res.send("Hello World!");

@@ -1,10 +1,10 @@
 import { BelongsToManyAddAssociationMixin, DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
-import Product from "../product/product";
+import Produkt from "../produkt/produkt";
 
 class Bestellungposition extends Model {
   public bestellungsId!: string;
-  public productId!: string;
+  public produktId!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -19,7 +19,7 @@ Bestellungposition.init(
       },
       primaryKey: true
     },
-    productId: {
+    produktId: {
       type: DataTypes.UUID,
       references: {
         model: "Product",

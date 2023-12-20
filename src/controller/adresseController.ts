@@ -1,10 +1,10 @@
 import express, { Request } from "express";
 import CustomError from "../utilities/error";
-import { createAdress } from "../database/adresse/operation/addAdress";
+import { createAdresse } from "../database/adresse/operation/addAdresse";
 
-export const AddressController = express.Router();
+export const AdresseController = express.Router();
 
-AddressController.get("/addresse", async (req, res) => {
+AdresseController.get("/adresse", async (req, res) => {
   try {
     res.json("TODO need to implememt");
   } catch (error) {
@@ -12,8 +12,8 @@ AddressController.get("/addresse", async (req, res) => {
   }
 });
 
-AddressController.post("/addresse", async (req: Request, res) => {
-  const paypal = await createAdress(req.body)
+AdresseController.post("/adresse", async (req: Request, res) => {
+  const paypal = await createAdresse(req.body)
     .then((paypal) => res.status(200).json(paypal))
     .catch((error: CustomError) => {
       res.status(error.statusCode).send(error.message);

@@ -1,13 +1,13 @@
 import { AdresseCreationAttributes } from "../../../global/types";
 import { errorChecking } from "../../../utilities/errorChecking";
-import Adresse from "../addresse";
+import Adresse from "../adresse";
 
-export async function createAdress(
-  adressData: AdresseCreationAttributes
+export async function createAdresse(
+  adressenData: AdresseCreationAttributes
 ): Promise<Adresse> {
   try {
-    const newAdress = await Adresse.create(adressData);
-    return newAdress;
+    const newAdresse = await Adresse.create(adressenData);
+    return newAdresse;
   } catch (error) {
     console.error("Error creating new Paypal record: ", error);
     throw errorChecking(error);

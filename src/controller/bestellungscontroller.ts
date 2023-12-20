@@ -1,6 +1,6 @@
 import express, { Request } from "express";
 import CustomError from "../utilities/error";
-import { createAdress } from "../database/adresse/operation/addAdress";
+import { createAdress } from "../database/adresse/operation/addAdresse";
 
 export const BestellungsController = express.Router();
 

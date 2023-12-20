@@ -1,15 +1,15 @@
 import { errorChecking } from "../../../utilities/errorChecking";
 import Zutat from "../zutat";
 
-export async function createIngredient(): Promise<Zutat> {
+export async function createZutat(): Promise<Zutat> {
   try {
-    const newIngredient = await Zutat.create({
+    const newZutat = await Zutat.create({
       zutatsname: "Mehl",
       zutatseigenschaft: "vegan",
       zutatsprice: 1,
       zutatseinheit: "g"
     });
-    return newIngredient;
+    return newZutat;
   } catch (error) {
     console.error("Error creating ingredient:", error);
     throw errorChecking(error);

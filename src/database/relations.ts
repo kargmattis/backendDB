@@ -1,17 +1,17 @@
-import Adresse from "./adresse/addresse";
+import Adresse from "./adresse/adresse";
 import Bestellung from "./bestellung/bestellung";
 import Bestellungposition from "./bestellungsPosition/bestellungsPosition";
 import Kunde from "./kunde/kunde";
-import Product from "./product/product";
+import Produkt from "./produkt/produkt";
 import Paypal from "./zahlungsmöglichkeit/paypal";
 import Zutat from "./zutat/zutat";
 import ZutatenPosition from "./zutatenPostion/zutatenPosition";
 // m zu n Beziehung
-Product.belongsToMany(Bestellung, {
+Produkt.belongsToMany(Bestellung, {
   through: Bestellungposition
 });
 // m zu n Beziehung
-Bestellung.belongsToMany(Product, {
+Bestellung.belongsToMany(Produkt, {
   through: Bestellungposition
 });
 // 1 zu n Beziehung
@@ -28,7 +28,7 @@ Kunde.hasMany(Adresse, { foreignKey: "kundenId" });
 Adresse.belongsTo(Kunde);
 // 1 zu n Beziehung
 // Todo wo kommt Zutatenmenge dazu , weil an Relation?
-Product.belongsToMany(Zutat, {
+Produkt.belongsToMany(Zutat, {
   through: ZutatenPosition
 });
 
