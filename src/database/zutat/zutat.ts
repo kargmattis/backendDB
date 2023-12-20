@@ -5,7 +5,7 @@ class Zutat extends Model {
   public zutatsId!: string;
   public zutatsname!: string;
   public zutatseigenschaft!: string;
-  public zutatsprice!: number;
+  public zutatspreis!: number;
   public zutatseinheit!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -26,7 +26,7 @@ Zutat.init(
       type: new DataTypes.STRING(128),
       allowNull: false
     },
-    zutatsprice: {
+    zutatspreis: {
       type: DataTypes.FLOAT,
       allowNull: false
     },
