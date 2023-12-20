@@ -39,7 +39,7 @@ Produkt.init(
     }
   },
   {
-    tableName: "Product",
+    tableName: "Produkt",
     sequelize
   }
 );
