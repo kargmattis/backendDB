@@ -27,7 +27,7 @@ services:
       dockerfile: Dockerfile
     container_name: delivery-backend
     ports:
-      - "8080:8080"
+      - "3000:3000"
     depends_on:
       - db
     environment:

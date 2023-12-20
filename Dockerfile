@@ -1,5 +1,5 @@
 # Verwende ein offizielles Node.js-Image als Basis
-FROM node:14
+FROM node:18
 
 # Setze das Arbeitsverzeichnis innerhalb des Containers
 WORKDIR /usr/src/app
@@ -12,7 +12,7 @@ RUN npm install
 COPY . .
 
 # Exponiere den Port, auf dem die Anwendung läuft
-EXPOSE 3000
+EXPOSE 3000:3000
 
 # Starte die Anwendung
 CMD ["npm", "start"]
