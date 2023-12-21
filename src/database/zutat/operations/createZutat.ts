@@ -6,7 +6,7 @@ export async function createZutat(): Promise<Zutat> {
     const newZutat = await Zutat.create({
       zutatsname: "Mehl",
       zutatseigenschaft: "vegan",
-      zutatsprice: 1,
+      zutatspreis: 1,
       zutatseinheit: "g"
     });
     return newZutat;

@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
 
 class Produkt extends Model {
-  public productId!: string;
+  public produktId!: string;
   public titel!: string;
   public preis!: number;
   public bild!: string;

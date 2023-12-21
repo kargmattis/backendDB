@@ -11,7 +11,7 @@ export type AdresseCreationAttributes = {
   kundenId: string;
   postleitzahl: string;
   isthauptadresse: boolean;
-  straße: string;
+  strasse: string;
   hausnummer: string;
   ort: string;
   hausnummerzusatz: string;
@@ -27,4 +27,11 @@ export type LastschriftCreationAttributes = {
   bankname: string;
   bic: string;
   iban: string;
+};
+
+export type ProduktCreationAttributes = {
+  titel: string;
+  preis: number;
+  bild?: string;
+  kundenId?: string;
 };
