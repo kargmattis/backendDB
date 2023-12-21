@@ -9,7 +9,7 @@ export async function createAdresse(
     const newAdresse = await Adresse.create(adressenData);
     return newAdresse;
   } catch (error) {
-    console.error("Error creating new Paypal record: ", error);
+    console.error("Error creating new Adresse record: ", error);
     throw errorChecking(error);
   }
 }

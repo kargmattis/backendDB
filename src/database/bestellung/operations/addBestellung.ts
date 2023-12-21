@@ -1,4 +1,4 @@
-import { BestellungCreationAttributes } from "../../../global/types";
+import type { BestellungCreationAttributes } from "../../../global/types";
 import Bestellungposition from "../../bestellungsPosition/bestellungsPosition";
 import { findProdukt } from "../../produkt/operations/findProdukt";
 import Bestellung from "../bestellung";
