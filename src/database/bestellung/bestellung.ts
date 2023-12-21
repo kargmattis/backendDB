@@ -31,7 +31,7 @@ Bestellung.init(
       type: DataTypes.UUID,
       references: {
         model: "Paypal",
-        key: "paypalId"
+        key: "zahlungsId"
       }
     },
     bestellDatum: {
