@@ -2,7 +2,7 @@ import { Request } from "express";
 import CustomError from "../../utilities/error";
 import { ErrorHandle } from "../../global/enums";
 import Adresse from "../../database/adresse/adresse";
-import { createAdresse } from "../../database/adresse/operation/addAdresse";
+import { createAdresse } from "../../database/adresse/operation/createAdresse";
 
 export const postRequestAdresse = async (req: Request): Promise<Adresse> => {
   const {
