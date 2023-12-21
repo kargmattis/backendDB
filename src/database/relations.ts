@@ -3,6 +3,7 @@ import Bestellung from "./bestellung/bestellung";
 import Bestellungposition from "./bestellungsPosition/bestellungsPosition";
 import Kunde from "./kunde/kunde";
 import Produkt from "./produkt/produkt";
+import Lastschrift from "./zahlungsmoeglichkeit/lastschrift";
 import Paypal from "./zahlungsmoeglichkeit/paypal";
 import Zutat from "./zutat/zutat";
 import ZutatenPosition from "./zutatenPostion/zutatenPosition";
@@ -23,6 +24,9 @@ Bestellung.belongsTo(Paypal);
 // 1 zu n Beziehung
 Kunde.hasMany(Paypal, { foreignKey: "kundenId" });
 Paypal.belongsTo(Kunde);
+// 1 zu n Beziehung
+Kunde.hasMany(Lastschrift, { foreignKey: "kundenId" });
+Lastschrift.belongsTo(Kunde);
 // 1 zu n Beziehung
 Kunde.hasMany(Adresse, { foreignKey: "kundenId" });
 Adresse.belongsTo(Kunde);

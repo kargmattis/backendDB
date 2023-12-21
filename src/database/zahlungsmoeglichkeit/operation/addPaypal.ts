@@ -1,13 +1,17 @@
 import Paypal from "../paypal";
-import { PaypalCreationAttributes } from "../../../global/types";
+import type { PaypalCreationAttributes } from "../../../global/types.ts";
 
 export async function createPaypalRecord(
-  paypaldata: PaypalCreationAttributes
+  data: PaypalCreationAttributes
 ): Promise<Paypal> {
   try {
-    const newPaypalRecord = await Paypal.create(paypaldata);
+    // Your logic to create a Paypal record
+    const newPaypalRecord = await Paypal.create(data);
+
+    // Return the created Paypal record
     return newPaypalRecord;
   } catch (error) {
     console.error("Error creating new Paypal record: ", error);
+    throw error;
   }
 }

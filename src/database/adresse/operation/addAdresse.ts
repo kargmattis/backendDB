@@ -1,4 +1,4 @@
-import { AdresseCreationAttributes } from "../../../global/types";
+import type { AdresseCreationAttributes } from "../../../global/types";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Adresse from "../adresse";
 

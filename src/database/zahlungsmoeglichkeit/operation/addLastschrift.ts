@@ -1,5 +1,5 @@
 import Lastschrift from "../lastschrift";
-import { LastschriftCreationAttributes } from "../../../global/types";
+import type { LastschriftCreationAttributes } from "../../../global/types.ts";
 
 export async function createLastschriftRecord(
   Lastschriftdata: LastschriftCreationAttributes
@@ -9,5 +9,6 @@ export async function createLastschriftRecord(
     return newLastschriftRecord;
   } catch (error) {
     console.error("Error creating new Lastschrift record: ", error);
+    throw error;
   }
 }

@@ -39,7 +39,7 @@ Lastschrift.init(
     }
   },
   {
-    tableName: "Paypal",
+    tableName: "Lastschrift",
     sequelize
   }
 );
