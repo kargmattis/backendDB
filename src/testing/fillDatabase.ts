@@ -53,7 +53,8 @@ const testBestellung = {
   adressenId: "",
   zahlungsId: "",
   bestellDatum: new Date(),
-  gewünschtesLieferdatum: new Date()
+  gewünschtesLieferdatum: new Date(),
+  produktIds: [] as string[]
 };
 
 // Die Funktion fillDatabase ist eine asynchrone Funktion, die beim Aufruf versucht, eine Reihe von Operationen auszuführen.
@@ -80,6 +81,7 @@ export const fillDatabase = async () => {
     console.log("createdAdresse: ", createdAdresse.dataValues);
     testBestellung.adressenId = createdAdresse.adressenId;
     testBestellung.zahlungsId = createPaypal.zahlungsId;
+    testBestellung.produktIds.push(createdProduct.produktId);
     const createdZutat = await createZutat(testZutat);
     console.log("createdZutat: ", createdZutat.dataValues);
 

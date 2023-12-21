@@ -48,4 +48,5 @@ export type BestellungCreationAttributes = {
   zahlungsId: string;
   bestellDatum: Date;
   gewünschtesLieferdatum: Date;
+  produktIds: Array<string>;
 };
