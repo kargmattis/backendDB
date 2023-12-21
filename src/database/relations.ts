@@ -3,7 +3,7 @@ import Bestellung from "./bestellung/bestellung";
 import Bestellungposition from "./bestellungsPosition/bestellungsPosition";
 import Kunde from "./kunde/kunde";
 import Produkt from "./produkt/produkt";
-import Paypal from "./zahlungsmöglichkeit/paypal";
+import Paypal from "./zahlungsmoeglichkeit/paypal";
 import Zutat from "./zutat/zutat";
 import ZutatenPosition from "./zutatenPostion/zutatenPosition";
 // m zu n Beziehung
@@ -32,6 +32,6 @@ Produkt.belongsToMany(Zutat, {
   through: ZutatenPosition
 });
 
-Zutat.belongsToMany(Product, {
+Zutat.belongsToMany(Produkt, {
   through: ZutatenPosition
 });
