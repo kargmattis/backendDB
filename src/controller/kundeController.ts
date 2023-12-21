@@ -28,3 +28,11 @@ KundeController.post("/kunde", async (req: Request, res) => {
       res.status(error.statusCode).send(error.message);
     });
 });
+
+KundeController.put("/kunde", (_req, res) => {
+  res.send("Kunde put request");
+});
+
+KundeController.delete("/kunde", (_req, res) => {
+  res.send("Kunde delete request");
+});

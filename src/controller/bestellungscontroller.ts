@@ -21,3 +21,11 @@ BestellungsController.post("/bestellung", async (req: Request, res) => {
     });
   console.log(paypal);
 });
+
+BestellungsController.put("/bestellung", (_req, res) => {
+  res.send("Bestellung put request");
+});
+
+BestellungsController.delete("/bestellung", (_req, res) => {
+  res.send("Bestellung delete request");
+});

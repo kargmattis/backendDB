@@ -20,3 +20,11 @@ AdresseController.post("/adresse", async (req: Request, res) => {
     });
   console.log(paypal);
 });
+
+AdresseController.put("/kunde", (_req, res) => {
+  res.send("Kunde put request");
+});
+
+AdresseController.delete("/kunde", (_req, res) => {
+  res.send("Kunde delete request");
+});

@@ -37,3 +37,11 @@ PayPalController.post("/paypal", async (req: Request, res) => {
     res.status(500).send("An error occurred while creating the product");
   }
 });
+
+PayPalController.put("/produkt", (_req, res) => {
+  res.send("Paypal put request");
+});
+
+PayPalController.delete("/produkt", (_req, res) => {
+  res.send("Paypal delete request");
+});
