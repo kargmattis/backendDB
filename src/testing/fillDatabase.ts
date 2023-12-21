@@ -2,6 +2,7 @@ import { createAdresse } from "../database/adresse/operation/createAdresse";
 import { addBestellung } from "../database/bestellung/operations/addBestellung";
 import { createKunde } from "../database/kunde/operation/createKunde";
 import { createProdukt } from "../database/produkt/operations/createProdukt";
+import { createLastschriftRecord } from "../database/zahlungsmoeglichkeit/operation/addLastschrift";
 import { createPaypalRecord } from "../database/zahlungsmoeglichkeit/operation/addPaypal";
 import { createZutat } from "../database/zutat/operations/createZutat";
 
@@ -10,6 +11,21 @@ const testProdukt = {
   titel: "Testprodukt",
   preis: 100,
   bild: "testbild"
+};
+
+const testLastschrift = {
+  kundenId: "",
+  bankname: "Testbank",
+  bic: "TESTBIC",
+  iban: "TESTIBAN"
+};
+
+// Erstellen einer Testzutat mit den notwendigen Eigenschaften
+const testZutat = {
+  zutatsname: "Mehl",
+  zutatseigenschaft: "vegan",
+  zutatspreis: 1,
+  zutatseinheit: "g"
 };
 
 // Erstellen eines Testkunden mit den notwendigen Eigenschaften
@@ -48,14 +64,15 @@ export const fillDatabase = async () => {
       kundenId: createdKunde.kundenId,
       email: createdKunde.email
     });
-    console.log("createPaypal", createPaypal.dataValues);
     // Die Kunden-ID des erstellten Kunden wird der Testadresse zugewiesen.
     testAdresse.kundenId = createdKunde.kundenId;
+    testLastschrift.kundenId = createdKunde.kundenId;
+    const createdLastschrift = await createLastschriftRecord(testLastschrift);
     // Eine Adresse wird erstellt, indem die Funktion createAdresse mit der Testadresse als Argument aufgerufen wird.
     const createdAdresse = await createAdresse(testAdresse);
     console.log("createdAdresse: ", createdAdresse.dataValues);
 
-    const createdZutat = await createZutat();
+    const createdZutat = await createZutat(testZutat);
     console.log("createdZutat: ", createdZutat.dataValues);
     // addBestellung([createdProduct.produktId]);
   } catch (error) {

@@ -35,3 +35,10 @@ export type ProduktCreationAttributes = {
   bild?: string;
   kundenId?: string;
 };
+
+export type ZutatCreationAttributes = {
+  zutatsname: string;
+  zutatseigenschaft: string;
+  zutatspreis: number;
+  zutatseinheit: string;
+};

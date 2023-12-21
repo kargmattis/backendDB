@@ -9,7 +9,7 @@ export const postRequestAdresse = async (req: Request): Promise<Adresse> => {
     kundenId,
     postleitzahl,
     isthauptadresse,
-    straße,
+    strasse,
     hausnummer,
     ort,
     hausnummerzusatz
@@ -19,7 +19,7 @@ export const postRequestAdresse = async (req: Request): Promise<Adresse> => {
   if (!kundenId) missingAttribute.push("kundenId");
   if (!postleitzahl) missingAttribute.push("postleitzahl");
   if (!isthauptadresse) missingAttribute.push("isthauptadresse");
-  if (!straße) missingAttribute.push("straße");
+  if (!strasse) missingAttribute.push("straße");
   if (!hausnummer) missingAttribute.push("hausnummer");
   if (!ort) missingAttribute.push("zeitungsaboablaufdatum");
   if (!hausnummerzusatz) missingAttribute.push("hausnummerzusatz");
@@ -30,7 +30,7 @@ export const postRequestAdresse = async (req: Request): Promise<Adresse> => {
     kundenId,
     postleitzahl,
     isthauptadresse,
-    straße,
+    strasse,
     hausnummer,
     ort,
     hausnummerzusatz

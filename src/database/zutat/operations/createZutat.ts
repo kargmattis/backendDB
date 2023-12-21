@@ -1,7 +1,10 @@
+import { ZutatCreationAttributes } from "../../../global/types";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Zutat from "../zutat";
 
-export async function createZutat(): Promise<Zutat> {
+export async function createZutat(
+  zutat: ZutatCreationAttributes
+): Promise<Zutat> {
   try {
     const newZutat = await Zutat.create({
       zutatsname: "Mehl",
