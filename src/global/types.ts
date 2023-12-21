@@ -16,3 +16,15 @@ export type AdresseCreationAttributes = {
   ort: string;
   hausnummerzusatz: string;
 };
+
+export type PaypalCreationAttributes = {
+  kundenId: string;
+  email: string;
+};
+
+export type LastschriftCreationAttributes = {
+  kundenId: string;
+  bankname: string;
+  bic: string;
+  iban: string;
+};
