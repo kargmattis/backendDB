@@ -49,6 +49,13 @@ const testAdresse = {
   hausnummerzusatz: "a"
 };
 
+const testBestellung = {
+  adressenId: "",
+  zahlungsId: "",
+  bestellDatum: new Date(),
+  gewünschtesLieferdatum: new Date()
+};
+
 // Die Funktion fillDatabase ist eine asynchrone Funktion, die beim Aufruf versucht, eine Reihe von Operationen auszuführen.
 export const fillDatabase = async () => {
   try {
@@ -71,9 +78,14 @@ export const fillDatabase = async () => {
     // Eine Adresse wird erstellt, indem die Funktion createAdresse mit der Testadresse als Argument aufgerufen wird.
     const createdAdresse = await createAdresse(testAdresse);
     console.log("createdAdresse: ", createdAdresse.dataValues);
-
+    testBestellung.adressenId = createdAdresse.adressenId;
+    testBestellung.zahlungsId = createPaypal.zahlungsId;
     const createdZutat = await createZutat(testZutat);
     console.log("createdZutat: ", createdZutat.dataValues);
+
+    const createdBestellung = await addBestellung(testBestellung);
+    console.log("createdBestellung: ", createdBestellung.dataValues);
+
     // addBestellung([createdProduct.produktId]);
   } catch (error) {
     console.error("Error creating product:", error);

@@ -42,3 +42,10 @@ export type ZutatCreationAttributes = {
   zutatspreis: number;
   zutatseinheit: string;
 };
+
+export type BestellungCreationAttributes = {
+  adressenId: string;
+  zahlungsId: string;
+  bestellDatum: Date;
+  gewünschtesLieferdatum: Date;
+};
