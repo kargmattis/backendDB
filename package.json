@@ -4,7 +4,7 @@
   "description": "backen for delivery breakfast",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "ts-node src/testing/testing.ts",
     "start": "nodemon --watch src/**/*.ts --exec ts-node src/index.ts",
     "lint": "eslint src/**/*.ts",
     "build": "tsc",
