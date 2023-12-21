@@ -6,12 +6,7 @@ export async function createZutat(
   zutat: ZutatCreationAttributes
 ): Promise<Zutat> {
   try {
-    const newZutat = await Zutat.create({
-      zutatsname: "Mehl",
-      zutatseigenschaft: "vegan",
-      zutatspreis: 1,
-      zutatseinheit: "g"
-    });
+    const newZutat = await Zutat.create(zutat);
     return newZutat;
   } catch (error) {
     console.error("Error creating ingredient:", error);

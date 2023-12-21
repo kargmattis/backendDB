@@ -8,8 +8,9 @@ ZutatController.get("/zutat", (_req, res) => {
   res.send("Create Get ingredient request");
 });
 
-ZutatController.post("/zutat", async (_req, res) => {
-  createZutat()
+ZutatController.post("/zutat", async (req, res) => {
+  // ToDo: body sollte noch gecheckt werden wird gerade einfach so übergeben
+  createZutat(req.body)
     .then((zutat) => res.status(201).json(zutat))
     .catch((error: CustomError) => {
       res.status(error.statusCode).send(error.message);
