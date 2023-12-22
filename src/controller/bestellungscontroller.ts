@@ -1,10 +1,10 @@
-import express, { Request } from "express";
+import express, { type Request } from "express";
 import CustomError from "../utilities/error";
 import { createAdresse } from "../database/adresse/operation/createAdresse";
 
 export const BestellungsController = express.Router();
 
-BestellungsController.get("/bestellung", async (req, res) => {
+BestellungsController.get("/bestellung", async (req: Request, res) => {
   try {
     res.json("TODO need to implememt");
   } catch (error) {

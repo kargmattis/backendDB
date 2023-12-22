@@ -1,10 +1,12 @@
-import express, { Request } from "express";
+import express from "express";
+import type { Request } from "express";
 import CustomError from "../utilities/error";
 import { createAdresse } from "../database/adresse/operation/createAdresse";
+import type { AdresseCreationAttributes } from "../global/types";
 
 export const AdresseController = express.Router();
 
-AdresseController.get("/adresse", async (req, res) => {
+AdresseController.get("/adresse", async (req: Request, res) => {
   try {
     res.json("TODO need to implememt");
   } catch (error) {
@@ -13,12 +15,13 @@ AdresseController.get("/adresse", async (req, res) => {
 });
 
 AdresseController.post("/adresse", async (req: Request, res) => {
-  const paypal = await createAdresse(req.body)
-    .then((paypal) => res.status(200).json(paypal))
-    .catch((error: CustomError) => {
-      res.status(error.statusCode).send(error.message);
-    });
-  console.log(paypal);
+  try {
+    const adresseData = req.body as AdresseCreationAttributes;
+    const paypal = await createAdresse(adresseData);
+    res.status(200).json(paypal);
+  } catch (error) {
+    res.status(500).send("An error occurred while creating the product");
+  }
 });
 
 AdresseController.put("/adresse", (_req, res) => {

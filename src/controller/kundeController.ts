@@ -1,11 +1,11 @@
-import express, { Request } from "express";
+import express, { type Request } from "express";
 import { findKunde } from "../database/kunde/operation/findKunde";
 import { postRequestKunde } from "./kundeHelper/postRequestKunde";
 import CustomError from "../utilities/error";
 
 export const KundeController = express.Router();
 
-KundeController.get("/kunde", async (req, res) => {
+KundeController.get("/kunde", async (req: Request, res) => {
   try {
     const id = req.query.id;
     const email = req.query.email;

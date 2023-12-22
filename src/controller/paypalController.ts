@@ -1,4 +1,4 @@
-import express, { Request } from "express";
+import express, { type Request } from "express";
 import { findKunde } from "../database/kunde/operation/findKunde";
 import { postRequestKunde } from "./kundeHelper/postRequestKunde";
 import CustomError from "../utilities/error";
