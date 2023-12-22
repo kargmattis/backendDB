@@ -13,6 +13,7 @@ BestellungsController.get("/bestellung", async (req: Request, res) => {
 });
 
 BestellungsController.post("/bestellung", async (req: Request, res) => {
+  // TODO: need to implement bestellung
   console.log(req.body);
   const paypal = await createAdresse(req.body)
     .then((paypal) => res.status(200).json(paypal))
