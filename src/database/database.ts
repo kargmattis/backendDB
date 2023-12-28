@@ -11,8 +11,12 @@ if (process.env.DATABASE === "sqlite") {
     storage: "productionEnvironment.sqlite"
   });
 } else if (process.env.DATABASE === "postgres") {
+  let host = "localhost";
+  if (process.env.NODE_ENV === "production") {
+    host = "db";
+  }
   sequelize = new Sequelize("test_db", "root", "root", {
-    host: "localhost", // oder die IP-Adresse des Docker-Containers
+    host: host,
     port: 5432,
     dialect: "postgres",
     define: {

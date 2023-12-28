@@ -8,6 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 # Kopiere den restlichen Backend-Code
+ENV DATABASE=postgres NODE_ENV=production
 COPY . .
 RUN npm run build
 
