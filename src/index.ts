@@ -1,4 +1,6 @@
-import express, { type NextFunction, Request, Response } from "express";
+import express from "express";
+import cors from "cors"; // Import the cors middleware
+import { type NextFunction, Request, Response } from "express";
 import { ProduktController } from "./controller/produktController";
 import { sequelize } from "./database/database";
 import { errorChecking } from "./utilities/errorChecking";
@@ -12,13 +14,10 @@ import { LastschriftController } from "./controller/lastschriftController";
 const app = express();
 const port = 3000;
 
-// todo auslagern
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-sequelize.sync().then(() => {
-  // addBestellung(["b4c3ac10-9ab3-11ee-aa5e-6172dcbe40d0"]);
-});
+app.use(cors()); // Enable CORS for all routes
 
-// todo ende
+// ... (other middleware and route definitions)
+
 app.use(express.json());
 app.use(
   "/api/v1",
@@ -33,14 +32,11 @@ app.use(
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
 // handelt errors die davor nicht abgefangen werden konnten
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   errorChecking(err);
-});
-// testing delete by production
-app.get("/", (req, res) => {
-  res.send("Hello World!");
 });
 
 app.listen(port, () => {
