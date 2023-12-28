@@ -15,15 +15,18 @@ import { ErrorOptions } from "sequelize/types/errors/base-error";
 
 export function errorChecking(error: Error | unknown): CustomError {
   if (error instanceof CustomError) {
-    console.log("Error throwed as CustomError:", error);
-
+    console.error("Custom Error: ", error);
     throw error;
   } else if (error instanceof ValidationError) {
+    console.error("Sequelize Validation Error: ", error);
     if (error.name === "SequelizeForeignKeyConstraintError") {
+      console.log("Foreign Key Error: ", error);
       throw new CustomError(ErrorHandle.ServerError, "id does not exist");
     }
+    console.error("Sequelize Validation Error: ", error);
     throw new CustomError(ErrorHandle.DatabaseError, error.message);
   } else {
+    console.error("Unknown Error: ", error);
     throw new CustomError(ErrorHandle.ServerError, "unknown");
   }
 }

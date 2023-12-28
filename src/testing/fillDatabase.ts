@@ -1,10 +1,18 @@
+import Adresse from "../database/adresse/adresse";
 import { createAdresse } from "../database/adresse/operation/createAdresse";
+import Bestellung from "../database/bestellung/bestellung";
 import { addBestellung } from "../database/bestellung/operations/addBestellung";
+import Kunde from "../database/kunde/kunde";
 import { createKunde } from "../database/kunde/operation/createKunde";
 import { createProdukt } from "../database/produkt/operations/createProdukt";
+import Produkt from "../database/produkt/produkt";
+import Lastschrift from "../database/zahlungsmoeglichkeit/lastschrift";
 import { createLastschriftRecord } from "../database/zahlungsmoeglichkeit/operation/addLastschrift";
 import { createPaypalRecord } from "../database/zahlungsmoeglichkeit/operation/addPaypal";
+import Paypal from "../database/zahlungsmoeglichkeit/paypal";
 import { createZutat } from "../database/zutat/operations/createZutat";
+import Zutat from "../database/zutat/zutat";
+import { PaypalCreationAttributes } from "../global/types";
 
 // Erstellen eines Testprodukts mit den notwendigen Eigenschaften
 const testProdukt = {
@@ -58,38 +66,59 @@ const testBestellung = {
 };
 
 // Die Funktion fillDatabase ist eine asynchrone Funktion, die beim Aufruf versucht, eine Reihe von Operationen auszuführen.
-export const fillDatabase = async () => {
+export const fillDatabase = async (): Promise<
+  [Produkt, Kunde, Paypal, Lastschrift, Adresse, Zutat, Bestellung] | undefined
+> => {
   try {
-    // Ein Produkt wird erstellt, indem die Funktion createProdukt mit dem Testprodukt als Argument aufgerufen wird.
-    const createdProduct = await createProdukt(testProdukt);
-    console.log("createdProduct: ", createdProduct.dataValues);
+    // wartet auf alles Promises und gibt die Ergebnisse in der Reihenfolge zurück, in der sie aufgerufen wurden
+    console.log("fillDatabase started");
+    console.log("test 1 started: kunde, produkt");
 
-    // Ein Kunde wird erstellt, indem die Funktion createKunde mit dem Testkunden als Argument aufgerufen wird.
-    const createdKunde = await createKunde(testKunde);
-    console.log("createdKunde: ", createdKunde.dataValues);
-    // Ein PayPal-Datensatz wird erstellt, indem die Funktion createPaypalRecord mit einem Objekt aufgerufen wird, das die Kunden-ID und E-Mail des erstellten Kunden enthält.
+    const [createdProduct, createdKunde] = await Promise.all([
+      createProdukt(testProdukt),
+      createKunde(testKunde)
+    ]);
+    console.log("succes Produkt: ", createdProduct.dataValues);
+    console.log("succes Kunde: ", createdKunde.dataValues);
+
+    console.log("test 2 started: paypal");
     const createPaypal = await createPaypalRecord({
       kundenId: createdKunde.kundenId,
       email: createdKunde.email
     });
-    // Die Kunden-ID des erstellten Kunden wird der Testadresse zugewiesen.
+    console.log("succes Paypal: ", createPaypal.dataValues);
+
     testAdresse.kundenId = createdKunde.kundenId;
     testLastschrift.kundenId = createdKunde.kundenId;
-    const createdLastschrift = await createLastschriftRecord(testLastschrift);
-    // Eine Adresse wird erstellt, indem die Funktion createAdresse mit der Testadresse als Argument aufgerufen wird.
-    const createdAdresse = await createAdresse(testAdresse);
-    console.log("createdAdresse: ", createdAdresse.dataValues);
+    console.log("test 3 started: lastschrift, adresse, zutat");
+
+    const [createdLastschrift, createdAdresse, createdZutat] =
+      await Promise.all([
+        createLastschriftRecord(testLastschrift),
+        createAdresse(testAdresse),
+        createZutat(testZutat)
+      ]);
+    console.log("succes Lastschrift: ", createdLastschrift.dataValues);
+    console.log("succes Adresse: ", createdAdresse.dataValues);
+    console.log("succes Zutat: ", createdZutat.dataValues);
+
     testBestellung.adressenId = createdAdresse.adressenId;
     testBestellung.zahlungsId = createPaypal.zahlungsId;
     testBestellung.produktIds.push(createdProduct.produktId);
-    const createdZutat = await createZutat(testZutat);
-    console.log("createdZutat: ", createdZutat.dataValues);
-
+    console.log("test 4 started: bestellung");
     const createdBestellung = await addBestellung(testBestellung);
-    console.log("createdBestellung: ", createdBestellung.dataValues);
+    console.log("succes Bestellung: ", createdBestellung.dataValues);
 
-    // addBestellung([createdProduct.produktId]);
+    return [
+      createdProduct,
+      createdKunde,
+      createPaypal,
+      createdLastschrift,
+      createdAdresse,
+      createdZutat,
+      createdBestellung
+    ];
   } catch (error) {
-    console.error("Error creating product:", error);
+    console.log("testing failed !!!!!!!!!!");
   }
 };

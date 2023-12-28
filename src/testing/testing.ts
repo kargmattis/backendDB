@@ -1,5 +1,7 @@
 import { sequelize } from "../database/database";
 import { fillDatabase } from "./fillDatabase";
+import { putTesting } from "./putTesting";
+import { queryDatabaseTesting } from "./queryDatabaseTesting";
 
 console.log("Testing started");
 
@@ -13,9 +15,11 @@ async function testing(): Promise<void> {
   }
   console.log("Fill Database started \u2713");
 
-  await fillDatabase();
-  // datenbank connection schließen
-  // sequelize.close();
+  const databaseEntries = await fillDatabase();
+  if (databaseEntries) {
+    putTesting(databaseEntries);
+  }
+  queryDatabaseTesting();
   console.log("Testing finished");
 }
 
