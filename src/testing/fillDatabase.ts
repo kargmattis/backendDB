@@ -68,7 +68,7 @@ const testBestellung = {
 
 // Die Funktion fillDatabase ist eine asynchrone Funktion, die beim Aufruf versucht, eine Reihe von Operationen auszuführen.
 export const fillDatabase = async (): Promise<
-[Produkt, Kunde, Paypal, Lastschrift, Adresse, Zutat, Bestellung] | undefined
+  [Produkt, Kunde, Paypal, Lastschrift, Adresse, Zutat, Bestellung] | undefined
 > => {
   try {
     // wartet auf alles Promises und gibt die Ergebnisse in der Reihenfolge zurück, in der sie aufgerufen wurden
@@ -110,11 +110,16 @@ export const fillDatabase = async (): Promise<
     const createdBestellung = await addBestellung(testBestellung);
     console.log("succes Bestellung: ", createdBestellung.dataValues);
     const createdZutatenPosition = await addProduktZutatRelation({
-      productId: createdProduct.produktId,
+      produktId: createdProduct.produktId,
       zutatIdWithAmount: [
         { zutatenId: createdZutat.zutatsId, zutatenMenge: "100" }
       ]
     });
+    console.log(
+      "succes ZutatenPosition: ",
+      createdZutatenPosition[0].dataValues
+    );
+
     return [
       createdProduct,
       createdKunde,
@@ -125,6 +130,8 @@ export const fillDatabase = async (): Promise<
       createdBestellung
     ];
   } catch (error) {
+    console.log(error);
+
     console.log("testing failed !!!!!!!!!!");
   }
 };

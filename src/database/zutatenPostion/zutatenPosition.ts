@@ -12,7 +12,7 @@ class ZutatenPosition extends Model {
 
 ZutatenPosition.init(
   {
-    zutatId: {
+    zutatsId: {
       type: DataTypes.UUID,
       references: {
         model: "Zutat",
@@ -20,7 +20,7 @@ ZutatenPosition.init(
       },
       primaryKey: true
     },
-    productId: {
+    produktId: {
       type: DataTypes.UUID,
       references: {
         model: "Produkt",

@@ -52,7 +52,7 @@ export type BestellungCreationAttributes = {
 };
 
 export type ZutatenPositionCreationAttributes = {
-  productId: string;
+  produktId: string;
   zutatIdWithAmount: ZutatenPostitionObject[];
 };
 
