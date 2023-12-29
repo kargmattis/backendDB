@@ -1,6 +1,5 @@
-import { BelongsToManyAddAssociationMixin, DataTypes, Model } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
-import Product from "../produkt/produkt";
 
 class ZutatenPosition extends Model {
   public zutatsId!: string;
