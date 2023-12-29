@@ -27,3 +27,19 @@ export async function findProductWithoutKundeId(): Promise<Array<Produkt> | null
     throw error;
   }
 }
+
+export async function findProduktByKundeId(
+  kundenId: string
+): Promise<Array<Produkt> | null> {
+  try {
+    const produkt = await Produkt.findAll({
+      where: {
+        kundenId: kundenId
+      }
+    });
+    return produkt;
+  } catch (error) {
+    console.error("Error finding product:", error);
+    throw error;
+  }
+}
