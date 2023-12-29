@@ -34,7 +34,7 @@ ZutatenPosition.init(
     }
   },
   {
-    tableName: "Bestellung",
+    tableName: "ZutatenPosition",
     sequelize
   }
 );

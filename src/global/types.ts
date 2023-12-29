@@ -50,3 +50,13 @@ export type BestellungCreationAttributes = {
   gewünschtesLieferdatum: Date;
   produktIds: Array<string>;
 };
+
+export type ZutatenPositionCreationAttributes = {
+  productId: string;
+  zutatIdWithAmount: Array<ZutatenPostitionObject>;
+};
+
+type ZutatenPostitionObject = {
+  zutatId: string;
+  zutatenMenge: string;
+};
