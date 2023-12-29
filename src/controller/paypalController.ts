@@ -1,7 +1,7 @@
 import express, { type Request } from "express";
 import { findKunde } from "../database/kunde/operation/findKunde";
 import { postRequestKunde } from "./kundeHelper/postRequestKunde";
-import CustomError from "../utilities/error";
+import type CustomError from "../utilities/error";
 import { createPaypalRecord } from "../database/zahlungsmoeglichkeit/operation/addPaypal";
 
 export const PayPalController = express.Router();

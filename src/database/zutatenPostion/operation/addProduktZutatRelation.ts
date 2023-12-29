@@ -1,4 +1,4 @@
-import { ZutatenPositionCreationAttributes } from "../../../global/types";
+import { type ZutatenPositionCreationAttributes } from "../../../global/types";
 import ZutatenPosition from "../zutatenPosition";
 
 export function addProduktZutatRelation(
@@ -6,8 +6,8 @@ export function addProduktZutatRelation(
 ) {
   for (const zutatenId of input.zutatIdWithAmount) {
     ZutatenPosition.create({
-      zutatenId: zutatenId.zutatId,
-      productId: input.productId,
+      zutatsId: zutatenId.zutatenId,
+      produktId: input.productId,
       zutatenMenge: zutatenId.zutatenMenge
     });
   }

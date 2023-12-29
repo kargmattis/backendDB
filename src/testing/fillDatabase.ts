@@ -1,17 +1,18 @@
-import Adresse from "../database/adresse/adresse";
+import type Adresse from "../database/adresse/adresse";
 import { createAdresse } from "../database/adresse/operation/createAdresse";
-import Bestellung from "../database/bestellung/bestellung";
+import type Bestellung from "../database/bestellung/bestellung";
 import { addBestellung } from "../database/bestellung/operations/addBestellung";
-import Kunde from "../database/kunde/kunde";
+import type Kunde from "../database/kunde/kunde";
 import { createKunde } from "../database/kunde/operation/createKunde";
 import { createProdukt } from "../database/produkt/operations/createProdukt";
-import Produkt from "../database/produkt/produkt";
-import Lastschrift from "../database/zahlungsmoeglichkeit/lastschrift";
+import type Produkt from "../database/produkt/produkt";
+import type Lastschrift from "../database/zahlungsmoeglichkeit/lastschrift";
 import { createLastschriftRecord } from "../database/zahlungsmoeglichkeit/operation/addLastschrift";
 import { createPaypalRecord } from "../database/zahlungsmoeglichkeit/operation/addPaypal";
-import Paypal from "../database/zahlungsmoeglichkeit/paypal";
+import type Paypal from "../database/zahlungsmoeglichkeit/paypal";
 import { createZutat } from "../database/zutat/operations/createZutat";
-import Zutat from "../database/zutat/zutat";
+import type Zutat from "../database/zutat/zutat";
+import { addProduktZutatRelation } from "../database/zutatenPostion/operation/addProduktZutatRelation";
 import { PaypalCreationAttributes } from "../global/types";
 
 // Erstellen eines Testprodukts mit den notwendigen Eigenschaften
@@ -67,7 +68,7 @@ const testBestellung = {
 
 // Die Funktion fillDatabase ist eine asynchrone Funktion, die beim Aufruf versucht, eine Reihe von Operationen auszuführen.
 export const fillDatabase = async (): Promise<
-  [Produkt, Kunde, Paypal, Lastschrift, Adresse, Zutat, Bestellung] | undefined
+[Produkt, Kunde, Paypal, Lastschrift, Adresse, Zutat, Bestellung] | undefined
 > => {
   try {
     // wartet auf alles Promises und gibt die Ergebnisse in der Reihenfolge zurück, in der sie aufgerufen wurden
@@ -108,7 +109,12 @@ export const fillDatabase = async (): Promise<
     console.log("test 4 started: bestellung");
     const createdBestellung = await addBestellung(testBestellung);
     console.log("succes Bestellung: ", createdBestellung.dataValues);
-
+    const createdZutatenPosition = await addProduktZutatRelation({
+      productId: createdProduct.produktId,
+      zutatIdWithAmount: [
+        { zutatenId: createdZutat.zutatsId, zutatenMenge: "100" }
+      ]
+    });
     return [
       createdProduct,
       createdKunde,

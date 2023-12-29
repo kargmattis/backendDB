@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors"; // Import the cors middleware
-import { type NextFunction, Request, Response } from "express";
+import { type NextFunction, type Request, type Response } from "express";
 import { ProduktController } from "./controller/produktController";
 import { sequelize } from "./database/database";
 import { errorChecking } from "./utilities/errorChecking";

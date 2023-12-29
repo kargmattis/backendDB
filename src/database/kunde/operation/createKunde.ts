@@ -1,4 +1,4 @@
-import { KundeCreationAttributes } from "../../../global/types";
+import { type KundeCreationAttributes } from "../../../global/types";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Kunde from "../kunde";
 

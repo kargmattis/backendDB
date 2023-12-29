@@ -1,5 +1,5 @@
 import express, { type Request } from "express";
-import CustomError from "../utilities/error";
+import type CustomError from "../utilities/error";
 import { createAdresse } from "../database/adresse/operation/createAdresse";
 
 export const BestellungsController = express.Router();

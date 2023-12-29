@@ -1,6 +1,6 @@
 import express from "express";
 import { createProdukt } from "../database/produkt/operations/createProdukt";
-import CustomError from "../utilities/error";
+import type CustomError from "../utilities/error";
 
 export const ProduktController = express.Router();
 
@@ -9,7 +9,7 @@ ProduktController.get("/produkt", (_req, res) => {
 });
 
 ProduktController.post("/produkt", async (req, res) => {
-  //ToDo: body sollte noch gecheckt werden wird gerade einfach so übergeben
+  // ToDo: body sollte noch gecheckt werden wird gerade einfach so übergeben
   createProdukt(req.body)
     .then((produkt) => res.status(201).json(produkt))
     .catch((error: CustomError) => {

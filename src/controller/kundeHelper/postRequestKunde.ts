@@ -1,6 +1,6 @@
-import Kunde from "../../database/kunde/kunde";
+import type Kunde from "../../database/kunde/kunde";
 import { createKunde } from "../../database/kunde/operation/createKunde";
-import { Request } from "express";
+import { type Request } from "express";
 import CustomError from "../../utilities/error";
 import { ErrorHandle } from "../../global/enums";
 
@@ -14,7 +14,7 @@ export const postRequestKunde = async (req: Request): Promise<Kunde> => {
     zeitungsaboablaufdatum
   } = req.body;
 
-  let missingAttribute: Array<string> = [];
+  const missingAttribute: string[] = [];
   if (!email) missingAttribute.push("email");
   if (!vorname) missingAttribute.push("vorname");
   if (!nachname) missingAttribute.push("nachname");

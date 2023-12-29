@@ -4,7 +4,7 @@ import {
   findKundeByEmail
 } from "../database/kunde/operation/findKunde";
 import { postRequestKunde } from "./kundeHelper/postRequestKunde";
-import CustomError from "../utilities/error";
+import type CustomError from "../utilities/error";
 
 export const KundeController = express.Router();
 

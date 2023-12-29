@@ -1,7 +1,7 @@
 import express, { type Request } from "express";
 import { findKunde } from "../database/kunde/operation/findKunde";
 import { postRequestKunde } from "./kundeHelper/postRequestKunde";
-import CustomError from "../utilities/error";
+import type CustomError from "../utilities/error";
 import { createLastschriftRecord } from "../database/zahlungsmoeglichkeit/operation/addLastschrift";
 
 export const LastschriftController = express.Router();

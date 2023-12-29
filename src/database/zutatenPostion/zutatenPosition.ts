@@ -3,8 +3,8 @@ import { sequelize } from "../database";
 import Product from "../produkt/produkt";
 
 class ZutatenPosition extends Model {
-  public zutatenId!: string;
-  public productId!: string;
+  public zutatsId!: string;
+  public produktId!: string;
   public zutatenMenge!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -16,15 +16,15 @@ ZutatenPosition.init(
       type: DataTypes.UUID,
       references: {
         model: "Zutat",
-        key: "zutatenId"
+        key: "zutatsId"
       },
       primaryKey: true
     },
     productId: {
       type: DataTypes.UUID,
       references: {
-        model: "Product",
-        key: "productId"
+        model: "Produkt",
+        key: "produktId"
       },
       primaryKey: true
     },

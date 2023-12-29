@@ -15,7 +15,7 @@ export const postRequestAdresse = async (req: Request): Promise<Adresse> => {
     hausnummerzusatz
   } = req.body;
 
-  let missingAttribute: Array<string> = [];
+  const missingAttribute: string[] = [];
   if (!kundenId) missingAttribute.push("kundenId");
   if (!postleitzahl) missingAttribute.push("postleitzahl");
   if (!isthauptadresse) missingAttribute.push("isthauptadresse");

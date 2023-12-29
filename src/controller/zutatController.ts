@@ -1,6 +1,6 @@
 import express from "express";
 import { createZutat } from "../database/zutat/operations/createZutat";
-import CustomError from "../utilities/error";
+import type CustomError from "../utilities/error";
 
 export const ZutatController = express.Router();
 

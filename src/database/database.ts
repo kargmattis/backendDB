@@ -16,7 +16,7 @@ if (process.env.DATABASE === "sqlite") {
     host = "db";
   }
   sequelize = new Sequelize("test_db", "root", "root", {
-    host: host,
+    host,
     port: 5432,
     dialect: "postgres",
     define: {

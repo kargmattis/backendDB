@@ -1,6 +1,6 @@
-import { BelongsToManyAddAssociationMixin, DataTypes, Model } from "sequelize";
+import { type BelongsToManyAddAssociationMixin, DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
-import Product from "../produkt/produkt";
+import type Product from "../produkt/produkt";
 
 class Bestellung extends Model {
   public bestellungsId!: string;

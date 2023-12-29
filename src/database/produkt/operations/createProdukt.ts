@@ -1,4 +1,4 @@
-import { ProduktCreationAttributes } from "../../../global/types";
+import { type ProduktCreationAttributes } from "../../../global/types";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Produkt from "../produkt";
 

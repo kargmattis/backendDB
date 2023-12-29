@@ -48,15 +48,15 @@ export type BestellungCreationAttributes = {
   zahlungsId: string;
   bestellDatum: Date;
   gewünschtesLieferdatum: Date;
-  produktIds: Array<string>;
+  produktIds: string[];
 };
 
 export type ZutatenPositionCreationAttributes = {
   productId: string;
-  zutatIdWithAmount: Array<ZutatenPostitionObject>;
+  zutatIdWithAmount: ZutatenPostitionObject[];
 };
 
 type ZutatenPostitionObject = {
-  zutatId: string;
+  zutatenId: string;
   zutatenMenge: string;
 };

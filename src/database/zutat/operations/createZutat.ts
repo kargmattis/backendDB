@@ -1,4 +1,4 @@
-import { ZutatCreationAttributes } from "../../../global/types";
+import { type ZutatCreationAttributes } from "../../../global/types";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Zutat from "../zutat";
 
