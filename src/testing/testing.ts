@@ -13,14 +13,20 @@ async function testing(): Promise<void> {
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
-  console.log("Fill Database started \u2713");
-
-  const databaseEntries = await fillDatabase();
-  if (databaseEntries) {
-    putTesting(databaseEntries);
+  try {
+    const databaseEntries = await fillDatabase();
+    if (databaseEntries) {
+      // await putTesting(databaseEntries);
+      await queryDatabaseTesting(databaseEntries);
+      console.log("succesfully tested !!!!!!!!!!");
+    } else {
+      console.log("fill Database failed !!!!!!!!!!");
+    }
+    console.log("Testing finished");
+  } catch (error) {
+    console.log(error);
+    console.log("testing failed !!!!!!!!!!");
   }
-  queryDatabaseTesting();
-  console.log("Testing finished");
 }
 
 testing();

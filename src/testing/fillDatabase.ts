@@ -78,7 +78,10 @@ export const fillDatabase = async (): Promise<
     const [createdProduct, createdKunde] = await Promise.all([
       createProdukt(testProdukt),
       createKunde(testKunde)
-    ]);
+    ]).catch((error) => {
+      console.log(error);
+      throw new Error("error by creating produkt or kunde");
+    });
     console.log("succes Produkt: ", createdProduct.dataValues);
     console.log("succes Kunde: ", createdKunde.dataValues);
 
@@ -86,6 +89,9 @@ export const fillDatabase = async (): Promise<
     const createPaypal = await createPaypalRecord({
       kundenId: createdKunde.kundenId,
       email: createdKunde.email
+    }).catch((error) => {
+      console.log(error);
+      throw new Error("error by creating paypal");
     });
     console.log("succes Paypal: ", createPaypal.dataValues);
 
@@ -98,7 +104,10 @@ export const fillDatabase = async (): Promise<
         createLastschriftRecord(testLastschrift),
         createAdresse(testAdresse),
         createZutat(testZutat)
-      ]);
+      ]).catch((error) => {
+        console.log(error);
+        throw new Error("error by creating lastschrift, adresse or zutat");
+      });
     console.log("succes Lastschrift: ", createdLastschrift.dataValues);
     console.log("succes Adresse: ", createdAdresse.dataValues);
     console.log("succes Zutat: ", createdZutat.dataValues);
@@ -114,6 +123,9 @@ export const fillDatabase = async (): Promise<
       zutatIdWithAmount: [
         { zutatenId: createdZutat.zutatsId, zutatenMenge: "100" }
       ]
+    }).catch((error) => {
+      console.log(error);
+      throw new Error("error by creating zutatenPosition");
     });
     console.log(
       "succes ZutatenPosition: ",
