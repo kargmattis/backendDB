@@ -60,3 +60,11 @@ type ZutatenPostitionObject = {
   zutatenId: string;
   zutatenMenge: string;
 };
+
+export type SingleBestellungType = {
+  addressenInformation: AdresseCreationAttributes;
+  zahlungsinformation: PaypalCreationAttributes | LastschriftCreationAttributes;
+  produktInformationen: Array<ProduktCreationAttributes>;
+  gesamtpreis: number;
+  bestellDatum: Date;
+};
