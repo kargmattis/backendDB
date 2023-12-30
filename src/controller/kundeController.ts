@@ -6,6 +6,7 @@ import {
 import { postRequestKunde } from "./kundeHelper/postRequestKunde";
 import CustomError from "../utilities/error";
 import { ErrorHandle } from "../global/enums";
+import { errorChecking } from "../utilities/errorChecking";
 
 export const KundeController = express.Router();
 
@@ -35,9 +36,8 @@ KundeController.post("/kunde", async (req: Request, res) => {
 });
 
 KundeController.post("/kunde/login", async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-
   try {
+    const { email, password } = req.body;
     // Suche den Benutzer in der Datenbank
     const kunde = await findKundeByEmail(email);
 
@@ -53,8 +53,9 @@ KundeController.post("/kunde/login", async (req: Request, res: Response) => {
       );
     }
   } catch (error) {
+    const err = errorChecking(error);
     // Wenn ein Fehler auftritt, sende eine Fehlermeldung zurück
-    res.status(500).json({ error: "Internal server error" });
+    res.status(err.statusCode).send(err.message);
   }
 });
 
