@@ -4,7 +4,8 @@ import {
   findKundeByEmail
 } from "../database/kunde/operation/findKunde";
 import { postRequestKunde } from "./kundeHelper/postRequestKunde";
-import type CustomError from "../utilities/error";
+import CustomError from "../utilities/error";
+import { ErrorHandle } from "../global/enums";
 
 export const KundeController = express.Router();
 
@@ -36,21 +37,24 @@ KundeController.post("/kunde", async (req: Request, res) => {
 KundeController.post("/kunde/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  // Suche den Benutzer in der Datenbank
-  const kunde = await findKundeByEmail(email);
+  try {
+    // Suche den Benutzer in der Datenbank
+    const kunde = await findKundeByEmail(email);
 
-  if (!kunde) {
-    // Wenn der Benutzer nicht gefunden wurde, sende einen Fehler zurück
-    res.status(404).json({ error: "User not found" });
-  } else {
     // Wenn der Benutzer gefunden wurde, überprüfe das Passwort
-    if (password === kunde.passwort) {
+    if (kunde && password === kunde.passwort) {
       // Wenn das Passwort übereinstimmt, sende eine Erfolgsmeldung zurück
       res.status(200).json({ message: "Successful login" });
     } else {
-      // Wenn das Passwort nicht übereinstimmt, sende einen Fehler zurück
-      res.status(401).json({ error: "Incorrect password" });
+      // Wenn der Benutzer nicht gefunden wurde oder das Passwort nicht übereinstimmt, sende einen Fehler zurück
+      throw new CustomError(
+        ErrorHandle.BadRequest,
+        "Incorrect email or password"
+      );
     }
+  } catch (error) {
+    // Wenn ein Fehler auftritt, sende eine Fehlermeldung zurück
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
