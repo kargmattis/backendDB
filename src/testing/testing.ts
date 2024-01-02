@@ -14,9 +14,10 @@ async function testing(): Promise<void> {
     console.error("Unable to connect to the database:", error);
   }
   try {
+    // database wird gefüllt
     const databaseEntries = await fillDatabase();
     if (databaseEntries) {
-      // await putTesting(databaseEntries);
+      await putTesting(databaseEntries);
       await queryDatabaseTesting(databaseEntries);
       console.log("succesfully tested !!!!!!!!!!");
     } else {
