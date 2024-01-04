@@ -7,19 +7,13 @@ import putPaypal from "../database/zahlungsmoeglichkeit/operation/putPaypal";
 export const PayPalController = express.Router();
 
 PayPalController.get("/paypal", async (_req, res) => {
-  try {
-    const paypal = await findPaypal();
-    res.status(200).json(paypal);
-  } catch (error) {
-    if (error instanceof CustomError) {
+  findPaypal()
+    .then((paypal) => {
+      res.status(200).json(paypal);
+    })
+    .catch((error: CustomError) => {
       res.status(error.statusCode).send(error.message);
-    } else {
-      console.error("Error:", error);
-      res
-        .status(500)
-        .send("An error occurred while fetching PayPal information");
-    }
-  }
+    });
 });
 
 PayPalController.post("/paypal", async (req: Request, res: Response) => {
