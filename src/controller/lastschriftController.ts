@@ -3,14 +3,28 @@ import { findKunde } from "../database/kunde/operation/findKunde";
 import { postRequestKunde } from "./kundeHelper/postRequestKunde";
 import type CustomError from "../utilities/error";
 import { createLastschriftRecord } from "../database/zahlungsmoeglichkeit/operation/addLastschrift";
+import findLastschriftByZahlungsId from "../database/zahlungsmoeglichkeit/operation/findLastschrift";
 
 export const LastschriftController = express.Router();
 
-LastschriftController.get("/lastschrift", async (_req, res) => {
+LastschriftController.get("/lastschrift/:zahlungsId", async (req, res) => {
+  console.log("lastschrift get request");
+
   try {
-    res.json("TODO need to implement");
+    const zahlungsId = req.params.zahlungsId;
+
+    if (!zahlungsId) {
+      res.status(400).send("Missing required parameters");
+      return;
+    }
+
+    const lastschrift = await findLastschriftByZahlungsId(zahlungsId)
+      .then((lastschrift) => res.status(200).json(lastschrift))
+      .catch((error: CustomError) => {
+        res.status(error.statusCode).send(error.message);
+      });
   } catch (error) {
-    res.status(500).send("An error occurred while fetching lastschrift");
+    res.status(500).send("An error occurred while fetching the lastschrift");
   }
 });
 
