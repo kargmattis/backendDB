@@ -3,15 +3,18 @@ import { findKunde } from "../database/kunde/operation/findKunde";
 import { postRequestKunde } from "./kundeHelper/postRequestKunde";
 import type CustomError from "../utilities/error";
 import { createPaypalRecord } from "../database/zahlungsmoeglichkeit/operation/addPaypal";
+import findPaypal from "../database/zahlungsmoeglichkeit/operation/findPaypal";
 
 export const PayPalController = express.Router();
 
-PayPalController.get("/paypal", async (req, res) => {
-  try {
-    res.json("TODO need to implememt");
-  } catch (error) {
-    res.status(500).send("An error occurred while creating the product");
-  }
+PayPalController.get("/paypal", async (_req, res) => {
+  findPaypal()
+    .then((paypal) => {
+      res.status(200).json(paypal);
+    })
+    .catch((error: CustomError) => {
+      res.status(error.statusCode).send(error.message);
+    });
 });
 
 PayPalController.post("/paypal", async (req: Request, res) => {
@@ -34,7 +37,7 @@ PayPalController.post("/paypal", async (req: Request, res) => {
         res.status(error.statusCode).send(error.message);
       });
   } catch (error) {
-    res.status(500).send("An error occurred while creating the product");
+    res.status(500).send("An error occurred while creating the Paypal record");
   }
 });
 
