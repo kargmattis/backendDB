@@ -53,11 +53,6 @@ PayPalController.put(
         // Add other fields as needed
       };
 
-      if (!zahlungsId || !updatedData.kundenId || !updatedData.email) {
-        res.status(400).send("Missing required parameters");
-        return;
-      }
-
       const updatedPaypalRecord = await putPaypal(zahlungsId, updatedData);
 
       if (updatedPaypalRecord) {
