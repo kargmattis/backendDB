@@ -1,11 +1,19 @@
 import express from "express";
 import { createZutat } from "../database/zutat/operations/createZutat";
-import type CustomError from "../utilities/error";
+import CustomError from "../utilities/error";
+import Zutat from "../database/zutat/zutat";
+import { findZutat } from "../database/zutat/operations/findZutat";
 
 export const ZutatController = express.Router();
 
-ZutatController.get("/zutat", (_req, res) => {
-  res.send("Create Get ingredient request");
+ZutatController.get("/zutat", async (_req, res) => {
+  findZutat()
+    .then((zutat) => {
+      res.status(200).json(zutat);
+    })
+    .catch((error: CustomError) => {
+      res.status(error.statusCode).send(error.message);
+    });
 });
 
 ZutatController.post("/zutat", async (req, res) => {
