@@ -34,6 +34,7 @@ export type ProduktCreationAttributes = {
   preis: number;
   bild?: string;
   kundenId?: string;
+  sparte: string;
 };
 
 export type ZutatCreationAttributes = {

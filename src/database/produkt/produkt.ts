@@ -6,6 +6,7 @@ class Produkt extends Model {
   public titel!: string;
   public preis!: number;
   public bild!: string;
+  public sparte!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -28,6 +29,10 @@ Produkt.init(
     bild: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    sparte: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     kundenId: {
       type: DataTypes.UUID,

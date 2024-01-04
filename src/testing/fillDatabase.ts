@@ -14,14 +14,9 @@ import { createZutat } from "../database/zutat/operations/createZutat";
 import type Zutat from "../database/zutat/zutat";
 import { addProduktZutatRelation } from "../database/zutatenPostion/operation/addProduktZutatRelation";
 import { PaypalCreationAttributes } from "../global/types";
+import Products from "./ProduktArray";
 
 // Erstellen eines Testprodukts mit den notwendigen Eigenschaften
-const testProdukt = {
-  titel: "Testprodukt",
-  preis: 100,
-  bild: "testbild"
-};
-
 const testLastschrift = {
   kundenId: "",
   bankname: "Testbank",
@@ -73,16 +68,21 @@ export const fillDatabase = async (): Promise<
   try {
     // wartet auf alles Promises und gibt die Ergebnisse in der Reihenfolge zurück, in der sie aufgerufen wurden
     console.log("fillDatabase started");
-    console.log("test 1 started: kunde, produkt");
+    console.log("test 1 started: kunde, produkte");
 
-    const [createdProduct, createdKunde] = await Promise.all([
-      createProdukt(testProdukt),
-      createKunde(testKunde)
-    ]).catch((error) => {
+    const createdKunde = await createKunde(testKunde);
+    const createdProducts = await Promise.all(
+      Products.map(async (element) => {
+        return createProdukt(element);
+      })
+    ).catch((error) => {
       console.log(error);
-      throw new Error("error by creating produkt or kunde");
+      throw new Error("Error creating product or customer");
     });
-    console.log("succes Produkt: ", createdProduct.dataValues);
+
+    const createdProduct = createdProducts[0];
+
+    console.log("succes Produkt: ", createdProduct);
     console.log("succes Kunde: ", createdKunde.dataValues);
 
     console.log("test 2 started: paypal");
