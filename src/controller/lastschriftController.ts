@@ -1,10 +1,11 @@
 import express, { type Request } from "express";
 import { findKunde } from "../database/kunde/operation/findKunde";
 import { postRequestKunde } from "./kundeHelper/postRequestKunde";
-import type CustomError from "../utilities/error";
+import CustomError from "../utilities/error";
 import { createLastschriftRecord } from "../database/zahlungsmoeglichkeit/operation/addLastschrift";
 import findLastschriftByZahlungsId from "../database/zahlungsmoeglichkeit/operation/findLastschrift";
-
+import putLastschrift from "../database/zahlungsmoeglichkeit/operation/putLastschrift";
+import Lastschrift from "../database/zahlungsmoeglichkeit/lastschrift";
 export const LastschriftController = express.Router();
 
 LastschriftController.get("/lastschrift/:zahlungsId", async (req, res) => {
@@ -59,8 +60,38 @@ LastschriftController.post("/lastschrift", async (req: Request, res) => {
   }
 });
 
-LastschriftController.put("/lastschrift", (_req, res) => {
-  res.send("Lastschrift put request");
+LastschriftController.put("/lastschrift/:zahlungsId", async (req, res) => {
+  console.log("lastschrift put request");
+  try {
+    const zahlungsId = req.params.zahlungsId;
+    const updatedData = {
+      kundenId: req.body.kundenId,
+      bankname: req.body.bankname,
+      bic: req.body.bic,
+      iban: req.body.iban
+      // Add other fields as needed
+    };
+
+    const updatedLastschriftRecord = await putLastschrift(
+      zahlungsId,
+      updatedData
+    );
+
+    if (updatedLastschriftRecord) {
+      res.status(200).json(updatedLastschriftRecord.toJSON());
+    } else {
+      res.status(404).send("Lastschrift record not found");
+    }
+  } catch (error) {
+    if (error instanceof CustomError) {
+      res.status(error.statusCode).send(error.message);
+    } else {
+      console.error("Error:", error);
+      res
+        .status(500)
+        .send("An error occurred while updating the Lastschrfit record");
+    }
+  }
 });
 
 LastschriftController.delete("/lastschrift", (_req, res) => {
