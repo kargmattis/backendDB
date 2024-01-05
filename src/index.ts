@@ -10,11 +10,13 @@ import { AdresseController } from "./controller/adresseController";
 import { ZutatController } from "./controller/zutatController";
 import { BestellungsController } from "./controller/bestellungscontroller";
 import { LastschriftController } from "./controller/lastschriftController";
+import helmet from "helmet";
 
 const app = express();
 const port = 3000;
 
 app.use(cors()); // Enable CORS for all routes
+app.use(helmet()); //Enable Security for Backend
 
 // ... (other middleware and route definitions)
 
