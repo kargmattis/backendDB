@@ -9,7 +9,8 @@ export default async function putPaypal(
     const existingPaypalRecord = await Paypal.findByPk(zahlungsId);
 
     if (!existingPaypalRecord) {
-      return null; // Record not found
+      console.error("Paypal record not found");
+      return null;
     }
 
     // Update the record with the provided data

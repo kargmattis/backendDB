@@ -14,7 +14,8 @@ export default async function putLastschrift(
     const existingLastschriftRecord = await Lastschrift.findByPk(zahlungsId);
 
     if (!existingLastschriftRecord) {
-      return null; // Record not found
+      console.error("Lastschrift record not found");
+      return null;
     }
 
     // Update the record with the provided data
