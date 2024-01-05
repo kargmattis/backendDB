@@ -1,3 +1,4 @@
+import { errorChecking } from "../../../utilities/errorChecking";
 import Produkt from "../produkt";
 
 export async function findProduktByPk(id: string): Promise<Produkt | null> {
@@ -8,7 +9,8 @@ export async function findProduktByPk(id: string): Promise<Produkt | null> {
     return produkt;
   } catch (error) {
     console.error("Error finding product:", error);
-    throw error;
+    const customError = errorChecking(error);
+    throw customError;
   }
 }
 
@@ -24,7 +26,8 @@ export async function findProductWithoutKundeId(): Promise<Array<Produkt> | null
     return produkt;
   } catch (error) {
     console.error("Error finding product:", error);
-    throw error;
+    const customError = errorChecking(error);
+    throw customError;
   }
 }
 
@@ -40,6 +43,7 @@ export async function findProduktByKundeId(
     return produkt;
   } catch (error) {
     console.error("Error finding product:", error);
-    throw error;
+    const customError = errorChecking(error);
+    throw customError;
   }
 }

@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 // handelt errors die davor nicht abgefangen werden konnten
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
-  errorChecking(err);
+  res.status(500).send("Ein Fehler ist aufgetreten!");
 });
 
 app.listen(port, () => {

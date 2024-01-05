@@ -18,13 +18,19 @@ ProduktController.post("/produkt", async (req, res) => {
     });
 });
 ProduktController.get("/generalProdukts", (_req, res) => {
-  findProductWithoutKundeId()
-    .then((produkt) => {
-      res.status(200).json(produkt);
-    })
-    .catch((error: CustomError) => {
-      res.status(error.statusCode).send(error.message);
-    });
+  try {
+    findProductWithoutKundeId()
+      .then((produkt) => {
+        res.status(200).json(produkt);
+      })
+      .catch((error: CustomError) => {
+        res.status(error.statusCode).send(error.message);
+      });
+  } catch (error) {
+    console.log(error);
+    console.log("im dumb!!!!!!!!!!!!!!!");
+    res.status(500).send("Ein Fehler ist aufgetreten!");
+  }
 });
 
 ProduktController.put("/produkt", (_req, res) => {

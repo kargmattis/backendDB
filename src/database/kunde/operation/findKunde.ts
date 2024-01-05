@@ -22,7 +22,7 @@ export async function findKunden(email: string) {
     const kunden = await Kunde.findAll({ where: { email } });
     return kunden;
   } catch (error) {
-    errorChecking(error);
+    throw errorChecking(error);
   }
 }
 
@@ -35,6 +35,8 @@ export async function findKundeByEmail(email: string): Promise<Kunde | null> {
     }
     throw new CustomError(ErrorHandle.NotFound, "Kunde nicht gefunden");
   } catch (error) {
+    console.log(error);
+
     throw errorChecking(error);
   }
 }
