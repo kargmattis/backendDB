@@ -13,7 +13,7 @@ import { LastschriftController } from "./controller/lastschriftController";
 import helmet from "helmet";
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.use(cors()); // Enable CORS for all routes
 app.use(helmet()); //Enable Security for Backend
