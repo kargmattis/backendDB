@@ -111,7 +111,7 @@ export const fillDatabase = async (): Promise<
     });
     await addOrOpenWarenkorbBestellung({
       kundenId: createdKunde.kundenId,
-      produktId: createdProduct.produktId,
+      produktId: createdProducts[1].produktId,
       produktMenge: 200
     }).catch((error) => {
       console.log("test 4 failed: Warenkorb");

@@ -43,6 +43,7 @@ export function errorValidation(error: Error | unknown): CustomError {
   if (error instanceof CustomError) {
     return error;
   } else {
+    console.log("ist Custom Error: ", error);
     return new CustomError(ErrorHandle.ServerError, "unknown");
   }
 }

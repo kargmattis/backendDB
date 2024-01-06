@@ -3,6 +3,11 @@ import CustomError from "../utilities/error";
 import { warenkorbGetHelper } from "./warenkorbHelper/warenkorbHelper";
 import { addOrOpenWarenkorbBestellung } from "../database/bestellung/operations/addBestellung";
 import { findProduktByPk } from "../database/produkt/operations/findProdukt";
+import { errorValidation } from "../utilities/errorChecking";
+import { putWarenkorb } from "../database/bestellung/operations/putBestellung";
+import Bestellungposition from "../database/bestellungsPosition/bestellungsPosition";
+import { findWarenkorb } from "../database/bestellung/operations/findBestellung";
+import { sequelize } from "../database/database";
 
 export const WarenkorbController = express.Router();
 
@@ -24,31 +29,42 @@ WarenkorbController.get("/warenkorb/:kundenId", async (req, res) => {
 });
 
 WarenkorbController.post("/warenkorb", async (req, res) => {
-  addOrOpenWarenkorbBestellung(req.body)
-    .then((bestellungsPosition) => {
-      findProduktByPk(bestellungsPosition.produktId).then((produkt) => {
-        res.status(201).json(produkt);
-      });
-    })
-    .catch((error: CustomError) => {
-      res.status(error.statusCode).send(error.message);
-    });
+  try {
+    const warenkorb = await addOrOpenWarenkorbBestellung(req.body);
+    const produkt = await findProduktByPk(warenkorb.produktId);
+    const bestellmenge = warenkorb.bestellmenge;
+    res.status(200).send({ produkt, bestellmenge });
+  } catch (error) {
+    const customError = errorValidation(error);
+    res.status(customError.statusCode).send(customError.message);
+  }
 });
 
-// WarenkorbController.get("/warenkorb", (_req, res) => {
-//   findProductWithoutKundeId()
-//     .then((produkt) => {
-//       res.status(200).json(produkt);
-//     })
-//     .catch((error: CustomError) => {
-//       res.status(error.statusCode).send(error.message);
-//     });
-// });
+WarenkorbController.put("/warenkorb", async (req, res) => {
+  try {
+    const addWarenkorb = await putWarenkorb(req.body);
+    const produkt = await findProduktByPk(addWarenkorb.produktId);
+    const bestellmenge = addWarenkorb.bestellmenge;
+    res.status(200).send({ produkt, bestellmenge });
+  } catch (error) {
+    const customError = errorValidation(error);
+    res.status(customError.statusCode).send(customError.message);
+  }
+});
 
-// WarenkorbController.put("/warenkorb", (_req, res) => {
-//   res.send("Create Put product request");
-// });
+WarenkorbController.delete("/warenkorb/:kundenId", async (req, res) => {
+  try {
+    const warenkorb = await findWarenkorb(req.params.kundenId);
+    const bestellpositionen = await Bestellungposition.destroy({
+      where: {
+        bestellungsId: warenkorb.bestellungsId
+      }
+    });
 
-// WarenkorbController.delete("/warenkorb", (_req, res) => {
-//   res.send("Delete delete product request");
-// });
+    const bestellung = await warenkorb.destroy();
+    res.status(200).send({ bestellung, bestellpositionen });
+  } catch (error) {
+    const customError = errorValidation(error);
+    res.status(customError.statusCode).send(customError.message);
+  }
+});

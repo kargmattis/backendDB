@@ -12,16 +12,19 @@ import { findWarenkorb } from "./findBestellung";
 export async function addOrOpenWarenkorbBestellung(
   bestellungCreation: addOrOpenWarenkorbBestellungCreationAttributes
 ): Promise<Bestellungposition> {
-  const bestellungsId = await getBestellungsId(bestellungCreation.kundenId);
-  console.log(bestellungsId, "!!!!!!!!!");
+  try {
+    const bestellungsId = await getBestellungsId(bestellungCreation.kundenId);
 
-  const newBestellung = Bestellungposition.create({
-    bestellungsId: bestellungsId,
-    produktId: bestellungCreation.produktId,
-    bestellmenge: bestellungCreation.produktMenge
-  });
+    const newBestellung = Bestellungposition.create({
+      bestellungsId: bestellungsId,
+      produktId: bestellungCreation.produktId,
+      bestellmenge: bestellungCreation.produktMenge
+    });
 
-  return newBestellung;
+    return newBestellung;
+  } catch (error) {
+    throw errorChecking(error);
+  }
 }
 
 export async function getBestellungsId(kundenId: string): Promise<string> {

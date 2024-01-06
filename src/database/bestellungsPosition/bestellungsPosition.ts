@@ -2,7 +2,6 @@ import { BelongsToManyAddAssociationMixin, DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
 
 class Bestellungposition extends Model {
-  public bestellungPositionId!: string;
   public bestellungsId!: string;
   public produktId!: string;
   public bestellmenge!: number;
@@ -12,14 +11,10 @@ class Bestellungposition extends Model {
 
 Bestellungposition.init(
   {
-    bestellungPositionId: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV1,
-      primaryKey: true
-    },
     bestellungsId: {
       type: DataTypes.UUID,
       allowNull: false,
+      primaryKey: true,
       references: {
         model: "Bestellung",
         key: "bestellungsId"
@@ -28,6 +23,7 @@ Bestellungposition.init(
     produktId: {
       type: DataTypes.UUID,
       allowNull: false,
+      primaryKey: true,
       references: {
         model: "Produkt",
         key: "produktId"

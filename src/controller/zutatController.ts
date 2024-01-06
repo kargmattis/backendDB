@@ -3,32 +3,52 @@ import { createZutat } from "../database/zutat/operations/createZutat";
 import CustomError from "../utilities/error";
 import Zutat from "../database/zutat/zutat";
 import { findZutat } from "../database/zutat/operations/findZutat";
+import { errorValidation } from "../utilities/errorChecking";
 
 export const ZutatController = express.Router();
 
 ZutatController.get("/zutat", async (_req, res) => {
-  findZutat()
-    .then((zutat) => {
-      res.status(200).json(zutat);
-    })
-    .catch((error: CustomError) => {
-      res.status(error.statusCode).send(error.message);
-    });
+  try {
+    findZutat()
+      .then((zutat) => {
+        res.status(200).json(zutat);
+      })
+      .catch((error: CustomError) => {
+        res.status(error.statusCode).send(error.message);
+      });
+  } catch (error) {
+    const CustomError = errorValidation(error);
+    res.status(CustomError.statusCode).send(CustomError.message);
+  }
 });
 
 ZutatController.post("/zutat", async (req, res) => {
-  // ToDo: body sollte noch gecheckt werden wird gerade einfach so übergeben
-  createZutat(req.body)
-    .then((zutat) => res.status(201).json(zutat))
-    .catch((error: CustomError) => {
-      res.status(error.statusCode).send(error.message);
-    });
+  try {
+    createZutat(req.body)
+      .then((zutat) => res.status(201).json(zutat))
+      .catch((error: CustomError) => {
+        res.status(error.statusCode).send(error.message);
+      });
+  } catch (error) {
+    const CustomError = errorValidation(error);
+    res.status(CustomError.statusCode).send(CustomError.message);
+  }
 });
 
 ZutatController.put("/zutat", (_req, res) => {
-  res.send("Create Put ingredient request");
+  try {
+    res.send("Create Put ingredient request");
+  } catch (error) {
+    const CustomError = errorValidation(error);
+    res.status(CustomError.statusCode).send(CustomError.message);
+  }
 });
 
 ZutatController.delete("/zutat", (_req, res) => {
-  res.send("Delete delete ingredient request");
+  try {
+    res.send("Delete delete ingredient request");
+  } catch (error) {
+    const CustomError = errorValidation(error);
+    res.status(CustomError.statusCode).send(CustomError.message);
+  }
 });
