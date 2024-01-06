@@ -16,17 +16,21 @@ async function testing(): Promise<void> {
   try {
     // database wird gefüllt
     const databaseEntries = await fillDatabase();
+    console.log("fillDatabase done");
+
     if (databaseEntries) {
-      await putTesting(databaseEntries);
       await queryDatabaseTesting(databaseEntries);
-      console.log("succesfully tested !!!!!!!!!!");
+      console.log("queryDatabaseTesting done");
+      await putTesting(databaseEntries);
+
+      console.log("succesfully tested");
     } else {
-      console.log("fill Database failed !!!!!!!!!!");
+      console.log("fill Database failed");
     }
     console.log("Testing finished");
   } catch (error) {
     console.log(error);
-    console.log("testing failed !!!!!!!!!!");
+    console.log("testing failed");
   }
 }
 

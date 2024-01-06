@@ -15,7 +15,7 @@ import { ErrorOptions } from "sequelize/types/errors/base-error";
 
 export function errorChecking(error: Error | unknown): CustomError {
   if (error instanceof CustomError) {
-    console.error("Custom Error: ", error);
+    console.error("ist Custom Error: ", error);
     throw error;
   } else if (error instanceof ValidationError) {
     console.error("Sequelize Validation Error: ", error);
@@ -29,4 +29,5 @@ export function errorChecking(error: Error | unknown): CustomError {
     console.error("Unknown Error: ", error);
     throw new CustomError(ErrorHandle.ServerError, "unknown");
   }
+  // throw new CustomError(ErrorHandle.ServerError, "unknown");
 }

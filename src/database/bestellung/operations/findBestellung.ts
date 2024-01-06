@@ -6,6 +6,7 @@ import { ErrorHandle } from "../../../global/enums";
 import Paypal from "../../zahlungsmoeglichkeit/paypal";
 import Adresse from "../../adresse/adresse";
 import Produkt from "../../produkt/produkt";
+import { errorChecking } from "../../../utilities/errorChecking";
 
 export async function findAllBestellungen(
   kundenId: string
@@ -47,8 +48,6 @@ export async function findSingleBestellung(
     if (bestellung === null) {
       throw new CustomError(ErrorHandle.NotFound, "Bestellung not found");
     }
-    const zahlungsInformation = await Paypal.findByPk(bestellung.zahlungsId);
-    const adressInformation = await Adresse.findByPk(bestellung.adressenId);
     const bestellungsPosition = await Bestellungposition.findAll({
       where: {
         bestellungsId: bestellung?.bestellungsId
@@ -62,6 +61,8 @@ export async function findSingleBestellung(
       }
       produkte.push(singleProduct.dataValues);
     }
+    const zahlungsInformation = await Paypal.findByPk(bestellung.zahlungsId);
+    const adressInformation = await Adresse.findByPk(bestellung.adressenId);
     if (zahlungsInformation && adressInformation && produkte && sumPrice) {
       const bestellungsObject: SingleBestellungType = {
         zahlungsinformation: zahlungsInformation.dataValues,
@@ -78,19 +79,34 @@ export async function findSingleBestellung(
     );
   } catch (error) {
     console.error("Error finding bestellung:", error);
-    throw error;
+    throw errorChecking(error);
   }
 }
 
-export async function findWarenkorb(kundenId: string): Promise<Bestellung> {
+export async function findWarenkorb(
+  kundenId: string
+): Promise<Array<Bestellungposition>> {
   try {
     const adressen = await Adresse.findAll({ where: { kundenId } });
+    if (!adressen) {
+      throw new CustomError(ErrorHandle.NotFound, "Adresse not found");
+    }
     for (const adresse of adressen) {
       const bestellung = await Bestellung.findOne({
         where: { adressenId: adresse.adressenId, zahlungsId: null }
       });
       if (bestellung) {
-        return bestellung;
+        const bestellungsPosition = await Bestellungposition.findAll({
+          where: { bestellungsId: bestellung.bestellungsId }
+        });
+        if (!bestellungsPosition) {
+          throw new CustomError(
+            ErrorHandle.NotFound,
+            "BestellungsPosition not found"
+          );
+        }
+
+        return bestellungsPosition;
       }
     }
     throw new CustomError(ErrorHandle.NotFound, "Warenkorb not found");

@@ -4,7 +4,7 @@ import Produkt from "../produkt";
 export async function findProduktByPk(id: string): Promise<Produkt | null> {
   try {
     const produkt = await Produkt.findByPk(id);
-    console.log(produkt);
+    // console.log(produkt);
 
     return produkt;
   } catch (error) {
@@ -21,7 +21,7 @@ export async function findProductWithoutKundeId(): Promise<Array<Produkt> | null
         kundenId: null
       }
     });
-    console.log(produkt);
+    // console.log(produkt);
 
     return produkt;
   } catch (error) {

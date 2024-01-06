@@ -11,6 +11,7 @@ import { ZutatController } from "./controller/zutatController";
 import { BestellungsController } from "./controller/bestellungscontroller";
 import { LastschriftController } from "./controller/lastschriftController";
 import helmet from "helmet";
+import { WarenkorbController } from "./controller/warenkorbController";
 
 const app = express();
 const port = 3001;
@@ -29,7 +30,8 @@ app.use(
   PayPalController,
   AdresseController,
   BestellungsController,
-  LastschriftController
+  LastschriftController,
+  WarenkorbController
 );
 app.get("/", (req, res) => {
   res.send("Hello World!");

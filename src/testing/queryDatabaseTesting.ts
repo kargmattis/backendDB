@@ -50,7 +50,7 @@ async function queryKunde(kunde: Kunde) {
       throw new Error(error);
     });
   } catch (error) {
-    throw new Error(error + "queryKunde failed");
+    throw new Error("queryKunde failed");
   }
 }
 

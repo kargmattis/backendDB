@@ -2,7 +2,7 @@ import { BelongsToManyAddAssociationMixin, DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
 
 class Bestellungposition extends Model {
-  public bestellungPosition!: string;
+  public bestellungPositionId!: string;
   public bestellungsId!: string;
   public produktId!: string;
   public bestellmenge!: number;
