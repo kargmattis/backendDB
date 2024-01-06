@@ -43,8 +43,19 @@ export async function putTesting(
 ) {
   const [produkt, kunde, paypal, lastschrift, adresse, zutat, bestellung] =
     databaseEntries;
-  await putKunde(updateKunde, kunde.kundenId);
+  console.log("putTesting", "start");
+
+  console.log("putTesting1", "kunde");
+
+  await putKunde(updateKunde, kunde.kundenId).catch((error) => {
+    console.log("putTesting1 failed");
+    throw new Error(error);
+  });
   updateAdresse.kundenId = kunde.kundenId;
-  await putAdresse(updateAdresse, adresse.adressenId);
+  console.log("putTesting2", "adresse");
+  await putAdresse(updateAdresse, adresse.adressenId).catch((error) => {
+    console.log("putTesting2 failed");
+    throw new Error(error);
+  });
   console.log("putTesting", "done");
 }

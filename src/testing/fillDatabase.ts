@@ -55,15 +55,6 @@ const testAdresse = {
   ort: "Musterort",
   hausnummerzusatz: "a"
 };
-
-const testBestellung = {
-  // adressenId: "",
-  // zahlungsId: "",
-  bestellDatum: new Date(),
-  gewünschtesLieferdatum: new Date(),
-  produktIds: [] as string[]
-};
-
 // Die Funktion fillDatabase ist eine asynchrone Funktion, die beim Aufruf versucht, eine Reihe von Operationen auszuführen.
 export const fillDatabase = async (): Promise<
   [Produkt, Kunde, Paypal, Lastschrift, Adresse, Zutat, Bestellung] | undefined
@@ -79,25 +70,20 @@ export const fillDatabase = async (): Promise<
         return createProdukt(element);
       })
     ).catch((error) => {
-      console.log(error);
-      throw new Error("Error creating product or customer");
+      console.log("test 1 failed: kunde, produkte");
+      throw new Error(error);
     });
 
     const createdProduct = createdProducts[0];
-
-    console.log("succes Produkt: ", createdProducts[0]);
-    console.log("succes Kunde: ", createdKunde.dataValues);
 
     console.log("test 2 started: paypal");
     const createPaypal = await createPaypalRecord({
       kundenId: createdKunde.kundenId,
       email: createdKunde.email
     }).catch((error) => {
-      console.log(error);
-      throw new Error("error by creating paypal");
+      console.log("test 2 failed: paypal");
+      throw new Error(error);
     });
-    console.log("succes Paypal: ", createPaypal.dataValues);
-
     testAdresse.kundenId = createdKunde.kundenId;
     testLastschrift.kundenId = createdKunde.kundenId;
     console.log("test 3 started: lastschrift, adresse, zutat");
@@ -108,51 +94,55 @@ export const fillDatabase = async (): Promise<
         createAdresse(testAdresse),
         createZutat(testZutat)
       ]).catch((error) => {
-        console.log(error);
-        throw new Error("error by creating lastschrift, adresse or zutat");
+        console.log("test 3 failed: lastschrift, adresse, zutat");
+        throw new Error(error);
       });
-    console.log("succes Lastschrift: ", createdLastschrift.dataValues);
-    console.log("succes Adresse: ", createdAdresse.dataValues);
-    console.log("succes Zutat: ", createdZutat.dataValues);
 
-    // testBestellung.adressenId = createdAdresse.adressenId;
-    // testBestellung.zahlungsId = createPaypal.zahlungsId;
-    testBestellung.produktIds.push(createdProduct.produktId);
-    console.log("test 4 started: bestellung");
-    const createWarenkorb = await addOrOpenWarenkorbBestellung({
+    console.log("test 4 started: Warenkorb");
+
+    await addOrOpenWarenkorbBestellung({
       kundenId: createdKunde.kundenId,
       produktId: createdProduct.produktId,
       produktMenge: 200
+    }).catch((error) => {
+      console.log("test 4 failed: Warenkorb");
+      throw new Error(error);
     });
     await addOrOpenWarenkorbBestellung({
       kundenId: createdKunde.kundenId,
       produktId: createdProduct.produktId,
       produktMenge: 200
+    }).catch((error) => {
+      console.log("test 4 failed: Warenkorb");
+      throw new Error(error);
     });
-    console.log("succes Warenkorb: ", createWarenkorb.dataValues);
-
+    console.log("test 5 started: Bestellung aufgeben");
     const placedOrder = await placeOrder({
       adressenId: createdAdresse.adressenId,
       zahlungsId: createPaypal.zahlungsId,
       bestellDatum: new Date(),
       kundenId: createdKunde.kundenId,
       gewünschtesLieferdatum: new Date()
+    }).catch((error) => {
+      console.log("test 5 failed: Bestellung aufgeben");
+      throw new Error(error);
     });
 
-    console.log("succes Bestellung: ", placedOrder.dataValues);
+    await addOrOpenWarenkorbBestellung({
+      kundenId: createdKunde.kundenId,
+      produktId: createdProduct.produktId,
+      produktMenge: 200
+    });
+    console.log("test 6 started: ZutatenPosition");
     const createdZutatenPosition = await addProduktZutatRelation({
       produktId: createdProduct.produktId,
       zutatIdWithAmount: [
         { zutatenId: createdZutat.zutatsId, zutatenMenge: "100" }
       ]
     }).catch((error) => {
-      console.log(error);
-      throw new Error("error by creating zutatenPosition");
+      console.log("test 6 failed: ZutatenPosition");
+      throw new Error(error);
     });
-    console.log(
-      "succes ZutatenPosition: ",
-      createdZutatenPosition[0].dataValues
-    );
 
     return [
       createdProduct,

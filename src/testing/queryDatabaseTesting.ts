@@ -34,44 +34,50 @@ export async function queryDatabaseTesting(
   const [produkt, kunde, paypal, lastschrift, adresse, zutat, bestellung] =
     databaseEntries;
   await queryKunde(kunde);
-  // await queryProdukt(produkt);
+  await queryProdukt(produkt);
   await queryAdresse(kunde.kundenId);
   await queryBestellung(bestellung.bestellungsId, kunde.kundenId);
 }
 
 async function queryKunde(kunde: Kunde) {
   try {
-    await findKunde(kunde.kundenId).then((kunde) => {
-      console.log("queryKunde", kunde.dataValues);
+    await findKunde(kunde.kundenId).catch((error) => {
+      console.log("findKunde failed");
+      throw new Error(error);
     });
-    await findKundeByEmail(kunde.email).then((kunde) => {
-      console.log("queryKunde", kunde);
+    await findKundeByEmail(kunde.email).catch((error) => {
+      console.log("findKundeByEmail failed");
+      throw new Error(error);
     });
   } catch (error) {
-    console.error("queryKunde", error);
+    throw new Error(error + "queryKunde failed");
   }
 }
 
 async function queryProdukt(produkt: Produkt) {
   try {
-    await findProduktByPk(produkt.produktId).then((produkt) => {
-      console.log("queryProdukt", produkt?.dataValues);
+    await findProduktByPk(produkt.produktId).catch((error) => {
+      console.log("findProduktByPk failed");
+      throw new Error(error);
     });
-    await findProductWithoutKundeId().then((produkte) => {
-      console.log("query generellProdukt", produkte);
+    await findProductWithoutKundeId().catch((error) => {
+      console.log("findProductWithoutKundeId failed");
+      throw new Error(error);
     });
-    await findProduktByKundeId(produkt.produktId).then((produkte) => {
-      console.log("queryProduktByKundeId", produkte);
+    await findProduktByKundeId(produkt.produktId).catch((error) => {
+      console.log("findProduktByKundeId failed");
+      throw new Error(error);
     });
   } catch (error) {
-    console.error("queryProdukt", error);
+    throw new Error(error + "queryProdukt failed");
   }
 }
 
 async function queryAdresse(kundeId: string) {
   try {
-    await findAdresseByKundenId(kundeId).then((adresse) => {
-      console.log("queryAdresse", adresse.dataValues);
+    await findAdresseByKundenId(kundeId).catch((error) => {
+      console.log("findAdresseByKundenId failed");
+      throw new Error(error);
     });
   } catch (error) {
     console.error("queryAdresse", error);
@@ -80,10 +86,14 @@ async function queryAdresse(kundeId: string) {
 
 async function queryBestellung(bestellungsId: string, kundenId: string) {
   try {
-    const singleBestellung = await findSingleBestellung(bestellungsId);
-    const bestellungen = await findAllBestellungen(kundenId);
-    console.log("singlequeryBestellung", singleBestellung);
-    console.log("queryBestellung", bestellungen);
+    await findSingleBestellung(bestellungsId).catch((error) => {
+      console.log("findSingleBestellung failed");
+      throw new Error(error);
+    });
+    await findAllBestellungen(kundenId).catch((error) => {
+      console.log("findAllBestellungen failed");
+      throw new Error(error);
+    });
   } catch (error) {
     console.error("queryZutat", error);
   }
