@@ -27,10 +27,19 @@ Bestellung.init(
     adressenId: {
       type: DataTypes.UUID,
       unique: false,
-      references: {
-        model: "Adresse",
-        key: "adressenId"
-      },
+      // references: {
+      //   model: "Adresse",
+      //   key: "adressenId"
+      // },
+      allowNull: false
+    },
+    laufendeAdressenId: {
+      type: DataTypes.INTEGER,
+      unique: false,
+      // references: {
+      //   model: "Adresse",
+      //   key: "laufendeAdressenId"
+      // },
       allowNull: false
     },
     zahlungsId: {

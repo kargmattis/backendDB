@@ -3,6 +3,7 @@ import { sequelize } from "../database";
 
 class Adresse extends Model {
   public adressenId!: string;
+  public laufendeAdressenId!: number;
   public kundenId!: string;
   public postleitzahl!: string;
   public strasse!: string;
@@ -15,6 +16,11 @@ class Adresse extends Model {
 
 Adresse.init(
   {
+    laufendeAdressenId: {
+      type: DataTypes.INTEGER,
+      // primaryKey: true,
+      defaultValue: 1
+    },
     adressenId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
@@ -22,6 +28,7 @@ Adresse.init(
     },
     kundenId: {
       type: DataTypes.UUID,
+      unique: true,
       references: {
         model: "Kunde",
         key: "kundenId"
@@ -53,5 +60,4 @@ Adresse.init(
     sequelize
   }
 );
-
 export default Adresse;

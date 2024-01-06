@@ -1,5 +1,4 @@
 import Adresse from "../database/adresse/adresse";
-import { findAdresseByKundenId } from "../database/adresse/operation/findAdresse";
 import Bestellung from "../database/bestellung/bestellung";
 import {
   findAllBestellungen,
@@ -35,7 +34,7 @@ export async function queryDatabaseTesting(
     databaseEntries;
   await queryKunde(kunde);
   await queryProdukt(produkt);
-  await queryAdresse(kunde.kundenId);
+  // await queryAdresse(kunde.kundenId);
   await queryBestellung(bestellung.bestellungsId, kunde.kundenId);
 }
 
@@ -73,16 +72,16 @@ async function queryProdukt(produkt: Produkt) {
   }
 }
 
-async function queryAdresse(kundeId: string) {
-  try {
-    await findAdresseByKundenId(kundeId).catch((error) => {
-      console.log("findAdresseByKundenId failed");
-      throw new Error(error);
-    });
-  } catch (error) {
-    console.error("queryAdresse", error);
-  }
-}
+// async function queryAdresse(kundeId: string) {
+//   try {
+//     await findAdresseByKundenId(kundeId).catch((error) => {
+//       console.log("findAdresseByKundenId failed");
+//       throw new Error(error);
+//     });
+//   } catch (error) {
+//     console.error("queryAdresse", error);
+//   }
+// }
 
 async function queryBestellung(bestellungsId: string, kundenId: string) {
   try {

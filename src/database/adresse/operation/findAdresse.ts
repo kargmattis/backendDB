@@ -3,9 +3,29 @@ import CustomError from "../../../utilities/error";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Adresse from "../adresse";
 
-export async function findAdresseByKundenId(
-  kundenId: string
+export async function findAdressebyPrimaryKeys(
+  adressenId: string,
+  laufendeAdressenId: number
 ): Promise<Adresse> {
+  try {
+    const adresse = await Adresse.findOne({
+      where: {
+        adressenId: adressenId,
+        laufendeAdressenId: laufendeAdressenId
+      }
+    });
+    if (adresse === null) {
+      throw new CustomError(ErrorHandle.NotFound, "Adresse not found");
+    }
+    return adresse;
+  } catch (error) {
+    throw errorChecking(error);
+  }
+}
+
+export async function findAdressIdByKundenId(
+  kundenId: string
+): Promise<string> {
   try {
     const adresse = await Adresse.findOne({
       where: {
@@ -15,7 +35,25 @@ export async function findAdresseByKundenId(
     if (adresse === null) {
       throw new CustomError(ErrorHandle.NotFound, "Adresse not found");
     }
-    return adresse;
+    return adresse.adressenId;
+  } catch (error) {
+    throw errorChecking(error);
+  }
+}
+
+export async function findCurrentAdresse(adressenId: string): Promise<Adresse> {
+  try {
+    const result = await Adresse.findAndCountAll({
+      where: {
+        adressenId: adressenId
+      },
+      order: [["laufendeAdressenId", "DESC"]],
+      limit: 1
+    });
+    if (result.count === 0) {
+      throw new CustomError(ErrorHandle.NotFound, "Adresse not found");
+    }
+    return result.rows[0];
   } catch (error) {
     throw errorChecking(error);
   }

@@ -21,7 +21,14 @@ export function errorChecking(error: Error | unknown): CustomError {
     console.error("Sequelize Validation Error: ", error);
     if (error.name === "SequelizeForeignKeyConstraintError") {
       console.log("Foreign Key Error: ", error);
-      throw new CustomError(ErrorHandle.ServerError, "id does not exist");
+      throw new CustomError(ErrorHandle.DatabaseError, "id does not exist");
+    }
+    if (error.name === "SequelizeUniqueConstraintError") {
+      console.log("Unique Constraint Error: ", error);
+      throw new CustomError(
+        ErrorHandle.DatabaseError,
+        "the key is unique and already exists"
+      );
     }
     console.error("Sequelize Validation Error: ", error);
     throw new CustomError(ErrorHandle.DatabaseError, error.message);
@@ -30,4 +37,12 @@ export function errorChecking(error: Error | unknown): CustomError {
     throw new CustomError(ErrorHandle.ServerError, "unknown");
   }
   // throw new CustomError(ErrorHandle.ServerError, "unknown");
+}
+
+export function errorValidation(error: Error | unknown): CustomError {
+  if (error instanceof CustomError) {
+    return error;
+  } else {
+    return new CustomError(ErrorHandle.ServerError, "unknown");
+  }
 }
