@@ -83,9 +83,7 @@ export async function findSingleBestellung(
   }
 }
 
-export async function findWarenkorb(
-  kundenId: string
-): Promise<Array<Bestellungposition>> {
+export async function findWarenkorb(kundenId: string): Promise<Bestellung> {
   try {
     const adressen = await Adresse.findAll({ where: { kundenId } });
     if (!adressen) {
@@ -96,17 +94,7 @@ export async function findWarenkorb(
         where: { adressenId: adresse.adressenId, zahlungsId: null }
       });
       if (bestellung) {
-        const bestellungsPosition = await Bestellungposition.findAll({
-          where: { bestellungsId: bestellung.bestellungsId }
-        });
-        if (!bestellungsPosition) {
-          throw new CustomError(
-            ErrorHandle.NotFound,
-            "BestellungsPosition not found"
-          );
-        }
-
-        return bestellungsPosition;
+        return bestellung;
       }
     }
     throw new CustomError(ErrorHandle.NotFound, "Warenkorb not found");

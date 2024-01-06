@@ -49,7 +49,6 @@ const testKunde = {
 const testAdresse = {
   kundenId: "",
   postleitzahl: "12345",
-  isthauptadresse: true,
   strasse: "Musterstraße",
   hausnummer: "123",
   ort: "Musterort",

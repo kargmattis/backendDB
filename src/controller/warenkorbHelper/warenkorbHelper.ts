@@ -1,4 +1,5 @@
 import { findWarenkorb } from "../../database/bestellung/operations/findBestellung";
+import Bestellungposition from "../../database/bestellungsPosition/bestellungsPosition";
 import { findProduktByPk } from "../../database/produkt/operations/findProdukt";
 import Produkt from "../../database/produkt/produkt";
 import { ErrorHandle } from "../../global/enums";
@@ -9,9 +10,12 @@ export async function warenkorbGetHelper(
   kundenId: string
 ): Promise<Array<Produkt>> {
   try {
-    const warenkorb = await findWarenkorb(kundenId);
     const produkte = [];
-    for (const singlePosition of warenkorb) {
+    const warenkorb = await findWarenkorb(kundenId);
+    const bestellungsPosition = await Bestellungposition.findAll({
+      where: { bestellungsId: warenkorb.bestellungsId }
+    });
+    for (const singlePosition of bestellungsPosition) {
       const singleProduct = await findProduktByPk(singlePosition.produktId);
       if (!singleProduct) {
         throw new CustomError(ErrorHandle.NotFound, "Produkt not found");

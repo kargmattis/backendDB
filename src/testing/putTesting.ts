@@ -23,7 +23,6 @@ const updateKunde: KundeCreationAttributes = {
 const updateAdresse: AdresseCreationAttributes = {
   kundenId: "",
   postleitzahl: "updatetPostleitzahl",
-  isthauptadresse: true,
   strasse: "updatetStrasse",
   hausnummer: "updatetHausnummer",
   ort: "updatetOrt",

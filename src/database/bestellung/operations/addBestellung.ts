@@ -1,9 +1,7 @@
-import { ErrorHandle } from "../../../global/enums";
 import type {
   PlaceOrderCreationAttributes,
   addOrOpenWarenkorbBestellungCreationAttributes
 } from "../../../global/types";
-import CustomError from "../../../utilities/error";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Adresse from "../../adresse/adresse";
 import Bestellungposition from "../../bestellungsPosition/bestellungsPosition";
