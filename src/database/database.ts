@@ -9,7 +9,7 @@ if (process.env.DATABASE === "sqlite") {
   sequelize = new Sequelize({
     dialect: "sqlite",
     storage: "productionEnvironment.sqlite",
-    logging: false // für das Deaktivieren der SQL-Logs
+    logging: true // für das Deaktivieren der SQL-Logs
   });
 } else if (process.env.DATABASE === "postgres") {
   let host = "localhost";

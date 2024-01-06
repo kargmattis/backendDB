@@ -18,7 +18,7 @@ Adresse.init(
   {
     laufendeAdressenId: {
       type: DataTypes.INTEGER,
-      // primaryKey: true,
+      primaryKey: true,
       defaultValue: 1
     },
     adressenId: {
@@ -28,7 +28,6 @@ Adresse.init(
     },
     kundenId: {
       type: DataTypes.UUID,
-      unique: true,
       references: {
         model: "Kunde",
         key: "kundenId"
