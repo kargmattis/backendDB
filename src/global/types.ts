@@ -44,12 +44,10 @@ export type ZutatCreationAttributes = {
   zutatseinheit: string;
 };
 
-export type BestellungCreationAttributes = {
-  adressenId: string;
-  zahlungsId: string;
-  bestellDatum: Date;
-  gewünschtesLieferdatum: Date;
-  produktIds: string[];
+export type addOrOpenWarenkorbBestellungCreationAttributes = {
+  kundenId: string;
+  produktId: string;
+  produktMenge: number;
 };
 
 export type ZutatenPositionCreationAttributes = {
@@ -68,4 +66,12 @@ export type SingleBestellungType = {
   produktInformationen: Array<ProduktCreationAttributes>;
   gesamtpreis: number;
   bestellDatum: Date;
+};
+
+export type PlaceOrderCreationAttributes = {
+  kundenId: string;
+  adressenId: string;
+  zahlungsId: string;
+  bestellDatum: Date;
+  gewünschtesLieferdatum: Date;
 };

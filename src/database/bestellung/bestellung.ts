@@ -1,4 +1,8 @@
-import { type BelongsToManyAddAssociationMixin, DataTypes, Model } from "sequelize";
+import {
+  type BelongsToManyAddAssociationMixin,
+  DataTypes,
+  Model
+} from "sequelize";
 import { sequelize } from "../database";
 import type Product from "../produkt/produkt";
 
@@ -22,6 +26,7 @@ Bestellung.init(
     },
     adressenId: {
       type: DataTypes.UUID,
+      unique: false,
       references: {
         model: "Adresse",
         key: "adressenId"
@@ -30,11 +35,12 @@ Bestellung.init(
     },
     zahlungsId: {
       type: DataTypes.UUID,
+      unique: false,
       references: {
         model: "Paypal",
         key: "zahlungsId"
       },
-      allowNull: false
+      allowNull: true
     },
     bestellDatum: {
       type: DataTypes.DATE,

@@ -13,7 +13,7 @@ export async function findAllBestellungen(
   try {
     const bestellungenArray = [];
 
-    const adressen = await Adresse.findAll();
+    const adressen = await Adresse.findAll({ where: { kundenId } });
     for (const adresse of adressen) {
       const bestellungen = await Bestellung.findAll({
         where: {
@@ -78,6 +78,23 @@ export async function findSingleBestellung(
     );
   } catch (error) {
     console.error("Error finding bestellung:", error);
+    throw error;
+  }
+}
+
+export async function findWarenkorb(kundenId: string): Promise<Bestellung> {
+  try {
+    const adressen = await Adresse.findAll({ where: { kundenId } });
+    for (const adresse of adressen) {
+      const bestellung = await Bestellung.findOne({
+        where: { adressenId: adresse.adressenId, zahlungsId: null }
+      });
+      if (bestellung) {
+        return bestellung;
+      }
+    }
+    throw new CustomError(ErrorHandle.NotFound, "Warenkorb not found");
+  } catch (error) {
     throw error;
   }
 }

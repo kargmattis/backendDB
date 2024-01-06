@@ -1,7 +1,10 @@
 import type Adresse from "../database/adresse/adresse";
 import { createAdresse } from "../database/adresse/operation/createAdresse";
 import type Bestellung from "../database/bestellung/bestellung";
-import { addBestellung } from "../database/bestellung/operations/addBestellung";
+import {
+  addOrOpenWarenkorbBestellung,
+  placeOrder
+} from "../database/bestellung/operations/addBestellung";
 import type Kunde from "../database/kunde/kunde";
 import { createKunde } from "../database/kunde/operation/createKunde";
 import { createProdukt } from "../database/produkt/operations/createProdukt";
@@ -54,8 +57,8 @@ const testAdresse = {
 };
 
 const testBestellung = {
-  adressenId: "",
-  zahlungsId: "",
+  // adressenId: "",
+  // zahlungsId: "",
   bestellDatum: new Date(),
   gewünschtesLieferdatum: new Date(),
   produktIds: [] as string[]
@@ -82,7 +85,7 @@ export const fillDatabase = async (): Promise<
 
     const createdProduct = createdProducts[0];
 
-    console.log("succes Produkt: ", createdProduct);
+    console.log("succes Produkt: ", createdProducts[0]);
     console.log("succes Kunde: ", createdKunde.dataValues);
 
     console.log("test 2 started: paypal");
@@ -112,12 +115,31 @@ export const fillDatabase = async (): Promise<
     console.log("succes Adresse: ", createdAdresse.dataValues);
     console.log("succes Zutat: ", createdZutat.dataValues);
 
-    testBestellung.adressenId = createdAdresse.adressenId;
-    testBestellung.zahlungsId = createPaypal.zahlungsId;
+    // testBestellung.adressenId = createdAdresse.adressenId;
+    // testBestellung.zahlungsId = createPaypal.zahlungsId;
     testBestellung.produktIds.push(createdProduct.produktId);
     console.log("test 4 started: bestellung");
-    const createdBestellung = await addBestellung(testBestellung);
-    console.log("succes Bestellung: ", createdBestellung.dataValues);
+    const createWarenkorb = await addOrOpenWarenkorbBestellung({
+      kundenId: createdKunde.kundenId,
+      produktId: createdProduct.produktId,
+      produktMenge: 200
+    });
+    await addOrOpenWarenkorbBestellung({
+      kundenId: createdKunde.kundenId,
+      produktId: createdProduct.produktId,
+      produktMenge: 200
+    });
+    console.log("succes Warenkorb: ", createWarenkorb.dataValues);
+
+    const placedOrder = await placeOrder({
+      adressenId: createdAdresse.adressenId,
+      zahlungsId: createPaypal.zahlungsId,
+      bestellDatum: new Date(),
+      kundenId: createdKunde.kundenId,
+      gewünschtesLieferdatum: new Date()
+    });
+
+    console.log("succes Bestellung: ", placedOrder.dataValues);
     const createdZutatenPosition = await addProduktZutatRelation({
       produktId: createdProduct.produktId,
       zutatIdWithAmount: [
@@ -139,7 +161,7 @@ export const fillDatabase = async (): Promise<
       createdLastschrift,
       createdAdresse,
       createdZutat,
-      createdBestellung
+      placedOrder
     ];
   } catch (error) {
     console.log(error);

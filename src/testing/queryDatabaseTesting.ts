@@ -34,7 +34,7 @@ export async function queryDatabaseTesting(
   const [produkt, kunde, paypal, lastschrift, adresse, zutat, bestellung] =
     databaseEntries;
   await queryKunde(kunde);
-  await queryProdukt(produkt);
+  // await queryProdukt(produkt);
   await queryAdresse(kunde.kundenId);
   await queryBestellung(bestellung.bestellungsId, kunde.kundenId);
 }
