@@ -44,6 +44,10 @@ Kunde.init(
     zeitungsaboablaufdatum: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    istAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   },
   {

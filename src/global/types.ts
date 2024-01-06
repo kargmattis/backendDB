@@ -41,6 +41,8 @@ export type ZutatCreationAttributes = {
   zutatseigenschaft: string;
   zutatspreis: number;
   zutatseinheit: string;
+  zutatBild: string;
+  zutatensparte: string;
 };
 
 export type addOrOpenWarenkorbBestellungCreationAttributes = {

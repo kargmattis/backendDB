@@ -32,7 +32,9 @@ const testZutat = {
   zutatsname: "Mehl",
   zutatseigenschaft: "vegan",
   zutatspreis: 1,
-  zutatseinheit: "g"
+  zutatseinheit: "g",
+  zutatBild: "testbild",
+  zutatensparte: "testsparte"
 };
 
 // Erstellen eines Testkunden mit den notwendigen Eigenschaften

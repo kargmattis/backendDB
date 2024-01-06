@@ -7,6 +7,8 @@ class Zutat extends Model {
   public zutatseigenschaft!: string;
   public zutatspreis!: number;
   public zutatseinheit!: string;
+  public zutatBild!: string;
+  public zutatensparte!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -31,6 +33,14 @@ Zutat.init(
       allowNull: false
     },
     zutatseinheit: {
+      type: new DataTypes.STRING(128),
+      allowNull: false
+    },
+    zutatBild: {
+      type: new DataTypes.STRING(128),
+      allowNull: false
+    },
+    zutatensparte: {
       type: new DataTypes.STRING(128),
       allowNull: false
     }
