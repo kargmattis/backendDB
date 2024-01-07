@@ -1,4 +1,5 @@
 // findZutat.ts
+import { errorChecking } from "../../../utilities/errorChecking";
 import Zutat from "../zutat";
 
 export async function findZutat(): Promise<Zutat[]> {
@@ -7,6 +8,6 @@ export async function findZutat(): Promise<Zutat[]> {
     return zutatItems;
   } catch (error) {
     // You may want to log the error or perform additional error handling
-    throw error;
+    throw errorChecking(error);
   }
 }
