@@ -17,7 +17,6 @@ WarenkorbController.get("/warenkorb/:kundenId", async (req, res) => {
   }
   try {
     const warenkorb = await warenkorbGetHelper(req.params.kundenId);
-    // const bestellung = await findSingleBestellung(warenkorb.bestellungsId);
     res.status(200).json(warenkorb);
   } catch (error) {
     if (error instanceof CustomError) {
