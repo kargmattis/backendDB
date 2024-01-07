@@ -1,10 +1,14 @@
 import type {
+  PlaceOrderApiAttributes,
   PlaceOrderCreationAttributes,
   addOrOpenWarenkorbBestellungCreationAttributes
 } from "../../../global/types";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Adresse from "../../adresse/adresse";
-import { findCurrentAdresse } from "../../adresse/operation/findAdresse";
+import {
+  findAdressIdByKundenId,
+  findCurrentAdresse
+} from "../../adresse/operation/findAdresse";
 import Bestellungposition from "../../bestellungsPosition/bestellungsPosition";
 import Bestellung from "../bestellung";
 import { findWarenkorb } from "./findBestellung";
@@ -55,12 +59,14 @@ export async function getBestellungsId(kundenId: string): Promise<string> {
   }
 }
 
-export async function placeOrder(orderData: PlaceOrderCreationAttributes) {
+export async function placeOrder(orderData: PlaceOrderApiAttributes) {
   try {
     const warenkorb = await findWarenkorb(orderData.kundenId);
+    const adressId = await findAdressIdByKundenId(orderData.kundenId);
+    const currentAdresse = await findCurrentAdresse(adressId);
     const orderedBestellung = await warenkorb.update({
       zahlungsId: orderData.zahlungsId,
-      adressenId: orderData.adressenId,
+      adressenId: currentAdresse.adressenId,
       bestellDatum: orderData.bestellDatum,
       gewünschtesLieferdatum: orderData.gewünschtesLieferdatum
     });
