@@ -119,7 +119,6 @@ export const fillDatabase = async (): Promise<
     });
     console.log("test 5 started: Bestellung aufgeben");
     const placedOrder = await placeOrder({
-      adressenId: createdAdresse.adressenId,
       zahlungsId: createPaypal.zahlungsId,
       bestellDatum: new Date(),
       kundenId: createdKunde.kundenId,
