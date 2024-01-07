@@ -76,3 +76,10 @@ export type PlaceOrderCreationAttributes = {
   bestellDatum: Date;
   gewünschtesLieferdatum: Date;
 };
+
+export type PlaceOrderApiAttributes = {
+  kundenId: string;
+  zahlungsId: string;
+  bestellDatum: Date;
+  gewünschtesLieferdatum: Date;
+};
