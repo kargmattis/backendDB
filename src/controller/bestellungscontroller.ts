@@ -1,26 +1,57 @@
 import express, { type Request } from "express";
-import type CustomError from "../utilities/error";
-import { createAdresse } from "../database/adresse/operation/createAdresse";
+import {
+  findAllBestellungen,
+  findSingleBestellung
+} from "../database/bestellung/operations/findBestellung";
+import { errorValidation } from "../utilities/errorChecking";
+import { placeOrder } from "../database/bestellung/operations/addBestellung";
 
 export const BestellungsController = express.Router();
 
-BestellungsController.get("/bestellung", async (req: Request, res) => {
-  try {
-    res.json("TODO need to implememt");
-  } catch (error) {
-    res.status(500).send("An error occurred while creating the product");
+BestellungsController.get(
+  "/bestellungen/:kundenId",
+  async (req: Request, res) => {
+    try {
+      const kundeId = req.params.kundenId;
+      const allBestellungen = await findAllBestellungen(kundeId);
+      res.status(200).json(allBestellungen);
+    } catch (error) {
+      const customError = errorValidation(error);
+      res.status(customError.statusCode).send(customError.message);
+    }
   }
-});
+);
+
+BestellungsController.get(
+  "/bestellung/:kundenId",
+  async (req: Request, res) => {
+    try {
+      const kundeId = req.params.kundenId;
+      const bestellungen = await findSingleBestellung(kundeId);
+
+      res.status(200).json(bestellungen);
+    } catch (error) {
+      const customError = errorValidation(error);
+      res.status(customError.statusCode).send(customError.message);
+    }
+  }
+);
 
 BestellungsController.post("/bestellung", async (req: Request, res) => {
-  // TODO: need to implement bestellung
-  console.log(req.body);
-  const paypal = await createAdresse(req.body)
-    .then((paypal) => res.status(200).json(paypal))
-    .catch((error: CustomError) => {
-      res.status(error.statusCode).send(error.message);
+  try {
+    const { kundenId, zahlungsId, bestellDatum, gewünschtesLieferdatum } =
+      req.body;
+    const bestellungen = await placeOrder({
+      kundenId,
+      zahlungsId,
+      bestellDatum,
+      gewünschtesLieferdatum
     });
-  console.log(paypal);
+    res.status(200).json(bestellungen);
+  } catch (error) {
+    const customError = errorValidation(error);
+    res.status(customError.statusCode).send(customError.message);
+  }
 });
 
 BestellungsController.put("/bestellung", (_req, res) => {
