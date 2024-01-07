@@ -36,7 +36,7 @@ export function errorChecking(error: Error | unknown): CustomError {
     console.error("Unknown Error: ", error);
     throw new CustomError(ErrorHandle.ServerError, "unknown");
   }
-  // throw new CustomError(ErrorHandle.ServerError, "unknown");
+  throw new CustomError(ErrorHandle.ServerError, "unknown");
 }
 
 export function errorValidation(error: Error | unknown): CustomError {
