@@ -4,7 +4,7 @@ export type KundeCreationAttributes = {
   nachname: string;
   passwort: string;
   telefonnummer: string;
-  zeitungsaboablaufdatum: Date;
+  zeitungsaboablaufdatum?: Date;
 };
 
 export type AdresseCreationAttributes = {
