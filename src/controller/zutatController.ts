@@ -52,3 +52,23 @@ ZutatController.delete("/zutat", (_req, res) => {
     res.status(CustomError.statusCode).send(CustomError.message);
   }
 });
+
+ZutatController.get("/zutat/:sparte", async (req, res) => {
+  try {
+    const sparte = req.params.sparte;
+    Zutat.findAll({
+      where: {
+        zutatensparte: sparte
+      }
+    })
+      .then((zutat) => {
+        res.status(200).json(zutat);
+      })
+      .catch((error: CustomError) => {
+        res.status(error.statusCode || 500).send(error.message);
+      });
+  } catch (error) {
+    const CustomError = errorValidation(error);
+    res.status(CustomError.statusCode || 500).send(CustomError.message);
+  }
+});
