@@ -1,7 +1,10 @@
 import express from "express";
 import { createProdukt } from "../database/produkt/operations/createProdukt";
 import type CustomError from "../utilities/error";
-import { findProductWithoutKundeId } from "../database/produkt/operations/findProdukt";
+import {
+  findProductWithoutKundeId,
+  findProduktByPk
+} from "../database/produkt/operations/findProdukt";
 
 export const ProduktController = express.Router();
 
@@ -19,6 +22,17 @@ ProduktController.post("/produkt", async (req, res) => {
 });
 ProduktController.get("/generalProdukts", (_req, res) => {
   findProductWithoutKundeId()
+    .then((produkt) => {
+      res.status(200).json(produkt);
+    })
+    .catch((error: CustomError) => {
+      res.status(error.statusCode).send(error.message);
+    });
+});
+
+ProduktController.get("/CusomerProdukts/:id", (_req, res) => {
+  const { id } = _req.params;
+  findProduktByPk(id)
     .then((produkt) => {
       res.status(200).json(produkt);
     })
