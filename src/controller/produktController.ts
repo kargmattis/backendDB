@@ -31,7 +31,7 @@ ProduktController.get("/generalProdukts", (_req, res) => {
     });
 });
 
-ProduktController.get("/CusomerProdukts/:id", (_req, res) => {
+ProduktController.get("/CustomerProdukts/:id", (_req, res) => {
   const { id } = _req.params;
   findProduktByKundeId(id)
     .then((produkt) => {
