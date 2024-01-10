@@ -4,7 +4,10 @@ import { warenkorbGetHelper } from "./warenkorbHelper/warenkorbHelper";
 import { addOrOpenWarenkorbBestellung } from "../database/bestellung/operations/addBestellung";
 import { findProduktByPk } from "../database/produkt/operations/findProdukt";
 import { errorValidation } from "../utilities/errorChecking";
-import { putWarenkorb } from "../database/bestellung/operations/putBestellung";
+import {
+  putOrPostWarenkorb,
+  putWarenkorb
+} from "../database/bestellung/operations/putBestellung";
 import Bestellungposition from "../database/bestellungsPosition/bestellungsPosition";
 import { findWarenkorb } from "../database/bestellung/operations/findBestellung";
 import { sequelize } from "../database/database";
@@ -29,7 +32,7 @@ WarenkorbController.get("/warenkorb/:kundenId", async (req, res) => {
 
 WarenkorbController.post("/warenkorb", async (req, res) => {
   try {
-    const warenkorb = await addOrOpenWarenkorbBestellung(req.body);
+    const warenkorb = await putOrPostWarenkorb(req.body);
     const produkt = await findProduktByPk(warenkorb.produktId);
     const bestellmenge = warenkorb.bestellmenge;
     res.status(200).send({ produkt, bestellmenge });
