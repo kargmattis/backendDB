@@ -28,15 +28,30 @@ const testLastschrift = {
 };
 
 // Erstellen einer Testzutat mit den notwendigen Eigenschaften
-const testZutat = {
+const testZutat1 = {
+  zutatsname: "Baguette",
+  zutatseigenschaft: "vegan",
+  zutatspreis: 1,
+  zutatseinheit: "g",
+  zutatBild: "Food/BaguetteAlone.webp",
+  zutatensparte: "Brot"
+};
+const testZutat2 = {
+  zutatsname: "Orangensaft",
+  zutatseigenschaft: "vegan",
+  zutatspreis: 1,
+  zutatseinheit: "g",
+  zutatBild: "Drinks/Orangensaft.webp",
+  zutatensparte: "Getränk"
+};
+const testZutat3 = {
   zutatsname: "Mehl",
   zutatseigenschaft: "vegan",
   zutatspreis: 1,
   zutatseinheit: "g",
-  zutatBild: "testbild",
-  zutatensparte: "testsparte"
+  zutatBild: "Food/Croissant.webp",
+  zutatensparte: "Topping"
 };
-
 // Erstellen eines Testkunden mit den notwendigen Eigenschaften
 const testKunde = {
   email: "example@gmail.com",
@@ -93,7 +108,9 @@ export const fillDatabase = async (): Promise<
       await Promise.all([
         createLastschriftRecord(testLastschrift),
         createAdresse(testAdresse),
-        createZutat(testZutat)
+        createZutat(testZutat1),
+        createZutat(testZutat2),
+        createZutat(testZutat3)
       ]).catch((error) => {
         console.log("test 3 failed: lastschrift, adresse, zutat");
         throw new Error(error);
