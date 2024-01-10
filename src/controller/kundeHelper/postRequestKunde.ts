@@ -20,7 +20,6 @@ export const postRequestKunde = async (req: Request): Promise<Kunde> => {
   if (!nachname) missingAttribute.push("nachname");
   if (!passwort) missingAttribute.push("passwort");
   if (!telefonnummer) missingAttribute.push("telefonnummer");
-  if (!zeitungsaboablaufdatum) missingAttribute.push("zeitungsaboablaufdatum");
   if (missingAttribute.length > 0) {
     throw new CustomError(ErrorHandle.BadRequest, missingAttribute.toString());
   }
