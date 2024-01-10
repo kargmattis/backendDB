@@ -32,6 +32,8 @@ WarenkorbController.get("/warenkorb/:kundenId", async (req, res) => {
 
 WarenkorbController.post("/warenkorb", async (req, res) => {
   try {
+    console.log(req.body);
+
     const warenkorb = await putOrPostWarenkorb(req.body);
     const produkt = await findProduktByPk(warenkorb.produktId);
     const bestellmenge = warenkorb.bestellmenge;
