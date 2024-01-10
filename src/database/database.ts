@@ -22,8 +22,8 @@ if (process.env.DATABASE === "sqlite") {
     dialect: "postgres",
     define: {
       timestamps: false // für das Lesen von Legacy-Tabellen
-    },
-    logging: false // für das Deaktivieren der SQL-Logs
+    }
+    // logging: false // für das Deaktivieren der SQL-Logs
   });
 }
 
