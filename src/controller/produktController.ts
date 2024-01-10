@@ -3,6 +3,7 @@ import { createProdukt } from "../database/produkt/operations/createProdukt";
 import type CustomError from "../utilities/error";
 import {
   findProductWithoutKundeId,
+  findProduktByKundeId,
   findProduktByPk
 } from "../database/produkt/operations/findProdukt";
 
@@ -32,7 +33,7 @@ ProduktController.get("/generalProdukts", (_req, res) => {
 
 ProduktController.get("/CusomerProdukts/:id", (_req, res) => {
   const { id } = _req.params;
-  findProduktByPk(id)
+  findProduktByKundeId(id)
     .then((produkt) => {
       res.status(200).json(produkt);
     })
