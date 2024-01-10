@@ -18,6 +18,7 @@ import type Zutat from "../database/zutat/zutat";
 import { addProduktZutatRelation } from "../database/zutatenPostion/operation/addProduktZutatRelation";
 import { PaypalCreationAttributes } from "../global/types";
 import Products from "./ProduktArray";
+import Zutaten from "./ZutatenArray";
 
 // Erstellen eines Testprodukts mit den notwendigen Eigenschaften
 const testLastschrift = {
@@ -25,32 +26,6 @@ const testLastschrift = {
   bankname: "Testbank",
   bic: "TESTBIC",
   iban: "TESTIBAN"
-};
-
-// Erstellen einer Testzutat mit den notwendigen Eigenschaften
-const testZutat1 = {
-  zutatsname: "Baguette",
-  zutatseigenschaft: "vegan",
-  zutatspreis: 1,
-  zutatseinheit: "g",
-  zutatBild: "Food/BaguetteAlone.webp",
-  zutatensparte: "Brot"
-};
-const testZutat2 = {
-  zutatsname: "Orangensaft",
-  zutatseigenschaft: "vegan",
-  zutatspreis: 1,
-  zutatseinheit: "g",
-  zutatBild: "Drinks/Orangensaft.webp",
-  zutatensparte: "Getränk"
-};
-const testZutat3 = {
-  zutatsname: "Mehl",
-  zutatseigenschaft: "vegan",
-  zutatspreis: 1,
-  zutatseinheit: "g",
-  zutatBild: "Food/Croissant.webp",
-  zutatensparte: "Topping"
 };
 // Erstellen eines Testkunden mit den notwendigen Eigenschaften
 const testKunde = {
@@ -92,6 +67,17 @@ export const fillDatabase = async (): Promise<
 
     const createdProduct = createdProducts[0];
 
+    const createdZutaten = await Promise.all(
+      Zutaten.map(async (element) => {
+        return createZutat(element);
+      })
+    ).catch((error) => {
+      console.log("test 1 failed: kunde, zutaten");
+      throw new Error(error);
+    });
+
+    const createdZutat = createdZutaten[0];
+
     console.log("test 2 started: paypal");
     const createPaypal = await createPaypalRecord({
       kundenId: createdKunde.kundenId,
@@ -104,17 +90,13 @@ export const fillDatabase = async (): Promise<
     testLastschrift.kundenId = createdKunde.kundenId;
     console.log("test 3 started: lastschrift, adresse, zutat");
 
-    const [createdLastschrift, createdAdresse, createdZutat] =
-      await Promise.all([
-        createLastschriftRecord(testLastschrift),
-        createAdresse(testAdresse),
-        createZutat(testZutat1),
-        createZutat(testZutat2),
-        createZutat(testZutat3)
-      ]).catch((error) => {
-        console.log("test 3 failed: lastschrift, adresse, zutat");
-        throw new Error(error);
-      });
+    const [createdLastschrift, createdAdresse] = await Promise.all([
+      createLastschriftRecord(testLastschrift),
+      createAdresse(testAdresse)
+    ]).catch((error) => {
+      console.log("test 3 failed: lastschrift, adresse, zutat");
+      throw new Error(error);
+    });
 
     console.log("test 4 started: Warenkorb");
 
