@@ -64,6 +64,7 @@ type ZutatenPostitionObject = {
 };
 
 export type SingleBestellungType = {
+  bestellungsId: string;
   addressenInformation: AdresseCreationAttributes;
   zahlungsinformation: PaypalCreationAttributes | LastschriftCreationAttributes;
   produktInformationen: Array<ProduktCreationAttributes>;

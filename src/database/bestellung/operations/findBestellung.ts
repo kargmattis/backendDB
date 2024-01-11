@@ -65,8 +65,7 @@ export async function findSingleBestellung(
       produkte.push({
         ...dataValues,
         bestellmenge: singlePosition.bestellmenge,
-        summe: singlePosition.bestellmenge * dataValues.preis,
-        bestellungsId: singlePosition.bestellungsId
+        summe: singlePosition.bestellmenge * dataValues.preis
       });
     }
 
@@ -81,6 +80,7 @@ export async function findSingleBestellung(
         addressenInformation: adressInformation.dataValues,
         produktInformationen: produkte,
         gesamtpreis: sumPrice,
+        bestellungsId: bestellungsPosition[0].bestellungsId, // [0] because every position has the same bestellungsId
         bestellDatum: bestellung.dataValues.bestellDatum,
         gewünschtesLieferdatum: bestellung.dataValues.gewünschtesLieferdatum
       };
