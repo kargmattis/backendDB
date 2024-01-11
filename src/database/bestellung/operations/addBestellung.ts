@@ -54,7 +54,6 @@ export async function getBestellungsId(kundenId: string): Promise<string> {
 export async function placeOrder(orderData: PlaceOrderApiAttributes) {
   try {
     const warenkorb = await findWarenkorb(orderData.kundenId);
-    const currentAdresse = await findCurrentAdresse(orderData.kundenId);
     const orderedBestellung = await warenkorb.update({
       zahlungsId: orderData.zahlungsId,
       kundenId: orderData.kundenId,

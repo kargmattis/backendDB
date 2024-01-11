@@ -43,6 +43,8 @@ export async function putOrPostWarenkorb(
   bestellungAdding: addOrOpenWarenkorbBestellungCreationAttributes
 ): Promise<Bestellungposition> {
   try {
+    console.log("in put or post");
+
     const bestellungsId = await getBestellungsId(bestellungAdding.kundenId);
     const findWarenkorb = await Bestellungposition.findOne({
       where: {
@@ -52,6 +54,8 @@ export async function putOrPostWarenkorb(
     });
 
     if (findWarenkorb) {
+      console.log("findWarenkorb", findWarenkorb.dataValues);
+      console.log("bestellungAdding", bestellungAdding.produktMenge);
       findWarenkorb.bestellmenge += bestellungAdding.produktMenge;
       await findWarenkorb.save();
       return findWarenkorb;
