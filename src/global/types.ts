@@ -1,3 +1,5 @@
+import Produkt from "../database/produkt/produkt";
+
 export type KundeCreationAttributes = {
   email: string;
   vorname: string;
@@ -82,4 +84,7 @@ export type PlaceOrderApiAttributes = {
   zahlungsId: string;
   bestellDatum: Date;
   gewünschtesLieferdatum: Date;
+};
+export type ProduktWithBestellmenge = Produkt & {
+  anzahl: number;
 };

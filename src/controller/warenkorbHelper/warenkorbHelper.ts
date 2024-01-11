@@ -3,12 +3,13 @@ import Bestellungposition from "../../database/bestellungsPosition/bestellungsPo
 import { findProduktByPk } from "../../database/produkt/operations/findProdukt";
 import Produkt from "../../database/produkt/produkt";
 import { ErrorHandle } from "../../global/enums";
+import { ProduktWithBestellmenge } from "../../global/types";
 import CustomError from "../../utilities/error";
 import { errorChecking } from "../../utilities/errorChecking";
 
 export async function warenkorbGetHelper(
   kundenId: string
-): Promise<Array<Produkt>> {
+): Promise<Array<ProduktWithBestellmenge>> {
   try {
     const produkte = [];
     const warenkorb = await findWarenkorb(kundenId);
@@ -20,7 +21,11 @@ export async function warenkorbGetHelper(
       if (!singleProduct) {
         throw new CustomError(ErrorHandle.NotFound, "Produkt not found");
       }
-      produkte.push(singleProduct.dataValues);
+      const warenkorbProdukt = {
+        ...singleProduct.dataValues,
+        anzahl: singlePosition.bestellmenge
+      };
+      produkte.push(warenkorbProdukt);
     }
     return produkte;
   } catch (error) {

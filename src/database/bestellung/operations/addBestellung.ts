@@ -27,7 +27,8 @@ export async function addOrOpenWarenkorbBestellung(
 
     return newBestellung;
   } catch (error) {
-    throw errorChecking(error);
+    console.log("error ist here", error);
+    throw error;
   }
 }
 
