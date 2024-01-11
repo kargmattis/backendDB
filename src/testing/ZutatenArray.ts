@@ -25,38 +25,6 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseinheit: "g",
     zutatBild: "Food/Croissant.webp",
     zutatensparte: "Topping"
-  },
-  {
-    zutatsname: "Käse",
-    zutatseigenschaft: "vegetarisch",
-    zutatspreis: 1,
-    zutatseinheit: "g",
-    zutatBild: "Food/Käse.webp",
-    zutatensparte: "Topping"
-  },
-  {
-    zutatsname: "Tomate",
-    zutatseigenschaft: "vegan",
-    zutatspreis: 1,
-    zutatseinheit: "g",
-    zutatBild: "Food/Tomate.webp",
-    zutatensparte: "Topping"
-  },
-  {
-    zutatsname: "Salat",
-    zutatseigenschaft: "vegan",
-    zutatspreis: 1,
-    zutatseinheit: "g",
-    zutatBild: "Food/Salat.webp",
-    zutatensparte: "Topping"
-  },
-  {
-    zutatsname: "Zwiebeln",
-    zutatseigenschaft: "vegan",
-    zutatspreis: 1,
-    zutatseinheit: "g",
-    zutatBild: "Food/Zwiebel.webp",
-    zutatensparte: "Topping"
   }
 ];
 
