@@ -22,6 +22,7 @@ Adresse.init(
     },
     kundenId: {
       type: DataTypes.UUID,
+      primaryKey: true,
       references: {
         model: "Kunde",
         key: "kundenId"
