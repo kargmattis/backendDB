@@ -7,6 +7,7 @@ import Paypal from "../../zahlungsmoeglichkeit/paypal";
 import Adresse from "../../adresse/adresse";
 import Produkt from "../../produkt/produkt";
 import { errorChecking } from "../../../utilities/errorChecking";
+import e from "express";
 
 export async function findAllBestellungen(
   kundenId: string
@@ -19,15 +20,19 @@ export async function findAllBestellungen(
         kundenId: kundenId
       }
     });
-
+    if (!bestellungen) {
+      throw new CustomError(ErrorHandle.NotFound, "Bestellung not found");
+    }
     for (const bestellung of bestellungen) {
       const singleBestellung = await findSingleBestellung(
         bestellung.bestellungsId
       );
-      bestellungenArray.push(singleBestellung);
+      if (singleBestellung) {
+        bestellungenArray.push(singleBestellung);
+      }
     }
 
-    if (!bestellungenArray) {
+    if (!bestellungenArray || bestellungenArray.length === 0) {
       throw new CustomError(ErrorHandle.NotFound, "Bestellungen not found");
     }
 
@@ -39,7 +44,7 @@ export async function findAllBestellungen(
 
 export async function findSingleBestellung(
   bestellId: string
-): Promise<SingleBestellungType> {
+): Promise<SingleBestellungType | null> {
   try {
     const produkte = [];
     let sumPrice = 0;
@@ -68,13 +73,25 @@ export async function findSingleBestellung(
         summe: singlePosition.bestellmenge * dataValues.preis
       });
     }
+    console.log("bestellung", bestellung.zahlungsId);
 
     const zahlungsInformation = await Paypal.findByPk(bestellung.zahlungsId);
+    console.log("zahlungsInformation", zahlungsInformation);
+
     const adressInformation = await Adresse.findOne({
       where: { kundenId: bestellung.kundenId }
     });
-
+    console.log("adressInformation", adressInformation);
+    console.log("zahlungsInformation", zahlungsInformation);
+    console.log("produkte", produkte);
+    console.log("sumPrice", sumPrice);
+    if (!zahlungsInformation) {
+      // ist ein Warenkorb keine bestellung
+      return null;
+    }
     if (zahlungsInformation && adressInformation && produkte && sumPrice) {
+      console.log("in if function");
+
       const bestellungsObject: SingleBestellungType = {
         zahlungsinformation: zahlungsInformation.dataValues,
         addressenInformation: adressInformation.dataValues,
