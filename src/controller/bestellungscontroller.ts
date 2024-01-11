@@ -58,9 +58,9 @@ BestellungsController.post("/bestellung", async (req: Request, res) => {
   }
 });
 
-BestellungsController.put("/bestellung/:kundenId", (req, res) => {
+BestellungsController.put("/bestellung/:bestellId", (req, res) => {
   try {
-    const singleBestellung = findSingleBestellung(req.params.kundenId);
+    const singleBestellung = findSingleBestellung(req.params.bestellId);
     if (!singleBestellung) {
       throw new CustomError(ErrorHandle.NotFound, "Bestellung not found");
     }
