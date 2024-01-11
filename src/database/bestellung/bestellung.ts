@@ -8,7 +8,8 @@ import type Product from "../produkt/produkt";
 
 class Bestellung extends Model {
   public bestellungsId!: string;
-  public adressenId!: string;
+  public laufendeAdressenId!: number;
+  public kundenId!: string;
   public zahlungsId!: string;
   public bestellDatum!: Date;
   public gewünschtesLieferdatum!: Date;
@@ -24,22 +25,22 @@ Bestellung.init(
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
     },
-    adressenId: {
+    kundenId: {
       type: DataTypes.UUID,
       unique: false,
-      // references: {
-      //   model: "Adresse",
-      //   key: "adressenId"
-      // },
+      references: {
+        model: "Kunde",
+        key: "kundenId"
+      },
       allowNull: false
     },
     laufendeAdressenId: {
       type: DataTypes.INTEGER,
       unique: false,
-      // references: {
-      //   model: "Adresse",
-      //   key: "laufendeAdressenId"
-      // },
+      references: {
+        model: "Adresse",
+        key: "laufendeAdressenId"
+      },
       allowNull: false
     },
     zahlungsId: {

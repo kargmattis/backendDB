@@ -72,3 +72,26 @@ WarenkorbController.delete("/warenkorb/:kundenId", async (req, res) => {
     res.status(customError.statusCode).send(customError.message);
   }
 });
+WarenkorbController.delete(
+  "/warenkorb/:kundenId/:produktId",
+  async (req, res) => {
+    try {
+      console.log(req.params.kundenId, "kundenId");
+      console.log(req.params.produktId, "produktId");
+
+      const warenkorb = await findWarenkorb(req.params.kundenId);
+      const bestellpositionen = await Bestellungposition.destroy({
+        where: {
+          bestellungsId: warenkorb.bestellungsId,
+          produktId: req.params.produktId
+        }
+      });
+
+      // const bestellung = await warenkorb.destroy();
+      res.status(200).send({ bestellpositionen });
+    } catch (error) {
+      const customError = errorValidation(error);
+      res.status(customError.statusCode).send(customError.message);
+    }
+  }
+);

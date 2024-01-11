@@ -3,13 +3,12 @@ import { AdresseCreationAttributes } from "../../../global/types";
 import CustomError from "../../../utilities/error";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Adresse from "../adresse";
-import { findAdressIdByKundenId, findCurrentAdresse } from "./findAdresse";
+import { findCurrentAdresse } from "./findAdresse";
 export default async function putAdresse(
   input: AdresseCreationAttributes
 ): Promise<Adresse> {
   try {
-    const adressId = await findAdressIdByKundenId(input.kundenId);
-    const adresse = await findCurrentAdresse(adressId);
+    const adresse = await findCurrentAdresse(input.kundenId);
     if (adresse === null) {
       throw new CustomError(ErrorHandle.NotFound, "Kunde nicht gefunden");
     }
@@ -23,8 +22,7 @@ export default async function putAdresse(
 
     const updatetAdresse = await Adresse.create({
       ...input,
-      laufendeAdressenId: newAdressincrement,
-      adressenId: adresse.adressenId
+      laufendeAdressenId: newAdressincrement
     });
     return updatetAdresse;
   } catch (error) {

@@ -1,14 +1,10 @@
 import type {
   PlaceOrderApiAttributes,
-  PlaceOrderCreationAttributes,
   addOrOpenWarenkorbBestellungCreationAttributes
 } from "../../../global/types";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Adresse from "../../adresse/adresse";
-import {
-  findAdressIdByKundenId,
-  findCurrentAdresse
-} from "../../adresse/operation/findAdresse";
+import { findCurrentAdresse } from "../../adresse/operation/findAdresse";
 import Bestellungposition from "../../bestellungsPosition/bestellungsPosition";
 import Bestellung from "../bestellung";
 import { findWarenkorb } from "./findBestellung";
@@ -34,25 +30,20 @@ export async function addOrOpenWarenkorbBestellung(
 
 export async function getBestellungsId(kundenId: string): Promise<string> {
   try {
-    const adressen = await Adresse.findAll({ where: { kundenId } });
-    for (const adresse of adressen) {
-      const bestellung = await Bestellung.findOne({
-        where: { adressenId: adresse.adressenId, zahlungsId: null }
-      });
-      if (bestellung) {
-        return bestellung.bestellungsId;
-      }
+    const bestellung = await Bestellung.findOne({
+      where: { kundenId: kundenId, zahlungsId: null }
+    });
+    if (bestellung) {
+      return bestellung.bestellungsId;
     }
-    const currentAdresse = await findCurrentAdresse(adressen[0].adressenId);
-    const adressenId = currentAdresse.adressenId;
-    const laufendeAdressenId = currentAdresse.laufendeAdressenId;
-    console.log(adressenId, laufendeAdressenId);
 
-    const bestellung = await Bestellung.create({
-      adressenId: adressenId,
+    const currentAdresse = await findCurrentAdresse(kundenId);
+    const laufendeAdressenId = currentAdresse.laufendeAdressenId;
+    const newNestellung = await Bestellung.create({
+      kundenId: kundenId,
       laufendeAdressenId: laufendeAdressenId
     });
-    return bestellung.bestellungsId;
+    return newNestellung.bestellungsId;
   } catch (error) {
     console.log("error ist here");
 
@@ -63,11 +54,10 @@ export async function getBestellungsId(kundenId: string): Promise<string> {
 export async function placeOrder(orderData: PlaceOrderApiAttributes) {
   try {
     const warenkorb = await findWarenkorb(orderData.kundenId);
-    const adressId = await findAdressIdByKundenId(orderData.kundenId);
-    const currentAdresse = await findCurrentAdresse(adressId);
+    const currentAdresse = await findCurrentAdresse(orderData.kundenId);
     const orderedBestellung = await warenkorb.update({
       zahlungsId: orderData.zahlungsId,
-      adressenId: currentAdresse.adressenId,
+      kundenId: orderData.kundenId,
       bestellDatum: orderData.bestellDatum,
       gewünschtesLieferdatum: orderData.gewünschtesLieferdatum
     });

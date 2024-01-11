@@ -71,14 +71,6 @@ export type SingleBestellungType = {
   bestellDatum: Date;
 };
 
-export type PlaceOrderCreationAttributes = {
-  kundenId: string;
-  adressenId: string;
-  zahlungsId: string;
-  bestellDatum: Date;
-  gewünschtesLieferdatum: Date;
-};
-
 export type PlaceOrderApiAttributes = {
   kundenId: string;
   zahlungsId: string;

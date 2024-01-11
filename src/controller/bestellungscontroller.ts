@@ -39,6 +39,8 @@ BestellungsController.get(
 
 BestellungsController.post("/bestellung", async (req: Request, res) => {
   try {
+    console.log(req.body);
+
     const { kundenId, zahlungsId, bestellDatum, gewünschtesLieferdatum } =
       req.body;
     const bestellungen = await placeOrder({

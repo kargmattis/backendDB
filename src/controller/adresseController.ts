@@ -3,10 +3,7 @@ import type { Request } from "express";
 import CustomError from "../utilities/error";
 import { createAdresse } from "../database/adresse/operation/createAdresse";
 import type { AdresseCreationAttributes } from "../global/types";
-import {
-  findAdressIdByKundenId,
-  findCurrentAdresse
-} from "../database/adresse/operation/findAdresse";
+import { findCurrentAdresse } from "../database/adresse/operation/findAdresse";
 import { errorValidation } from "../utilities/errorChecking";
 import putAdresse from "../database/adresse/operation/putAdresse";
 import Adresse from "../database/adresse/adresse";
@@ -15,8 +12,7 @@ export const AdresseController = express.Router();
 
 AdresseController.get("/adresse/:kundeId", async (req: Request, res) => {
   try {
-    const adressenId = await findAdressIdByKundenId(req.params.kundeId);
-    const adresse = await findCurrentAdresse(adressenId);
+    const adresse = await findCurrentAdresse(req.params.kundeId);
     res.status(200).json(adresse);
   } catch (error) {
     const customError = errorValidation(error);

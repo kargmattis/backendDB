@@ -18,7 +18,7 @@ export async function findAllBestellungen(
     for (const adresse of adressen) {
       const bestellungen = await Bestellung.findAll({
         where: {
-          adressenId: adresse.adressenId
+          kundenId: kundenId
         }
       });
       for (const bestellung of bestellungen) {
@@ -62,7 +62,7 @@ export async function findSingleBestellung(
       produkte.push(singleProduct.dataValues);
     }
     const zahlungsInformation = await Paypal.findByPk(bestellung.zahlungsId);
-    const adressInformation = await Adresse.findByPk(bestellung.adressenId);
+    const adressInformation = await Adresse.findByPk();
     if (zahlungsInformation && adressInformation && produkte && sumPrice) {
       const bestellungsObject: SingleBestellungType = {
         zahlungsinformation: zahlungsInformation.dataValues,
@@ -91,7 +91,7 @@ export async function findWarenkorb(kundenId: string): Promise<Bestellung> {
     }
     for (const adresse of adressen) {
       const bestellung = await Bestellung.findOne({
-        where: { adressenId: adresse.adressenId, zahlungsId: null }
+        where: { kundenId: kundenId, zahlungsId: null }
       });
       if (bestellung) {
         return bestellung;

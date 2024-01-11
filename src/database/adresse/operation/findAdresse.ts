@@ -23,29 +23,29 @@ export async function findAdressebyPrimaryKeys(
   }
 }
 
-export async function findAdressIdByKundenId(
-  kundenId: string
-): Promise<string> {
-  try {
-    const adresse = await Adresse.findOne({
-      where: {
-        kundenId: kundenId
-      }
-    });
-    if (adresse === null) {
-      throw new CustomError(ErrorHandle.NotFound, "Adresse not found");
-    }
-    return adresse.adressenId;
-  } catch (error) {
-    throw errorChecking(error);
-  }
-}
+// export async function findAdressIdByKundenId(
+//   kundenId: string
+// ): Promise<string> {
+//   try {
+//     const adresse = await Adresse.findOne({
+//       where: {
+//         kundenId: kundenId
+//       }
+//     });
+//     if (adresse === null) {
+//       throw new CustomError(ErrorHandle.NotFound, "Adresse not found");
+//     }
+//     return adresse.adressenId;
+//   } catch (error) {
+//     throw errorChecking(error);
+//   }
+// }
 
-export async function findCurrentAdresse(adressenId: string): Promise<Adresse> {
+export async function findCurrentAdresse(kundenId: string): Promise<Adresse> {
   try {
     const result = await Adresse.findAndCountAll({
       where: {
-        adressenId: adressenId
+        kundenId: kundenId
       },
       order: [["laufendeAdressenId", "DESC"]],
       limit: 1
