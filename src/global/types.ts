@@ -69,6 +69,7 @@ export type SingleBestellungType = {
   produktInformationen: Array<ProduktCreationAttributes>;
   gesamtpreis: number;
   bestellDatum: Date;
+  gewünschtesLieferdatum: Date;
 };
 
 export type PlaceOrderApiAttributes = {
