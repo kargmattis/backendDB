@@ -5,6 +5,8 @@ import {
 } from "../database/bestellung/operations/findBestellung";
 import { errorValidation } from "../utilities/errorChecking";
 import { placeOrder } from "../database/bestellung/operations/addBestellung";
+import CustomError from "../utilities/error";
+import { ErrorHandle } from "../global/enums";
 
 export const BestellungsController = express.Router();
 
@@ -56,8 +58,17 @@ BestellungsController.post("/bestellung", async (req: Request, res) => {
   }
 });
 
-BestellungsController.put("/bestellung", (_req, res) => {
-  res.send("Bestellung put request");
+BestellungsController.put("/bestellung/:kundenId", (req, res) => {
+  try {
+    const singleBestellung = findSingleBestellung(req.params.kundenId);
+    if (!singleBestellung) {
+      throw new CustomError(ErrorHandle.NotFound, "Bestellung not found");
+    }
+    res.status(200).json(singleBestellung);
+  } catch (error) {
+    const customError = errorValidation(error);
+    res.status(customError.statusCode).send(customError.message);
+  }
 });
 
 BestellungsController.delete("/bestellung", (_req, res) => {
