@@ -71,6 +71,7 @@ export type SingleBestellungType = {
   gesamtpreis: number;
   bestellDatum: Date;
   gewünschtesLieferdatum: Date;
+  createdAt: Date;
 };
 
 export type PlaceOrderApiAttributes = {

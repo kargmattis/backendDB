@@ -99,7 +99,8 @@ export async function findSingleBestellung(
         gesamtpreis: sumPrice,
         bestellungsId: bestellungsPosition[0].bestellungsId, // [0] because every position has the same bestellungsId
         bestellDatum: bestellung.dataValues.bestellDatum,
-        gewünschtesLieferdatum: bestellung.dataValues.gewünschtesLieferdatum
+        gewünschtesLieferdatum: bestellung.dataValues.gewünschtesLieferdatum,
+        createdAt: bestellung.dataValues.createdAt
       };
 
       return bestellungsObject;
