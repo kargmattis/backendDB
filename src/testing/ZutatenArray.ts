@@ -7,7 +7,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Food/BaguetteAlone.webp",
+    zutatBild: "BaguetteAlone.webp",
     zutatensparte: "Brot"
   },
   {
@@ -23,7 +23,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Food/Croissant.webp",
+    zutatBild: "Croissant.webp",
     zutatensparte: "Topping"
   }
 ];
