@@ -43,7 +43,7 @@ export type ZutatCreationAttributes = {
   zutatseigenschaft: string;
   zutatspreis: number;
   zutatseinheit: string;
-  zutatBild: string;
+  zutatBild?: string;
   zutatensparte: string;
 };
 
