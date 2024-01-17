@@ -77,7 +77,7 @@ const Products: Array<ProduktCreationAttributes> = [
   {
     titel: "Latte Machiatto",
     preis: 5.99,
-    bild: "Drinks/Latte Machiatto.webp",
+    bild: "Drinks/LatteMacchiato.webp",
     sparte: "Drink"
   },
   {
@@ -89,13 +89,13 @@ const Products: Array<ProduktCreationAttributes> = [
   {
     titel: "Früchtetee",
     preis: 5.99,
-    bild: "Drinks/Früchtetee.webp",
+    bild: "Drinks/Fruechtetee.webp",
     sparte: "Drink"
   },
   {
     titel: "Wasser",
     preis: 5.99,
-    bild: "Drinks/Wasserglas.webp",
+    bild: "Drinks/Wasser.webp",
     sparte: "Drink"
   },
   {
