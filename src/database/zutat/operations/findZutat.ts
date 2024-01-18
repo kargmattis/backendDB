@@ -27,3 +27,16 @@ export async function findZutatBySparte(sparte: string): Promise<Zutat[]> {
     throw error;
   }
 }
+
+//find Zutat by Id
+
+export async function findZutatById(id: string): Promise<Zutat | null> {
+  try {
+    const zutatItems = await Zutat.findByPk(id);
+    return zutatItems;
+  } catch (error) {
+    console.error("Error finding product:", error);
+    const customError = errorChecking(error);
+    throw customError;
+  }
+}
