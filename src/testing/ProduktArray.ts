@@ -1,7 +1,7 @@
-import { ProduktCreationAttributes } from "../global/types";
+import { type ProduktCreationAttributes } from "../global/types";
 
-//Array mit allen Produkten
-const Products: Array<ProduktCreationAttributes> = [
+// Array mit allen Produkten
+const Products: ProduktCreationAttributes[] = [
   {
     titel: "Baguette",
     preis: 2.99,
@@ -167,7 +167,7 @@ const Products: Array<ProduktCreationAttributes> = [
   {
     titel: "Zeitung",
     preis: 1.0,
-    bild: "Food/OSaftUndOrangenbrot.webp", //TODO: Bild austauschen
+    bild: "Food/OSaftUndOrangenbrot.webp", // TODO: Bild austauschen
     sparte: "Newspaper"
   }
 ];

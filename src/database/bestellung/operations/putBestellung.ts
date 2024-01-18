@@ -1,4 +1,4 @@
-import { addOrOpenWarenkorbBestellungCreationAttributes } from "./../../../global/types";
+import { type addOrOpenWarenkorbBestellungCreationAttributes } from "./../../../global/types";
 import { ErrorHandle } from "../../../global/enums";
 import CustomError from "../../../utilities/error";
 import { errorChecking } from "../../../utilities/errorChecking";
@@ -15,7 +15,7 @@ export async function putWarenkorb(
     const bestellungsId = await getBestellungsId(bestellungAdding.kundenId);
     const bestellungsPostion = await Bestellungposition.findOne({
       where: {
-        bestellungsId: bestellungsId,
+        bestellungsId,
         produktId: bestellungAdding.produktId
       }
     });
@@ -48,7 +48,7 @@ export async function putOrPostWarenkorb(
     const bestellungsId = await getBestellungsId(bestellungAdding.kundenId);
     const findWarenkorb = await Bestellungposition.findOne({
       where: {
-        bestellungsId: bestellungsId,
+        bestellungsId,
         produktId: bestellungAdding.produktId
       }
     });

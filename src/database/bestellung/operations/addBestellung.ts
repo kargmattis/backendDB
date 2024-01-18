@@ -16,12 +16,12 @@ export async function addOrOpenWarenkorbBestellung(
     const bestellungsId = await getBestellungsId(bestellungCreation.kundenId);
 
     const newBestellung = Bestellungposition.create({
-      bestellungsId: bestellungsId,
+      bestellungsId,
       produktId: bestellungCreation.produktId,
       bestellmenge: bestellungCreation.produktMenge
     });
 
-    return newBestellung;
+    return await newBestellung;
   } catch (error) {
     console.log("error ist here", error);
     throw error;
@@ -31,7 +31,7 @@ export async function addOrOpenWarenkorbBestellung(
 export async function getBestellungsId(kundenId: string): Promise<string> {
   try {
     const bestellung = await Bestellung.findOne({
-      where: { kundenId: kundenId, zahlungsId: null }
+      where: { kundenId, laufendeZahlungsId: null }
     });
     if (bestellung) {
       return bestellung.bestellungsId;
@@ -40,9 +40,11 @@ export async function getBestellungsId(kundenId: string): Promise<string> {
     const currentAdresse = await findCurrentAdresse(kundenId);
     const laufendeAdressenId = currentAdresse.laufendeAdressenId;
     const newNestellung = await Bestellung.create({
-      kundenId: kundenId,
-      laufendeAdressenId: laufendeAdressenId
+      kundenId,
+      laufendeAdressenId
     });
+    console.log("newNestellung", newNestellung);
+
     return newNestellung.bestellungsId;
   } catch (error) {
     console.log("error ist here");
@@ -55,8 +57,9 @@ export async function placeOrder(orderData: PlaceOrderApiAttributes) {
   try {
     const warenkorb = await findWarenkorb(orderData.kundenId);
     const orderedBestellung = await warenkorb.update({
-      zahlungsId: orderData.zahlungsId,
+      laufendeZahlungsId: orderData.laufendeZahlungsId,
       kundenId: orderData.kundenId,
+      isPaypal: orderData.isPaypal,
       bestellDatum: orderData.bestellDatum,
       gewünschtesLieferdatum: orderData.gewünschtesLieferdatum
     });
