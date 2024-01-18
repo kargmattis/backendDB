@@ -1,4 +1,4 @@
-import Produkt from "../database/produkt/produkt";
+import type Produkt from "../database/produkt/produkt";
 
 export type KundeCreationAttributes = {
   email: string;
@@ -16,18 +16,6 @@ export type AdresseCreationAttributes = {
   hausnummer: string;
   ort: string;
   hausnummerzusatz: string;
-};
-
-export type PaypalCreationAttributes = {
-  kundenId: string;
-  email: string;
-};
-
-export type LastschriftCreationAttributes = {
-  kundenId: string;
-  bankname: string;
-  bic: string;
-  iban: string;
 };
 
 export type ProduktCreationAttributes = {
@@ -66,8 +54,8 @@ type ZutatenPostitionObject = {
 export type SingleBestellungType = {
   bestellungsId: string;
   addressenInformation: AdresseCreationAttributes;
-  zahlungsinformation: PaypalCreationAttributes | LastschriftCreationAttributes;
-  produktInformationen: Array<ProduktCreationAttributes>;
+  zahlungsinformation: ZahlungsmöglichkeitenCreationAttributes;
+  produktInformationen: ProduktCreationAttributes[];
   gesamtpreis: number;
   bestellDatum: Date;
   gewünschtesLieferdatum: Date;
@@ -76,10 +64,18 @@ export type SingleBestellungType = {
 
 export type PlaceOrderApiAttributes = {
   kundenId: string;
-  zahlungsId: string;
+  laufendeZahlungsId: number;
   bestellDatum: Date;
   gewünschtesLieferdatum: Date;
 };
 export type ProduktWithBestellmenge = Produkt & {
   anzahl: number;
+};
+
+export type ZahlungsmöglichkeitenCreationAttributes = {
+  kundenId: string;
+  bankname?: string;
+  bic?: string;
+  iban?: string;
+  paypalEmail?: string;
 };

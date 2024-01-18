@@ -1,5 +1,5 @@
 import { ErrorHandle } from "../../../global/enums";
-import { KundeCreationAttributes } from "../../../global/types";
+import { type KundeCreationAttributes } from "../../../global/types";
 import CustomError from "../../../utilities/error";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Kunde from "../kunde";

@@ -1,9 +1,9 @@
-import { SingleBestellungType } from "./../../../global/types";
+import { type SingleBestellungType } from "./../../../global/types";
 import Bestellungposition from "../../bestellungsPosition/bestellungsPosition";
 import Bestellung from "../bestellung";
 import CustomError from "../../../utilities/error";
 import { ErrorHandle } from "../../../global/enums";
-import Paypal from "../../zahlungsmoeglichkeit/paypal";
+import ZahlungsMoeglichkeiten from "../../zahlungsmoeglichkeit/zahlungsMoeglichkeiten";
 import Adresse from "../../adresse/adresse";
 import Produkt from "../../produkt/produkt";
 import { errorChecking } from "../../../utilities/errorChecking";
@@ -17,7 +17,7 @@ export async function findAllBestellungen(
 
     const bestellungen = await Bestellung.findAll({
       where: {
-        kundenId: kundenId
+        kundenId
       }
     });
     if (!bestellungen) {
@@ -73,9 +73,11 @@ export async function findSingleBestellung(
         summe: singlePosition.bestellmenge * dataValues.preis
       });
     }
-    console.log("bestellung", bestellung.zahlungsId);
+    console.log("bestellung", bestellung.laufendeAdressenId);
 
-    const zahlungsInformation = await Paypal.findByPk(bestellung.zahlungsId);
+    const zahlungsInformation = await ZahlungsMoeglichkeiten.findByPk(
+      bestellung.laufendeZahlungsId
+    );
     console.log("zahlungsInformation", zahlungsInformation);
 
     const adressInformation = await Adresse.findOne({
@@ -124,7 +126,7 @@ export async function findWarenkorb(kundenId: string): Promise<Bestellung> {
     }
     for (const adresse of adressen) {
       const bestellung = await Bestellung.findOne({
-        where: { kundenId: kundenId, zahlungsId: null }
+        where: { kundenId, laufendeZahlungsId: null }
       });
       if (bestellung) {
         return bestellung;

@@ -10,7 +10,7 @@ class Bestellung extends Model {
   public bestellungsId!: string;
   public laufendeAdressenId!: number;
   public kundenId!: string;
-  public zahlungsId!: string;
+  public laufendeZahlungsId!: string;
   public bestellDatum!: Date;
   public gewünschtesLieferdatum!: Date;
   public readonly createdAt!: Date;
@@ -43,12 +43,12 @@ Bestellung.init(
       // },
       allowNull: false
     },
-    zahlungsId: {
+    laufendeZahlungsId: {
       type: DataTypes.UUID,
       unique: false,
       references: {
-        model: "Paypal",
-        key: "zahlungsId"
+        model: "zahlungsMoeglichkeiten",
+        key: "laufendeZahlungsId"
       },
       allowNull: true
     },

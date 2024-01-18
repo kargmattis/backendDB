@@ -1,6 +1,6 @@
 import express from "express";
 import { createZutat } from "../database/zutat/operations/createZutat";
-import CustomError from "../utilities/error";
+import type CustomError from "../utilities/error";
 import Zutat from "../database/zutat/zutat";
 import { findZutat } from "../database/zutat/operations/findZutat";
 import { errorValidation } from "../utilities/errorChecking";
