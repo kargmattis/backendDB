@@ -3,13 +3,13 @@ import Bestellungposition from "../../database/bestellungsPosition/bestellungsPo
 import { findProduktByPk } from "../../database/produkt/operations/findProdukt";
 import Produkt from "../../database/produkt/produkt";
 import { ErrorHandle } from "../../global/enums";
-import { ProduktWithBestellmenge } from "../../global/types";
+import { type ProduktWithBestellmenge } from "../../global/types";
 import CustomError from "../../utilities/error";
 import { errorChecking } from "../../utilities/errorChecking";
 
 export async function warenkorbGetHelper(
   kundenId: string
-): Promise<Array<ProduktWithBestellmenge>> {
+): Promise<ProduktWithBestellmenge[]> {
   try {
     const produkte = [];
     const warenkorb = await findWarenkorb(kundenId);

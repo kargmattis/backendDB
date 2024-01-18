@@ -1,8 +1,8 @@
-import { ZutatCreationAttributes } from "../global/types";
+import { type ZutatCreationAttributes } from "../global/types";
 
-//Array mit allen Zutaten
-const Zutaten: Array<ZutatCreationAttributes> = [
-  //Backwaren (1.Konfigurationsschritt)
+// Array mit allen Zutaten
+const Zutaten: ZutatCreationAttributes[] = [
+  // Backwaren (1.Konfigurationsschritt)
   {
     zutatsname: "Baguette",
     zutatseigenschaft: "vegan",
@@ -44,8 +44,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatensparte: "Brot"
   },
 
-  
-  //Toppings (2.Konfigurationsschritt)
+  // Toppings (2.Konfigurationsschritt)
   {
     zutatsname: "Salami",
     zutatseigenschaft: "vegan",

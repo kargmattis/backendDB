@@ -14,7 +14,7 @@ export async function findProduktByPk(id: string): Promise<Produkt | null> {
   }
 }
 
-export async function findProductWithoutKundeId(): Promise<Array<Produkt> | null> {
+export async function findProductWithoutKundeId(): Promise<Produkt[] | null> {
   try {
     const produkt = await Produkt.findAll({
       where: {
@@ -33,11 +33,11 @@ export async function findProductWithoutKundeId(): Promise<Array<Produkt> | null
 
 export async function findProduktByKundeId(
   kundenId: string
-): Promise<Array<Produkt> | null> {
+): Promise<Produkt[] | null> {
   try {
     const produkt = await Produkt.findAll({
       where: {
-        kundenId: kundenId
+        kundenId
       }
     });
     return produkt;
