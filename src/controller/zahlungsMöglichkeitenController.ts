@@ -9,6 +9,7 @@ import { ErrorHandle } from "../global/enums";
 import { errorValidation } from "../utilities/errorChecking";
 import { createZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/createZahlungsmoeglichkeit";
 import { findCurrentZahlungsmöglichkeiten } from "../database/zahlungsmoeglichkeit/operation/findZahlungsmoeglichkeiten";
+import { putZahlungsmöglichkeiten } from "../database/zahlungsmoeglichkeit/operation/putZahlungsmöglichkeiten";
 
 export const ZahlungsMöglichkeitenController = express.Router();
 
@@ -48,8 +49,14 @@ ZahlungsMöglichkeitenController.post(
   }
 );
 
-ZahlungsMöglichkeitenController.put("/zahlung", (_req, res) => {
-  res.send("Kunde put request");
+ZahlungsMöglichkeitenController.put("/zahlung", async (req, res) => {
+  try {
+    const newZahlung = await putZahlungsmöglichkeiten(req.body);
+    res.status(200).json(newZahlung);
+  } catch (error) {
+    const err = errorValidation(error);
+    res.status(err.statusCode).send(err.message);
+  }
 });
 
 ZahlungsMöglichkeitenController.delete("/zahlung", (_req, res) => {
