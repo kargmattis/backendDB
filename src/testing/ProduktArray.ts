@@ -1,7 +1,7 @@
-import { ProduktCreationAttributes } from "../global/types";
+import { type ProduktCreationAttributes } from "../global/types";
 
-//Array mit allen Produkten
-const Products: Array<ProduktCreationAttributes> = [
+// Array mit allen Produkten
+const Products: ProduktCreationAttributes[] = [
   {
     titel: "Baguette",
     preis: 2.99,
@@ -87,15 +87,21 @@ const Products: Array<ProduktCreationAttributes> = [
     sparte: "Drink"
   },
   {
-    titel: "Früchtetee",
-    preis: 5.99,
-    bild: "Drinks/Fruechtetee.webp",
-    sparte: "Drink"
-  },
-  {
     titel: "Wasser",
     preis: 5.99,
     bild: "Drinks/Wasser.webp",
+    sparte: "Drink"
+  },
+  {
+    titel: "schwarzer Tee",
+    preis: 5.99,
+    bild: "Drinks/SchwarzerTee.webp",
+    sparte: "Drink"
+  },
+  {
+    titel: "Früchtetee",
+    preis: 5.99,
+    bild: "Drinks/Fruechtetee.webp",
     sparte: "Drink"
   },
   {
@@ -161,7 +167,7 @@ const Products: Array<ProduktCreationAttributes> = [
   {
     titel: "Zeitung",
     preis: 1.0,
-    bild: "Food/OSaftUndOrangenbrot.webp", //TODO: Bild austauschen
+    bild: "Zeitung.webp",
     sparte: "Newspaper"
   }
 ];

@@ -2,22 +2,19 @@ import express from "express";
 import cors from "cors"; // Import the cors middleware
 import { type NextFunction, type Request, type Response } from "express";
 import { ProduktController } from "./controller/produktController";
-import { sequelize } from "./database/database";
-import { errorChecking } from "./utilities/errorChecking";
 import { KundeController } from "./controller/kundeController";
-import { PayPalController } from "./controller/paypalController";
 import { AdresseController } from "./controller/adresseController";
 import { ZutatController } from "./controller/zutatController";
 import { BestellungsController } from "./controller/bestellungscontroller";
-import { LastschriftController } from "./controller/lastschriftController";
 import helmet from "helmet";
 import { WarenkorbController } from "./controller/warenkorbController";
+import { ZahlungsMöglichkeitenController } from "./controller/zahlungsMöglichkeitenController";
 
 const app = express();
 const port = 3001;
 
 app.use(cors()); // Enable CORS for all routes
-app.use(helmet()); //Enable Security for Backend
+app.use(helmet()); // Enable Security for Backend
 
 // ... (other middleware and route definitions)
 
@@ -27,10 +24,9 @@ app.use(
   ProduktController,
   ZutatController,
   KundeController,
-  PayPalController,
   AdresseController,
   BestellungsController,
-  LastschriftController,
+  ZahlungsMöglichkeitenController,
   WarenkorbController
 );
 app.get("/", (req, res) => {

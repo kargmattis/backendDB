@@ -1,5 +1,5 @@
 import { ErrorHandle } from "../../../global/enums";
-import { AdresseCreationAttributes } from "../../../global/types";
+import { type AdresseCreationAttributes } from "../../../global/types";
 import CustomError from "../../../utilities/error";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Adresse from "../adresse";

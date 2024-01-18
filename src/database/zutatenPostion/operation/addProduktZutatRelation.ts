@@ -3,8 +3,8 @@ import ZutatenPosition from "../zutatenPosition";
 
 export async function addProduktZutatRelation(
   input: ZutatenPositionCreationAttributes
-): Promise<Array<ZutatenPosition>> {
-  let zutatenPositionen: Array<ZutatenPosition> = [];
+): Promise<ZutatenPosition[]> {
+  const zutatenPositionen: ZutatenPosition[] = [];
   for (const zutatenId of input.zutatIdWithAmount) {
     const zutatenPostion = await ZutatenPosition.create({
       zutatsId: zutatenId.zutatenId,
