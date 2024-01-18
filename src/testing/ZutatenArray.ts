@@ -116,75 +116,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatseinheit: "g",
     zutatBild: "VeganeSalami.webp",
     zutatensparte: "Topping"
-  },
-
-  // Getränke (3.Konfigurationsschritt)
-  {
-    zutatsname: "Espresso",
-    zutatseigenschaft: "vegan",
-    zutatspreis: 1.99,
-    zutatseinheit: "g",
-    zutatBild: "Espresso.webp",
-    zutatensparte: "Getränk"
-  },
-
-  {
-    zutatsname: "Latte Macchiato",
-    zutatseigenschaft: "vegan",
-    zutatspreis: 1,
-    zutatseinheit: "5.99",
-    zutatBild: "LatteMacchiato.webp",
-    zutatensparte: "Getränk"
-  },
-  {
-    zutatsname: "Orangensaft",
-    zutatseigenschaft: "vegan",
-    zutatspreis: 1,
-    zutatseinheit: "g",
-    zutatBild: "Orangensaft.webp",
-    zutatensparte: "Getränk"
-  },
-  {
-    zutatsname: "Wasser",
-    zutatseigenschaft: "vegan",
-    zutatspreis: 1,
-    zutatseinheit: "g",
-    zutatBild: "Wasser.webp",
-    zutatensparte: "Getränk"
-  },
-  {
-    zutatsname: "schwarzer Tee",
-    zutatseigenschaft: "vegan",
-    zutatspreis: 5.99,
-    zutatseinheit: "g",
-    zutatBild: "SchwarzerTee.webp",
-    zutatensparte: "Getränk"
-  },
-  {
-    zutatsname: "Früchtetee",
-    zutatseigenschaft: "vegan",
-    zutatspreis: 1,
-    zutatseinheit: "g",
-    zutatBild: "Fruechtetee.webp",
-    zutatensparte: "Getränk"
-  },
-  {
-    zutatsname: "Zitronentee",
-    zutatseigenschaft: "vegan",
-    zutatspreis: 1,
-    zutatseinheit: "g",
-    zutatBild: "Zitronentee.webp",
-    zutatensparte: "Getränk"
-  },
-  {
-    zutatsname: "heiße Schokolade",
-    zutatseigenschaft: "vegan",
-    zutatspreis: 5.99,
-    zutatseinheit: "g",
-    zutatBild: "heißeSchokolade.webp",
-    zutatensparte: "Getränk"
   }
-
 ];
 
 export default Zutaten;

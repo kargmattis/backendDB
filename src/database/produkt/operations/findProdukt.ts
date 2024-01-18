@@ -14,6 +14,17 @@ export async function findProduktByPk(id: string): Promise<Produkt | null> {
   }
 }
 
+export async function findAllProducts(): Promise<Array<Produkt>> {
+  try {
+    const produkt = await Produkt.findAll();
+    return produkt;
+  } catch (error) {
+    console.error("Error finding product:", error);
+    const customError = errorChecking(error);
+    throw customError;
+  }
+}
+
 export async function findProductWithoutKundeId(): Promise<Produkt[] | null> {
   try {
     const produkt = await Produkt.findAll({
@@ -40,6 +51,24 @@ export async function findProduktByKundeId(
         kundenId
       }
     });
+    return produkt;
+  } catch (error) {
+    console.error("Error finding product:", error);
+    const customError = errorChecking(error);
+    throw customError;
+  }
+}
+
+export async function findProductWithoutKundeIdOnlyDrink(): Promise<Array<Produkt> | null> {
+  try {
+    const produkt = await Produkt.findAll({
+      where: {
+        kundenId: null,
+        sparte: "Drink"
+      }
+    });
+    // console.log(produkt);
+
     return produkt;
   } catch (error) {
     console.error("Error finding product:", error);

@@ -167,7 +167,7 @@ const Products: ProduktCreationAttributes[] = [
   {
     titel: "Zeitung",
     preis: 1.0,
-    bild: "Food/OSaftUndOrangenbrot.webp", // TODO: Bild austauschen
+    bild: "Zeitung.webp",
     sparte: "Newspaper"
   }
 ];

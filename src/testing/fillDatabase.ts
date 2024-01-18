@@ -13,6 +13,7 @@ import { createZutat } from "../database/zutat/operations/createZutat";
 import type Zutat from "../database/zutat/zutat";
 import { addProduktZutatRelation } from "../database/zutatenPostion/operation/addProduktZutatRelation";
 import Products from "./ProduktArray";
+import { test } from "./ProduktinhaltArray";
 import Zutaten from "./ZutatenArray";
 import ZahlungsMoeglichkeiten from "../database/zahlungsmoeglichkeit/zahlungsMoeglichkeiten";
 import { createZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/createZahlungsmoeglichkeit";
@@ -145,6 +146,8 @@ export const fillDatabase = async (): Promise<
       console.log("test 6 failed: ZutatenPosition");
       throw new Error(error);
     });
+
+    test();
 
     return [
       createdProduct,
