@@ -6,6 +6,7 @@ import { errorChecking } from "../../../utilities/errorChecking";
 import Adresse from "../../adresse/adresse";
 import { findCurrentAdresse } from "../../adresse/operation/findAdresse";
 import Bestellungposition from "../../bestellungsPosition/bestellungsPosition";
+import { findCurrentZahlungsmöglichkeiten } from "../../zahlungsmoeglichkeit/operation/findZahlungsmoeglichkeiten";
 import Bestellung from "../bestellung";
 import { findWarenkorb } from "./findBestellung";
 
@@ -59,8 +60,14 @@ export async function placeOrder(orderData: PlaceOrderApiAttributes) {
   try {
     const warenkorb = await findWarenkorb(orderData.kundenId);
     const date = new Date();
+    const laufendeZahlungsId = await findCurrentZahlungsmöglichkeiten(
+      orderData.kundenId
+    );
+    console.log("laufendeZahlungsId", warenkorb.dataValues);
+    console.log("laufendeZahlungsId", laufendeZahlungsId.dataValues);
     const orderedBestellung = await warenkorb.update({
-      laufendeZahlungsId: orderData.laufendeZahlungsId,
+      ...warenkorb.dataValues,
+      laufendeZahlungsId: laufendeZahlungsId.laufendeZahlungsId,
       kundenId: orderData.kundenId,
       isPaypal: orderData.isPaypal,
       bestellDatum: date,
