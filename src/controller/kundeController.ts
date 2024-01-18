@@ -6,7 +6,7 @@ import {
 import { postRequestKunde } from "./kundeHelper/postRequestKunde";
 import CustomError from "../utilities/error";
 import { ErrorHandle } from "../global/enums";
-import { errorChecking } from "../utilities/errorChecking";
+import { errorChecking, errorValidation } from "../utilities/errorChecking";
 
 export const KundeController = express.Router();
 
@@ -57,7 +57,7 @@ KundeController.post("/kunde/login", async (req: Request, res: Response) => {
       );
     }
   } catch (error) {
-    const err = errorChecking(error);
+    const err = errorValidation(error);
     // Wenn ein Fehler auftritt, sende eine Fehlermeldung zurück
     res.status(err.statusCode).send(err.message);
   }

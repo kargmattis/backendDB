@@ -22,7 +22,7 @@ Kunde.init(
     },
     email: {
       type: new DataTypes.STRING(128),
-      allowNull: false,
+      allowNull: true,
       unique: true
     },
     vorname: {
