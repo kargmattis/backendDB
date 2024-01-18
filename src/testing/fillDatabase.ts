@@ -18,6 +18,7 @@ import type Zutat from "../database/zutat/zutat";
 import { addProduktZutatRelation } from "../database/zutatenPostion/operation/addProduktZutatRelation";
 import { PaypalCreationAttributes } from "../global/types";
 import Products from "./ProduktArray";
+import { test } from "./ProduktinhaltArray";
 import Zutaten from "./ZutatenArray";
 
 // Erstellen eines Testprodukts mit den notwendigen Eigenschaften
@@ -142,6 +143,8 @@ export const fillDatabase = async (): Promise<
       console.log("test 6 failed: ZutatenPosition");
       throw new Error(error);
     });
+
+    test();
 
     return [
       createdProduct,
