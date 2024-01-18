@@ -7,6 +7,7 @@ import { errorValidation } from "../utilities/errorChecking";
 import { placeOrder } from "../database/bestellung/operations/addBestellung";
 import CustomError from "../utilities/error";
 import { ErrorHandle } from "../global/enums";
+import Bestellung from "../database/bestellung/bestellung";
 
 export const BestellungsController = express.Router();
 
@@ -43,18 +44,12 @@ BestellungsController.post("/bestellung", async (req: Request, res) => {
   try {
     console.log(req.body);
 
-    const {
-      kundenId,
-      laufendeZahlungsId,
-      bestellDatum,
-      gewünschtesLieferdatum,
-      isPaypal
-    } = req.body;
+    const { kundenId, laufendeZahlungsId, gewünschtesLieferdatum, isPaypal } =
+      req.body;
     const bestellungen = await placeOrder({
       kundenId,
       isPaypal,
       laufendeZahlungsId,
-      bestellDatum,
       gewünschtesLieferdatum
     });
     res.status(200).json(bestellungen);
@@ -80,3 +75,23 @@ BestellungsController.put("/bestellung/:bestellId", (req, res) => {
 BestellungsController.delete("/bestellung", (_req, res) => {
   res.send("Bestellung delete request");
 });
+
+BestellungsController.put(
+  "/bestellung/deliver/:bestellId",
+  async (req: Request, res) => {
+    try {
+      const bestellId = req.params.bestellId;
+      const deliveredbestellung = await Bestellung.findByPk(bestellId);
+      const newDate = new Date();
+      if (!deliveredbestellung) {
+        throw new CustomError(ErrorHandle.NotFound, "Bestellung not found");
+      }
+      deliveredbestellung.lieferdatum = newDate;
+      await deliveredbestellung.save();
+      res.status(200).json(deliveredbestellung);
+    } catch (error) {
+      const err = errorValidation(error);
+      res.status(err.statusCode).send(err.message);
+    }
+  }
+);

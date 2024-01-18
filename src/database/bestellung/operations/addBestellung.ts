@@ -58,16 +58,12 @@ export async function getBestellungsId(kundenId: string): Promise<string> {
 export async function placeOrder(orderData: PlaceOrderApiAttributes) {
   try {
     const warenkorb = await findWarenkorb(orderData.kundenId);
-    console.log(
-      orderData.laufendeZahlungsId,
-      "orderData.laufendeZahlungsId!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    );
-
+    const date = new Date();
     const orderedBestellung = await warenkorb.update({
       laufendeZahlungsId: orderData.laufendeZahlungsId,
       kundenId: orderData.kundenId,
       isPaypal: orderData.isPaypal,
-      bestellDatum: orderData.bestellDatum,
+      bestellDatum: date,
       gewünschtesLieferdatum: orderData.gewünschtesLieferdatum
     });
     return orderedBestellung;

@@ -1,7 +1,8 @@
 import {
   type BelongsToManyAddAssociationMixin,
   DataTypes,
-  Model
+  Model,
+  DATE
 } from "sequelize";
 import { sequelize } from "../database";
 import type Product from "../produkt/produkt";
@@ -13,6 +14,7 @@ class Bestellung extends Model {
   public laufendeZahlungsId!: string;
   public bestellDatum!: Date;
   public gewünschtesLieferdatum!: Date;
+  public lieferdatum!: Date;
   public isPaypal!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -63,6 +65,10 @@ Bestellung.init(
       allowNull: true
     },
     gewünschtesLieferdatum: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    lieferdatum: {
       type: DataTypes.DATE,
       allowNull: true
     }
