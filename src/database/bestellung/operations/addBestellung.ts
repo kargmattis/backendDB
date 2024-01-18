@@ -43,6 +43,8 @@ export async function getBestellungsId(kundenId: string): Promise<string> {
       kundenId,
       laufendeAdressenId
     });
+    console.log("newNestellung", newNestellung);
+
     return newNestellung.bestellungsId;
   } catch (error) {
     console.log("error ist here");
@@ -57,6 +59,7 @@ export async function placeOrder(orderData: PlaceOrderApiAttributes) {
     const orderedBestellung = await warenkorb.update({
       laufendeZahlungsId: orderData.laufendeZahlungsId,
       kundenId: orderData.kundenId,
+      isPaypal: orderData.isPaypal,
       bestellDatum: orderData.bestellDatum,
       gewünschtesLieferdatum: orderData.gewünschtesLieferdatum
     });

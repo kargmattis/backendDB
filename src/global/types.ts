@@ -53,6 +53,7 @@ type ZutatenPostitionObject = {
 
 export type SingleBestellungType = {
   bestellungsId: string;
+  isPaypal: boolean;
   addressenInformation: AdresseCreationAttributes;
   zahlungsinformation: ZahlungsmöglichkeitenCreationAttributes;
   produktInformationen: ProduktCreationAttributes[];
@@ -66,6 +67,7 @@ export type PlaceOrderApiAttributes = {
   kundenId: string;
   laufendeZahlungsId: number;
   bestellDatum: Date;
+  isPaypal: boolean;
   gewünschtesLieferdatum: Date;
 };
 export type ProduktWithBestellmenge = Produkt & {

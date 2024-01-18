@@ -119,6 +119,7 @@ export const fillDatabase = async (): Promise<
     const placedOrder = await placeOrder({
       laufendeZahlungsId: createdLastschrift.laufendeZahlungsId,
       bestellDatum: new Date(),
+      isPaypal: false,
       kundenId: createdKunde.kundenId,
       gewünschtesLieferdatum: new Date()
     }).catch((error) => {
@@ -126,11 +127,14 @@ export const fillDatabase = async (): Promise<
       throw new Error(error);
     });
 
-    await addOrOpenWarenkorbBestellung({
+    console.log("test 6 started: ZutatenPosition");
+    const openWarenkor = await addOrOpenWarenkorbBestellung({
       kundenId: createdKunde.kundenId,
       produktId: createdProduct.produktId,
       produktMenge: 200
     });
+    console.log(openWarenkor);
+
     console.log("test 6 started: ZutatenPosition");
     const createdZutatenPosition = await addProduktZutatRelation({
       produktId: createdProduct.produktId,

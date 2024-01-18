@@ -99,6 +99,7 @@ export async function findSingleBestellung(
         addressenInformation: adressInformation.dataValues,
         produktInformationen: produkte,
         gesamtpreis: sumPrice,
+        isPaypal: bestellung.dataValues.isPaypal,
         bestellungsId: bestellungsPosition[0].bestellungsId, // [0] because every position has the same bestellungsId
         bestellDatum: bestellung.dataValues.bestellDatum,
         gewünschtesLieferdatum: bestellung.dataValues.gewünschtesLieferdatum,

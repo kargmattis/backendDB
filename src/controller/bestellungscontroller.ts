@@ -47,10 +47,12 @@ BestellungsController.post("/bestellung", async (req: Request, res) => {
       kundenId,
       laufendeZahlungsId,
       bestellDatum,
-      gewünschtesLieferdatum
+      gewünschtesLieferdatum,
+      isPaypal
     } = req.body;
     const bestellungen = await placeOrder({
       kundenId,
+      isPaypal,
       laufendeZahlungsId,
       bestellDatum,
       gewünschtesLieferdatum
