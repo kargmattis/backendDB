@@ -47,7 +47,7 @@ Bestellung.init(
       allowNull: false
     },
     laufendeZahlungsId: {
-      type: DataTypes.UUID,
+      type: DataTypes.NUMBER,
       unique: false,
       // references: {
       //   model: "zahlungsMoeglichkeiten",
