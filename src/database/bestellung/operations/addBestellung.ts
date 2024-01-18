@@ -14,6 +14,7 @@ export async function addOrOpenWarenkorbBestellung(
 ): Promise<Bestellungposition> {
   try {
     const bestellungsId = await getBestellungsId(bestellungCreation.kundenId);
+    console.log("bestellungsId", bestellungsId);
 
     const newBestellung = Bestellungposition.create({
       bestellungsId,
@@ -33,6 +34,7 @@ export async function getBestellungsId(kundenId: string): Promise<string> {
     const bestellung = await Bestellung.findOne({
       where: { kundenId, laufendeZahlungsId: null }
     });
+    // console.log("bestellung", bestellung);
     if (bestellung) {
       return bestellung.bestellungsId;
     }
@@ -56,6 +58,11 @@ export async function getBestellungsId(kundenId: string): Promise<string> {
 export async function placeOrder(orderData: PlaceOrderApiAttributes) {
   try {
     const warenkorb = await findWarenkorb(orderData.kundenId);
+    console.log(
+      orderData.laufendeZahlungsId,
+      "orderData.laufendeZahlungsId!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    );
+
     const orderedBestellung = await warenkorb.update({
       laufendeZahlungsId: orderData.laufendeZahlungsId,
       kundenId: orderData.kundenId,

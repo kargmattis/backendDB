@@ -16,6 +16,7 @@ import Products from "./ProduktArray";
 import Zutaten from "./ZutatenArray";
 import ZahlungsMoeglichkeiten from "../database/zahlungsmoeglichkeit/zahlungsMoeglichkeiten";
 import { createZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/createZahlungsmoeglichkeit";
+import { putZahlungsmöglichkeiten } from "../database/zahlungsmoeglichkeit/operation/putZahlungsmöglichkeiten";
 // Erstellen eines Testprodukts mit den notwendigen Eigenschaften
 const testLastschrift = {
   kundenId: "",
@@ -86,11 +87,10 @@ export const fillDatabase = async (): Promise<
     testAdresse.kundenId = createdKunde.kundenId;
     testLastschrift.kundenId = createdKunde.kundenId;
     console.log("test 3 started: Zahlungsmöglichkeit:Lastschrift, Adresse");
+    console.log(testLastschrift);
 
     const [createdLastschrift, createdAdresse] = await Promise.all([
-      createZahlungsmöglichkeit({
-        ...testLastschrift
-      }),
+      putZahlungsmöglichkeiten(testLastschrift),
       createAdresse(testAdresse)
     ]).catch((error) => {
       console.log("test 3 failed: lastschrift, adresse, zutat");
@@ -116,6 +116,8 @@ export const fillDatabase = async (): Promise<
       throw new Error(error);
     });
     console.log("test 5 started: Bestellung aufgeben");
+    console.log(createdLastschrift.dataValues);
+
     const placedOrder = await placeOrder({
       laufendeZahlungsId: createdLastschrift.laufendeZahlungsId,
       bestellDatum: new Date(),

@@ -16,11 +16,13 @@ ZahlungsMoeglichkeiten.init(
   {
     laufendeZahlungsId: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
+      allowNull: false,
+      defaultValue: 1
     },
     kundenId: {
       type: DataTypes.UUID,
+      allowNull: false,
       references: {
         model: "Kunde",
         key: "kundenId"

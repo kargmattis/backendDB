@@ -7,19 +7,23 @@ export async function putZahlungsmöglichkeiten(
   putZahlungsData: ZahlungsmöglichkeitenCreationAttributes
 ) {
   try {
+    console.log("in function", putZahlungsData);
+
     const currentZahlungsmöglichkeiten = await findCurrentZahlungsmöglichkeiten(
       putZahlungsData.kundenId
     );
     const updatetZahlungsmöglichkeitId =
-      await currentZahlungsmöglichkeiten.increment("laufendeZahlungsId");
-    const newZahlungsMoeglichkeitenObject = {
-      ...currentZahlungsmöglichkeiten,
-      putZahlungsData,
+      currentZahlungsmöglichkeiten.laufendeZahlungsId + 1;
+
+    const newZahlungsMoeglichkeitenObjekt = {
+      ...putZahlungsData,
       laufendeZahlungsId: updatetZahlungsmöglichkeitId
     };
-    const newZahlungsMoeglichkeiten = await ZahlungsMoeglichkeiten.create({
-      newZahlungsMoeglichkeitenObject
-    });
+    console.log(newZahlungsMoeglichkeitenObjekt);
+
+    const newZahlungsMoeglichkeiten = await ZahlungsMoeglichkeiten.create(
+      newZahlungsMoeglichkeitenObjekt
+    );
     return newZahlungsMoeglichkeiten;
   } catch (error) {
     throw errorChecking(error);
