@@ -28,18 +28,6 @@ ZahlungsMöglichkeitenController.get(
   }
 );
 
-ZahlungsMöglichkeitenController.post("/zahlung", async (req: Request, res) => {
-  console.log(req.body);
-
-  postRequestKunde(req)
-    .then((kunde) => res.status(201).json(kunde))
-    .catch((error: CustomError) => {
-      console.log(error);
-
-      res.status(error.statusCode).send(error.message);
-    });
-});
-
 ZahlungsMöglichkeitenController.post(
   "/zahlung",
   async (req: Request, res: Response) => {
