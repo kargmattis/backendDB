@@ -14,7 +14,7 @@ ZutatenPosition.init(
     zutatsId: {
       type: DataTypes.UUID,
       references: {
-        model: "Zutat",
+        model: "zutat",
         key: "zutatsId"
       },
       primaryKey: true
@@ -22,7 +22,7 @@ ZutatenPosition.init(
     produktId: {
       type: DataTypes.UUID,
       references: {
-        model: "Produkt",
+        model: "produkt",
         key: "produktId"
       },
       primaryKey: true
@@ -33,7 +33,7 @@ ZutatenPosition.init(
     }
   },
   {
-    tableName: "ZutatenPosition",
+    tableName: "zutatenPosition",
     sequelize
   }
 );

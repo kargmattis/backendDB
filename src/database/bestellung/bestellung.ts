@@ -32,7 +32,7 @@ Bestellung.init(
       type: DataTypes.UUID,
       unique: false,
       references: {
-        model: "Kunde",
+        model: "kunde",
         key: "kundenId"
       },
       allowNull: false
@@ -74,7 +74,7 @@ Bestellung.init(
     }
   },
   {
-    tableName: "Bestellung",
+    tableName: "bestellung",
     sequelize
   }
 );

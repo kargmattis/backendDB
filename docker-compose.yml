@@ -30,7 +30,3 @@ services:
       - "3001:3001"
     depends_on:
       - db
-    environment:
-      DOCKER_BUILDKIT: 1
-      # DATABASE: postgres://root:root@db:5432/test_db
-      command: "npm start"

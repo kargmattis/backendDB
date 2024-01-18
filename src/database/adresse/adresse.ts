@@ -25,7 +25,7 @@ Adresse.init(
       primaryKey: true,
       allowNull: false,
       references: {
-        model: "Kunde",
+        model: "kunde",
         key: "kundenId"
       }
     },
@@ -51,7 +51,7 @@ Adresse.init(
     }
   },
   {
-    tableName: "Adresse",
+    tableName: "adresse",
     sequelize
   }
 );

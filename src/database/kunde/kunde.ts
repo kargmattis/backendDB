@@ -51,7 +51,7 @@ Kunde.init(
     }
   },
   {
-    tableName: "Kunde",
+    tableName: "kunde",
     sequelize
   }
 );

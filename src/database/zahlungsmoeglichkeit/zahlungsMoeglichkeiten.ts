@@ -24,7 +24,7 @@ ZahlungsMoeglichkeiten.init(
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: "Kunde",
+        model: "kunde",
         key: "kundenId"
       }
     },
