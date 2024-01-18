@@ -38,7 +38,7 @@ const Zutaten: ZutatCreationAttributes[] = [
   {
     zutatsname: "Toast",
     zutatseigenschaft: "vegan",
-    zutatspreis: 1.00,
+    zutatspreis: 1.0,
     zutatseinheit: "g",
     zutatBild: "Toast.webp",
     zutatensparte: "Brot"
@@ -47,7 +47,7 @@ const Zutaten: ZutatCreationAttributes[] = [
   // Toppings (2.Konfigurationsschritt)
   {
     zutatsname: "Salami",
-    zutatseigenschaft: "vegan",
+    zutatseigenschaft: "not vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
     zutatBild: "Salami.webp",
@@ -55,7 +55,7 @@ const Zutaten: ZutatCreationAttributes[] = [
   },
   {
     zutatsname: "Schinken",
-    zutatseigenschaft: "vegan",
+    zutatseigenschaft: "not vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
     zutatBild: "Schinken.webp",
@@ -63,7 +63,7 @@ const Zutaten: ZutatCreationAttributes[] = [
   },
   {
     zutatsname: "Käse",
-    zutatseigenschaft: "vegan",
+    zutatseigenschaft: "not vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
     zutatBild: "Kaese.webp",
@@ -116,6 +116,168 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatseinheit: "g",
     zutatBild: "VeganeSalami.webp",
     zutatensparte: "Topping"
+  },
+  {
+    zutatsname: "vegane Käse",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nutella.webp",
+    zutatensparte: "Topping"
+  },
+  {
+    zutatsname: "Rinderpatty",
+    zutatseigenschaft: "not vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nutella.webp",
+    zutatensparte: "Topping"
+  },
+  {
+    zutatsname: "Kräuterquark",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nutella.webp",
+    zutatensparte: "Topping"
+  },
+
+  //Other only for Products
+  {
+    zutatsname: "Zwiebel",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Paprika",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Tomate",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Ei",
+    zutatseigenschaft: "not vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Eisbergsalat",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Kaffee",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Wasser",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Milch",
+    zutatseigenschaft: "not vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "frische gepresste Orangen",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Waldbeerenfrüchtetee",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Zitronentee aus frischen Zitronen",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Schokolade",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Schwarzer Tee",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Alkoholfreies Bier",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Weißwurst",
+    zutatseigenschaft: "not vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Saisonales Obst",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
+  },
+  {
+    zutatsname: "Broccoli",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1,
+    zutatseinheit: "g",
+    zutatBild: "Nothing.webp",
+    zutatensparte: "Other"
   }
 ];
 

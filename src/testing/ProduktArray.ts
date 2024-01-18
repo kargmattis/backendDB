@@ -93,7 +93,7 @@ const Products: ProduktCreationAttributes[] = [
     sparte: "Drink"
   },
   {
-    titel: "schwarzer Tee",
+    titel: "Schwarzer Tee",
     preis: 5.99,
     bild: "Drinks/SchwarzerTee.webp",
     sparte: "Drink"
@@ -159,7 +159,7 @@ const Products: ProduktCreationAttributes[] = [
     sparte: "Menu"
   },
   {
-    titel: "Orangenmenü",
+    titel: "Morgensonne",
     preis: 5.99,
     bild: "Food/OSaftUndOrangenbrot.webp",
     sparte: "Menu"
