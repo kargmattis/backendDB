@@ -72,3 +72,19 @@ ZutatController.get("/zutat/:sparte", async (req, res) => {
     res.status(CustomError.statusCode || 500).send(CustomError.message);
   }
 });
+
+ZutatController.get("/zutatById/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    Zutat.findByPk(id)
+      .then((zutat) => {
+        res.status(200).json(zutat);
+      })
+      .catch((error: CustomError) => {
+        res.status(error.statusCode || 500).send(error.message);
+      });
+  } catch (error) {
+    const CustomError = errorValidation(error);
+    res.status(CustomError.statusCode || 500).send(CustomError.message);
+  }
+});
