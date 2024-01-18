@@ -87,15 +87,21 @@ const Products: Array<ProduktCreationAttributes> = [
     sparte: "Drink"
   },
   {
-    titel: "Früchtetee",
-    preis: 5.99,
-    bild: "Drinks/Fruechtetee.webp",
-    sparte: "Drink"
-  },
-  {
     titel: "Wasser",
     preis: 5.99,
     bild: "Drinks/Wasser.webp",
+    sparte: "Drink"
+  },
+  {
+    titel: "schwarzer Tee",
+    preis: 5.99,
+    bild: "Drinks/SchwarzerTee.webp",
+    sparte: "Drink"
+  },
+  {
+    titel: "Früchtetee",
+    preis: 5.99,
+    bild: "Drinks/Fruechtetee.webp",
     sparte: "Drink"
   },
   {

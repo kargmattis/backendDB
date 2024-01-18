@@ -40,7 +40,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1.00,
     zutatseinheit: "g",
-    zutatBild: "Logo.webp",
+    zutatBild: "Toast.webp",
     zutatensparte: "Brot"
   },
 
@@ -51,7 +51,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Logo.webp",
+    zutatBild: "Salami.webp",
     zutatensparte: "Topping"
   },
   {
@@ -59,7 +59,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Logo.webp",
+    zutatBild: "Schinken.webp",
     zutatensparte: "Topping"
   },
   {
@@ -67,7 +67,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Logo.webp",
+    zutatBild: "Kaese.webp",
     zutatensparte: "Topping"
   },
   {
@@ -75,7 +75,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Logo.webp",
+    zutatBild: "Butter.webp",
     zutatensparte: "Topping"
   },
   {
@@ -83,7 +83,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Logo.webp",
+    zutatBild: "Erdbeermarmelade.webp",
     zutatensparte: "Topping"
   },
   {
@@ -91,7 +91,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Logo.webp",
+    zutatBild: "Pfirsichmarmelade.webp",
     zutatensparte: "Topping"
   },
   {
@@ -99,7 +99,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Logo.webp",
+    zutatBild: "Kirschmarmelade.webp",
     zutatensparte: "Topping"
   },
   {
@@ -107,7 +107,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Logo.webp",
+    zutatBild: "Nutella.webp",
     zutatensparte: "Topping"
   },
   {
@@ -115,7 +115,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Logo.webp",
+    zutatBild: "VeganeSalami.webp",
     zutatensparte: "Topping"
   },
 
@@ -158,7 +158,7 @@ const Zutaten: Array<ZutatCreationAttributes> = [
     zutatseigenschaft: "vegan",
     zutatspreis: 5.99,
     zutatseinheit: "g",
-    zutatBild: "Logo.webp",
+    zutatBild: "SchwarzerTee.webp",
     zutatensparte: "Getränk"
   },
   {
