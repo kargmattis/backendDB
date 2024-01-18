@@ -49,10 +49,10 @@ Bestellung.init(
     laufendeZahlungsId: {
       type: DataTypes.UUID,
       unique: false,
-      references: {
-        model: "zahlungsMoeglichkeiten",
-        key: "laufendeZahlungsId"
-      },
+      // references: {
+      //   model: "zahlungsMoeglichkeiten",
+      //   key: "laufendeZahlungsId"
+      // },
       allowNull: true
     },
     isPaypal: {
