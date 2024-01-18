@@ -4,29 +4,9 @@ import { findZutat } from "../database/zutat/operations/findZutat";
 import Zutat from "../database/zutat/zutat";
 import ZutatenPosition from "../database/zutatenPostion/zutatenPosition";
 
-interface ZutatProdukt {
-  productID: string;
-  ingredientsID: string;
-  quantity: number;
-}
-// async function loadData() {
-//   const products: Array<Produkt> = await findAllProducts();
-//   const products2 = products.Produkt.
-//   const ingredients: Array<Zutat> = await findZutat();
-// }
-
 export function test() {
   createPosition();
 }
-
-//Array mit allen Beziehungen zwischen Zutaten und Produkten
-const Produktinhalt: Array<ZutatProdukt> = [
-  {
-    productID: "test",
-    ingredientsID: "test2",
-    quantity: 0
-  }
-];
 
 const productsToIngredients = [
   {

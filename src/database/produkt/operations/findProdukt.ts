@@ -25,17 +25,6 @@ export async function findAllProducts(): Promise<Array<Produkt>> {
   }
 }
 
-export async function findAllProducts(): Promise<Array<Produkt>> {
-  try {
-    const produkt = await Produkt.findAll();
-    return produkt;
-  } catch (error) {
-    console.error("Error finding product:", error);
-    const customError = errorChecking(error);
-    throw customError;
-  }
-}
-
 export async function findProductWithoutKundeId(): Promise<Produkt[] | null> {
   try {
     const produkt = await Produkt.findAll({
