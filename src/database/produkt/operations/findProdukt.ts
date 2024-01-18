@@ -47,3 +47,21 @@ export async function findProduktByKundeId(
     throw customError;
   }
 }
+
+export async function findProductWithoutKundeIdOnlyDrink(): Promise<Array<Produkt> | null> {
+  try {
+    const produkt = await Produkt.findAll({
+      where: {
+        kundenId: null,
+        sparte: "Drink"
+      }
+    });
+    // console.log(produkt);
+
+    return produkt;
+  } catch (error) {
+    console.error("Error finding product:", error);
+    const customError = errorChecking(error);
+    throw customError;
+  }
+}
