@@ -9,6 +9,7 @@ import { BestellungsController } from "./controller/bestellungscontroller";
 import helmet from "helmet";
 import { WarenkorbController } from "./controller/warenkorbController";
 import { ZahlungsMöglichkeitenController } from "./controller/zahlungsMöglichkeitenController";
+import { ZutatenPositionController } from "./controller/zutatenPositionController";
 
 const app = express();
 const port = 3001;
@@ -27,7 +28,8 @@ app.use(
   AdresseController,
   BestellungsController,
   ZahlungsMöglichkeitenController,
-  WarenkorbController
+  WarenkorbController,
+  ZutatenPositionController
 );
 app.get("/", (req, res) => {
   res.send("Hello World!");
