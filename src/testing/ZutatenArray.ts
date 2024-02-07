@@ -118,11 +118,11 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatensparte: "Topping"
   },
   {
-    zutatsname: "vegane Käse",
+    zutatsname: "veganer Käse",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Nutella.webp",
+    zutatBild: "veganerKaese.webp",
     zutatensparte: "Topping"
   },
   {
@@ -130,7 +130,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatseigenschaft: "not vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Nutella.webp",
+    zutatBild: "rinderpatty.webp",
     zutatensparte: "Topping"
   },
   {
@@ -138,7 +138,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
     zutatseinheit: "g",
-    zutatBild: "Nutella.webp",
+    zutatBild: "frischkaeseaufstrich.webp",
     zutatensparte: "Topping"
   },
 
