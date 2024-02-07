@@ -286,7 +286,7 @@ const Zutaten: ZutatCreationAttributes[] = [
 {
   zutatsname: "Frühstücksei (gekocht)",
   zutatseigenschaft: "vegan",
-  zutatspreis: 1,
+  zutatspreis: 1.20,
   zutatseinheit: "Stück",
   zutatBild: "Fruestuecksei.webp",
   zutatensparte: "Extra"
@@ -294,7 +294,7 @@ const Zutaten: ZutatCreationAttributes[] = [
 {
   zutatsname: "Rührei",
   zutatseigenschaft: "vegan",
-  zutatspreis: 1,
+  zutatspreis: 1.50,
   zutatseinheit: "Stück",
   zutatBild: "Ruehrei.webp",
   zutatensparte: "Extra"
@@ -302,7 +302,7 @@ const Zutaten: ZutatCreationAttributes[] = [
 {
   zutatsname: "Omlette",
   zutatseigenschaft: "vegan",
-  zutatspreis: 1,
+  zutatspreis: 1.50,
   zutatseinheit: "Stück",
   zutatBild: "Omelette.webp",
   zutatensparte: "Extra"
@@ -310,28 +310,28 @@ const Zutaten: ZutatCreationAttributes[] = [
 {
   zutatsname: "Spiegelei",
   zutatseigenschaft: "vegan",
-  zutatspreis: 1,
+  zutatspreis: 1.50,
   zutatseinheit: "Stück",
   zutatBild: "Spiegelei.webp",
   zutatensparte: "Extra"
 },{
   zutatsname: "Apfel",
   zutatseigenschaft: "vegan",
-  zutatspreis: 1,
+  zutatspreis: 1.10,
   zutatseinheit: "Stück",
   zutatBild: "Apfel.webp",
   zutatensparte: "Extra"
 },{
   zutatsname: "Banane",
   zutatseigenschaft: "vegan",
-  zutatspreis: 1,
+  zutatspreis: 1.10,
   zutatseinheit: "Stück",
   zutatBild: "Banane.webp",
   zutatensparte: "Extra"
 },{
   zutatsname: "Birne",
   zutatseigenschaft: "vegan",
-  zutatspreis: 1,
+  zutatspreis: 1.10,
   zutatseinheit: "Stück",
   zutatBild: "Birne.webp",
   zutatensparte: "Extra"
