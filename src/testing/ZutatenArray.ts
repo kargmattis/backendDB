@@ -7,7 +7,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Baguette",
     zutatseigenschaft: "vegan",
     zutatspreis: 2.99,
-    zutatseinheit: "g",
+    zutatseinheit: "Stück",
     zutatBild: "Baguette.webp",
     zutatensparte: "Brot"
   },
@@ -15,7 +15,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Brötchen",
     zutatseigenschaft: "vegan",
     zutatspreis: 1.29,
-    zutatseinheit: "g",
+    zutatseinheit: "Stück",
     zutatBild: "Broetchen.webp",
     zutatensparte: "Brot"
   },
@@ -23,7 +23,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Brezel",
     zutatseigenschaft: "vegan",
     zutatspreis: 1.49,
-    zutatseinheit: "g",
+    zutatseinheit: "Stück",
     zutatBild: "Brezel.webp",
     zutatensparte: "Brot"
   },
@@ -31,7 +31,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Croissant",
     zutatseigenschaft: "vegan",
     zutatspreis: 1.79,
-    zutatseinheit: "g",
+    zutatseinheit: "Stück",
     zutatBild: "Croissant.webp",
     zutatensparte: "Brot"
   },
@@ -39,7 +39,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Toast",
     zutatseigenschaft: "vegan",
     zutatspreis: 1.00,
-    zutatseinheit: "g",
+    zutatseinheit: "Stück",
     zutatBild: "Toast.webp",
     zutatensparte: "Brot"
   },
@@ -149,7 +149,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Zwiebel",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Gramm",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -157,7 +157,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Paprika",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Gramm",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -165,7 +165,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Tomate",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Gramm",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -173,7 +173,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Ei",
     zutatseigenschaft: "not vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Gramm",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -181,7 +181,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Eisbergsalat",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Gramm",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -189,7 +189,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Kaffee",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Milliliter",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -197,7 +197,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Wasser",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Milliliter",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -205,7 +205,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Milch",
     zutatseigenschaft: "not vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Milliliter",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -213,7 +213,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "frische gepresste Orangen",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Milliliter",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -221,7 +221,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Waldbeerenfrüchtetee",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Milliliter",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -229,7 +229,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Zitronentee aus frischen Zitronen",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Milliliter",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -237,7 +237,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Schokolade",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Milliliter",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -245,7 +245,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Schwarzer Tee",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Milliliter",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -253,7 +253,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Alkoholfreies Bier",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Milliliter",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -261,7 +261,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Weißwurst",
     zutatseigenschaft: "not vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Stück",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -269,7 +269,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Saisonales Obst",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Stück",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
@@ -277,7 +277,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatsname: "Broccoli",
     zutatseigenschaft: "vegan",
     zutatspreis: 1,
-    zutatseinheit: "g",
+    zutatseinheit: "Gramm",
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
