@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
 
-class ZahlungsMoeglichkeiten extends Model {
+class PayPal extends Model {
   public kundenId!: string;
   public laufendeZahlungsId!: number;
   public istAktiv!: boolean;
@@ -9,7 +9,7 @@ class ZahlungsMoeglichkeiten extends Model {
   public readonly updatedAt!: Date;
 }
 
-ZahlungsMoeglichkeiten.init(
+PayPal.init(
   {
     laufendeZahlungsId: {
       type: DataTypes.INTEGER,
@@ -33,9 +33,9 @@ ZahlungsMoeglichkeiten.init(
     }
   },
   {
-    tableName: "zahlungsMoeglichkeit",
+    tableName: "payPal",
     sequelize
   }
 );
 
-export default ZahlungsMoeglichkeiten;
+export default PayPal;

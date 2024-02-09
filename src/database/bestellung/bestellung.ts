@@ -15,7 +15,6 @@ class Bestellung extends Model {
   public bestellDatum!: Date;
   public gewünschtesLieferdatum!: Date;
   public lieferdatum!: Date;
-  public isPaypal!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public addProduct!: BelongsToManyAddAssociationMixin<Product, string>;
@@ -54,11 +53,6 @@ Bestellung.init(
       //   key: "laufendeZahlungsId"
       // },
       allowNull: true
-    },
-    isPaypal: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: null
     },
     bestellDatum: {
       type: DataTypes.DATE,
