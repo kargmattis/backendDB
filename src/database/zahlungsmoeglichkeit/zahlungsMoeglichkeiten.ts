@@ -4,7 +4,6 @@ import { sequelize } from "../database";
 class ZahlungsMoeglichkeiten extends Model {
   public kundenId!: string;
   public laufendeZahlungsId!: number;
-  public istAktiv!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -15,21 +14,15 @@ ZahlungsMoeglichkeiten.init(
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
-      defaultValue: 1
+      autoIncrement: true
     },
     kundenId: {
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true,
       references: {
         model: "kunde",
         key: "kundenId"
       }
-    },
-    istAktiv: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
     }
   },
   {

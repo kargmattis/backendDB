@@ -4,7 +4,6 @@ import { sequelize } from "../database";
 class PayPal extends Model {
   public kundenId!: string;
   public laufendeZahlungsId!: number;
-  public istAktiv!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -12,21 +11,15 @@ class PayPal extends Model {
 PayPal.init(
   {
     laufendeZahlungsId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      allowNull: false,
-      defaultValue: 1
-    },
-    kundenId: {
       type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,
       references: {
-        model: "kunde",
-        key: "kundenId"
+        model: "zahlungsMoeglichkeit",
+        key: "laufendeZahlungsId"
       }
     },
-    istAktiv: {
+    paypalEmail: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true

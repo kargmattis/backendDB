@@ -1,41 +1,41 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
 
-class ZahlungsMoeglichkeiten extends Model {
+class Lastschrift extends Model {
   public kundenId!: string;
-  public laufendeZahlungsId!: number;
   public istAktiv!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-ZahlungsMoeglichkeiten.init(
+Lastschrift.init(
   {
     laufendeZahlungsId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      allowNull: false,
-      defaultValue: 1
-    },
-    kundenId: {
       type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,
       references: {
-        model: "kunde",
-        key: "kundenId"
+        model: "zahlungsMoeglichkeit",
+        key: "laufendeZahlungsId"
       }
     },
-    istAktiv: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
+    BIC: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    IBAN: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    Bankname: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   },
   {
-    tableName: "zahlungsMoeglichkeit",
+    tableName: "lastschrift",
     sequelize
   }
 );
 
-export default ZahlungsMoeglichkeiten;
+export default Lastschrift;
