@@ -17,7 +17,7 @@ import { createIngredientsToProducts } from "./ProduktinhaltArray";
 import Zutaten from "./ZutatenArray";
 import ZahlungsMoeglichkeiten from "../database/zahlungsmoeglichkeit/zahlungsMoeglichkeiten";
 import { createZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/createZahlungsmoeglichkeit";
-import { putZahlungsmöglichkeiten } from "../database/zahlungsmoeglichkeit/operation/putZahlungsmöglichkeiten";
+import { deactivateZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/putZahlungsmöglichkeiten";
 import PayPal from "../database/zahlungsmoeglichkeit/paypal";
 import Lastschrift from "../database/zahlungsmoeglichkeit/lastschrift";
 // Erstellen eines Testprodukts mit den notwendigen Eigenschaften

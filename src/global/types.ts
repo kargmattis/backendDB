@@ -76,9 +76,15 @@ export type ZahlungsmöglichkeitenCreationAttributes = {
   kundenId: string;
 } & Partial<PayPaylPaymentAttributes & LastschriftPaymentAttributes>;
 
+export type ZahlungsmöglichkeitenDeactivate = {
+  kundenId: string;
+  laufendeZahlungsId: number;
+};
+
 export type PayPaylPaymentAttributes = {
   paypalEmail: string;
 };
+
 export type LastschriftPaymentAttributes = {
   bankname: string;
   bic: string;
