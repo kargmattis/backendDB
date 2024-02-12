@@ -30,17 +30,17 @@ Bestellung.init(
     kundenId: {
       type: DataTypes.UUID,
       unique: false,
-      references: {
-        model: "kunde",
-        key: "kundenId"
-      },
+      // references: {
+      //   model: "adresse",
+      //   key: "kundenId"
+      // },
       allowNull: false
     },
     laufendeAdressenId: {
       type: DataTypes.INTEGER,
       unique: false,
       // references: {
-      //   model: "Adresse",
+      //   model: "adresse",
       //   key: "laufendeAdressenId"
       // },
       allowNull: false
@@ -48,10 +48,10 @@ Bestellung.init(
     laufendeZahlungsId: {
       type: DataTypes.INTEGER,
       unique: false,
-      // references: {
-      //   model: "zahlungsMoeglichkeiten",
-      //   key: "laufendeZahlungsId"
-      // },
+      references: {
+        model: "zahlungsMoeglichkeit",
+        key: "laufendeZahlungsId"
+      },
       allowNull: true
     },
     bestellDatum: {

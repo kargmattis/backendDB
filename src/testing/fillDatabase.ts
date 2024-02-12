@@ -92,7 +92,7 @@ export const fillDatabase = async (): Promise<
     console.log(testLastschrift);
 
     const [createdLastschrift, createdAdresse] = await Promise.all([
-      putZahlungsmöglichkeiten(testLastschrift),
+      createZahlungsmöglichkeit(testLastschrift),
       createAdresse(testAdresse)
     ]).catch((error) => {
       console.log("test 3 failed: lastschrift, adresse, zutat");

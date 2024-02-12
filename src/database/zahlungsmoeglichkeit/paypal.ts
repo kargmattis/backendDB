@@ -11,7 +11,7 @@ class PayPal extends Model {
 PayPal.init(
   {
     laufendeZahlungsId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
@@ -20,8 +20,12 @@ PayPal.init(
       }
     },
     paypalEmail: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: true
+    },
+    aktiv: {
+      type: DataTypes.BOOLEAN,
       defaultValue: true
     }
   },
