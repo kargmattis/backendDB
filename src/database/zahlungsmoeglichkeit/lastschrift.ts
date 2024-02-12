@@ -11,7 +11,7 @@ class Lastschrift extends Model {
 Lastschrift.init(
   {
     laufendeZahlungsId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
@@ -30,6 +30,10 @@ Lastschrift.init(
     Bankname: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    aktiv: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     }
   },
   {

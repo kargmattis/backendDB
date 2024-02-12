@@ -21,13 +21,17 @@ export async function createZahlungsmöglichkeit(
         BIC: bic,
         IBAN: iban
       });
+      console.log("lastschrift !!!", lastschrift);
+
       return lastschrift;
     }
     if (paypalEmail) {
       const newZahlungsId = await ZahlungsMoeglichkeiten.create({ kundenId });
       const laufendeZahlungsId = newZahlungsId.laufendeZahlungsId;
-      await PayPal.create({ laufendeZahlungsId, paypalEmail });
-      return newZahlungsId;
+      const payPal = await PayPal.create({ laufendeZahlungsId, paypalEmail });
+      console.log("paypal: ", payPal);
+
+      return payPal;
     }
     throw new CustomError(
       ErrorHandle.DatabaseError,
