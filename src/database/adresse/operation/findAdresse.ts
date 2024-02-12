@@ -27,8 +27,7 @@ export async function findCurrentAdresse(kundenId: string): Promise<Adresse> {
       where: {
         kundenId
       },
-      order: [["laufendeAdressenId", "DESC"]],
-      limit: 1
+      order: [["laufendeAdressenId", "DESC"]]
     });
     if (result.count === 0) {
       throw new CustomError(ErrorHandle.NotFound, "Adresse not found");
