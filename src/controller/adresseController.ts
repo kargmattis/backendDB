@@ -33,16 +33,16 @@ AdresseController.post("/adresse", async (req: Request, res) => {
   }
 });
 
-// AdresseController.put("/adresse", async (req, res) => {
-//   await putAdresse(req.body)
-//     .then((adresse) => {
-//       res.status(200).json(adresse);
-//     })
-//     .catch((error) => {
-//       const customError = errorValidation(error);
-//       res.status(customError.statusCode).send(customError.message);
-//     });
-// });
+AdresseController.put("/adresse", async (req, res) => {
+  await putAdresse(req.body)
+    .then((adresse) => {
+      res.status(200).json(adresse);
+    })
+    .catch((error) => {
+      const customError = errorValidation(error);
+      res.status(customError.statusCode).send(customError.message);
+    });
+});
 
 // AdresseController.delete("/adresse/:kundenId", async (req, res) => {
 //   try {
