@@ -1,14 +1,6 @@
-import {
-  ZahlungsmöglichkeitenCreationAttributes,
-  ZahlungsmöglichkeitenDeactivate
-} from "../../../global/types";
+import { ZahlungsmöglichkeitenDeactivate } from "../../../global/types";
 import { errorChecking } from "../../../utilities/errorChecking";
-import ZahlungsMoeglichkeiten from "../zahlungsMoeglichkeiten";
-import {
-  findActiveZahlungsmöglichkeiten,
-  findCurrentZahlungsmöglichkeiten,
-  findZahlungsmöglichkeitByPKs
-} from "./findZahlungsmoeglichkeiten";
+import { findZahlungsmöglichkeitByPKs } from "./findZahlungsmoeglichkeiten";
 
 export async function deactivateZahlungsmöglichkeit(
   pkInput: ZahlungsmöglichkeitenDeactivate

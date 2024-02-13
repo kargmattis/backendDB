@@ -17,6 +17,7 @@ export async function createZahlungsmöglichkeit(
       const laufendeZahlungsId = newZahlungsId.laufendeZahlungsId;
       const lastschrift = await Lastschrift.create({
         laufendeZahlungsId,
+        kundenId,
         Bankname: bankname,
         BIC: bic,
         IBAN: iban
@@ -28,7 +29,12 @@ export async function createZahlungsmöglichkeit(
     if (paypalEmail) {
       const newZahlungsId = await ZahlungsMoeglichkeiten.create({ kundenId });
       const laufendeZahlungsId = newZahlungsId.laufendeZahlungsId;
-      const payPal = await PayPal.create({ laufendeZahlungsId, paypalEmail });
+
+      const payPal = await PayPal.create({
+        laufendeZahlungsId,
+        paypalEmail,
+        kundenId
+      });
       console.log("paypal: ", payPal);
 
       return payPal;

@@ -1,10 +1,7 @@
 import express, { type Request, type Response } from "express";
 import { errorValidation } from "../utilities/errorChecking";
 import { createZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/createZahlungsmoeglichkeit";
-import {
-  findActiveZahlungsmöglichkeiten,
-  findCurrentZahlungsmöglichkeiten
-} from "../database/zahlungsmoeglichkeit/operation/findZahlungsmoeglichkeiten";
+import { findActiveZahlungsmöglichkeiten } from "../database/zahlungsmoeglichkeit/operation/findZahlungsmoeglichkeiten";
 import { deactivateZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/putZahlungsmöglichkeiten";
 
 export const ZahlungsMöglichkeitenController = express.Router();
