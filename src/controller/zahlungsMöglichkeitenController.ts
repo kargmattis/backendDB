@@ -1,15 +1,8 @@
 import express, { type Request, type Response } from "express";
-import {
-  findKunde,
-  findKundeByEmail
-} from "../database/kunde/operation/findKunde";
-import { postRequestKunde } from "./kundeHelper/postRequestKunde";
-import CustomError from "../utilities/error";
-import { ErrorHandle } from "../global/enums";
 import { errorValidation } from "../utilities/errorChecking";
 import { createZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/createZahlungsmoeglichkeit";
-import { findCurrentZahlungsmöglichkeiten } from "../database/zahlungsmoeglichkeit/operation/findZahlungsmoeglichkeiten";
-import { putZahlungsmöglichkeiten } from "../database/zahlungsmoeglichkeit/operation/putZahlungsmöglichkeiten";
+import { findActiveZahlungsmöglichkeiten } from "../database/zahlungsmoeglichkeit/operation/findZahlungsmoeglichkeiten";
+import { deactivateZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/putZahlungsmöglichkeiten";
 
 export const ZahlungsMöglichkeitenController = express.Router();
 
@@ -18,7 +11,7 @@ ZahlungsMöglichkeitenController.get(
   async (req: Request, res) => {
     try {
       const kundenId = req.params.kundenId;
-      const zahlungsInformation = await findCurrentZahlungsmöglichkeiten(
+      const zahlungsInformation = await findActiveZahlungsmöglichkeiten(
         kundenId
       );
       res.status(200).json(zahlungsInformation);
@@ -51,7 +44,7 @@ ZahlungsMöglichkeitenController.post(
 
 ZahlungsMöglichkeitenController.put("/zahlung", async (req, res) => {
   try {
-    const newZahlung = await putZahlungsmöglichkeiten(req.body);
+    const newZahlung = await deactivateZahlungsmöglichkeit(req.body);
     res.status(200).json(newZahlung);
   } catch (error) {
     const err = errorValidation(error);

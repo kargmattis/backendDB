@@ -15,7 +15,6 @@ class Bestellung extends Model {
   public bestellDatum!: Date;
   public gewünschtesLieferdatum!: Date;
   public lieferdatum!: Date;
-  public isPaypal!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public addProduct!: BelongsToManyAddAssociationMixin<Product, string>;
@@ -31,17 +30,17 @@ Bestellung.init(
     kundenId: {
       type: DataTypes.UUID,
       unique: false,
-      references: {
-        model: "kunde",
-        key: "kundenId"
-      },
+      // references: {
+      //   model: "adresse",
+      //   key: "kundenId"
+      // },
       allowNull: false
     },
     laufendeAdressenId: {
       type: DataTypes.INTEGER,
       unique: false,
       // references: {
-      //   model: "Adresse",
+      //   model: "adresse",
       //   key: "laufendeAdressenId"
       // },
       allowNull: false
@@ -49,16 +48,11 @@ Bestellung.init(
     laufendeZahlungsId: {
       type: DataTypes.INTEGER,
       unique: false,
-      // references: {
-      //   model: "zahlungsMoeglichkeiten",
-      //   key: "laufendeZahlungsId"
-      // },
+      references: {
+        model: "zahlungsMoeglichkeit",
+        key: "laufendeZahlungsId"
+      },
       allowNull: true
-    },
-    isPaypal: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: null
     },
     bestellDatum: {
       type: DataTypes.DATE,

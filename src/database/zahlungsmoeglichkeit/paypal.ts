@@ -1,20 +1,23 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database";
 
-class ZahlungsMoeglichkeiten extends Model {
+class PayPal extends Model {
   public kundenId!: string;
   public laufendeZahlungsId!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-ZahlungsMoeglichkeiten.init(
+PayPal.init(
   {
     laufendeZahlungsId: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       allowNull: false,
-      autoIncrement: true
+      primaryKey: true,
+      references: {
+        model: "zahlungsMoeglichkeit",
+        key: "laufendeZahlungsId"
+      }
     },
     kundenId: {
       type: DataTypes.UUID,
@@ -23,12 +26,21 @@ ZahlungsMoeglichkeiten.init(
         model: "kunde",
         key: "kundenId"
       }
+    },
+    paypalEmail: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: true
+    },
+    aktiv: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     }
   },
   {
-    tableName: "zahlungsMoeglichkeit",
+    tableName: "payPal",
     sequelize
   }
 );
 
-export default ZahlungsMoeglichkeiten;
+export default PayPal;

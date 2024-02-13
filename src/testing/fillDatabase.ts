@@ -17,7 +17,9 @@ import { createIngredientsToProducts } from "./ProduktinhaltArray";
 import Zutaten from "./ZutatenArray";
 import ZahlungsMoeglichkeiten from "../database/zahlungsmoeglichkeit/zahlungsMoeglichkeiten";
 import { createZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/createZahlungsmoeglichkeit";
-import { putZahlungsmöglichkeiten } from "../database/zahlungsmoeglichkeit/operation/putZahlungsmöglichkeiten";
+import { deactivateZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/putZahlungsmöglichkeiten";
+import PayPal from "../database/zahlungsmoeglichkeit/paypal";
+import Lastschrift from "../database/zahlungsmoeglichkeit/lastschrift";
 // Erstellen eines Testprodukts mit den notwendigen Eigenschaften
 const testLastschrift = {
   kundenId: "",
@@ -46,8 +48,7 @@ const testAdresse = {
 };
 // Die Funktion fillDatabase ist eine asynchrone Funktion, die beim Aufruf versucht, eine Reihe von Operationen auszuführen.
 export const fillDatabase = async (): Promise<
-  | [Produkt, Kunde, ZahlungsMoeglichkeiten, Adresse, Zutat, Bestellung]
-  | undefined
+  [Produkt, Kunde, PayPal | Lastschrift, Adresse, Zutat, Bestellung] | undefined
 > => {
   try {
     // wartet auf alles Promises und gibt die Ergebnisse in der Reihenfolge zurück, in der sie aufgerufen wurden
@@ -91,7 +92,7 @@ export const fillDatabase = async (): Promise<
     console.log(testLastschrift);
 
     const [createdLastschrift, createdAdresse] = await Promise.all([
-      putZahlungsmöglichkeiten(testLastschrift),
+      createZahlungsmöglichkeit(testLastschrift),
       createAdresse(testAdresse)
     ]).catch((error) => {
       console.log("test 3 failed: lastschrift, adresse, zutat");
