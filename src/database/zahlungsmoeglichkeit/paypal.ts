@@ -13,19 +13,20 @@ PayPal.init(
     laufendeZahlungsId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: "zahlungsMoeglichkeit",
-        key: "laufendeZahlungsId"
-      }
+      primaryKey: true
+      // references: {
+      //   model: "zahlungsMoeglichkeit",
+      //   key: "laufendeZahlungsId"
+      // }
     },
     kundenId: {
       type: DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: "kunde",
-        key: "kundenId"
-      }
+      primaryKey: true,
+      allowNull: false
+      // references: {
+      //   model: "kunde",
+      //   key: "kundenId"
+      // }
     },
     paypalEmail: {
       type: DataTypes.STRING,
