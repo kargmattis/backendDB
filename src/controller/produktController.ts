@@ -23,7 +23,6 @@ ProduktController.get("/produkt", (_req, res) => {
 });
 
 ProduktController.post("/produkt", async (req, res) => {
-  // ToDo: body sollte noch gecheckt werden wird gerade einfach so übergeben
   createProdukt(req.body)
     .then((produkt) => res.status(201).json(produkt))
     .catch((error: CustomError) => {
@@ -78,5 +77,3 @@ ProduktController.put("/produkt", (_req, res) => {
 ProduktController.delete("/produkt", (_req, res) => {
   res.send("Delete delete product request");
 });
-
-
