@@ -4,7 +4,6 @@ import type {
 } from "../../../global/types";
 import { errorChecking } from "../../../utilities/errorChecking";
 import Adresse from "../../adresse/adresse";
-import { findCurrentAdresse } from "../../adresse/operation/findAdresse";
 import Bestellungposition from "../../bestellungsPosition/bestellungsPosition";
 import { findCurrentZahlungsmöglichkeiten } from "../../zahlungsmoeglichkeit/operation/findZahlungsmoeglichkeiten";
 import Bestellung from "../bestellung";
@@ -45,9 +44,6 @@ export async function getBestellungsId(
     if (bestellung) {
       return bestellung.bestellungsId;
     }
-
-    const currentAdresse = await findCurrentAdresse(kundenId);
-    const laufendeAdressenId = currentAdresse.laufendeAdressenId;
     const newNestellung = await Bestellung.create({
       kundenId,
       laufendeAdressenId
