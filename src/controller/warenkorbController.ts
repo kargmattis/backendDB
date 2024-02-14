@@ -1,7 +1,6 @@
 import express from "express";
 import CustomError from "../utilities/error";
 import { warenkorbGetHelper } from "./warenkorbHelper/warenkorbHelper";
-import { addOrOpenWarenkorbBestellung } from "../database/bestellung/operations/addBestellung";
 import { findProduktByPk } from "../database/produkt/operations/findProdukt";
 import { errorValidation } from "../utilities/errorChecking";
 import {
@@ -10,6 +9,7 @@ import {
 } from "../database/bestellung/operations/putBestellung";
 import Bestellungposition from "../database/bestellungsPosition/bestellungsPosition";
 import { findWarenkorb } from "../database/bestellung/operations/findBestellung";
+import Adresse from "../database/adresse/adresse";
 
 export const WarenkorbController = express.Router();
 
@@ -32,8 +32,19 @@ WarenkorbController.get("/warenkorb/:kundenId", async (req, res) => {
 WarenkorbController.post("/warenkorb", async (req, res) => {
   try {
     console.log(req.body);
-
-    const warenkorb = await putOrPostWarenkorb(req.body);
+    const { kundenId, produktId, produktMenge } = req.body;
+    const laufendeAdressenIdArray = await Adresse.findAll({
+      where: { kundenId },
+      order: [["laufendeAdressenId", "DESC"]],
+      limit: 1
+    });
+    const laufendeAdressenId = laufendeAdressenIdArray[0].laufendeAdressenId;
+    const warenkorb = await putOrPostWarenkorb({
+      kundenId,
+      laufendeAdressenId,
+      produktId,
+      produktMenge
+    });
     const produkt = await findProduktByPk(warenkorb.produktId);
     const bestellmenge = warenkorb.bestellmenge;
     res.status(200).send({ produkt, bestellmenge });

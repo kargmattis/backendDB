@@ -3,9 +3,7 @@ import type {
   addOrOpenWarenkorbBestellungCreationAttributes
 } from "../../../global/types";
 import { errorChecking } from "../../../utilities/errorChecking";
-import Adresse from "../../adresse/adresse";
 import Bestellungposition from "../../bestellungsPosition/bestellungsPosition";
-import { findCurrentZahlungsmöglichkeiten } from "../../zahlungsmoeglichkeit/operation/findZahlungsmoeglichkeiten";
 import Bestellung from "../bestellung";
 import { findWarenkorb } from "./findBestellung";
 
