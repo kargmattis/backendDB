@@ -10,7 +10,6 @@ import {
 } from "../database/bestellung/operations/putBestellung";
 import Bestellungposition from "../database/bestellungsPosition/bestellungsPosition";
 import { findWarenkorb } from "../database/bestellung/operations/findBestellung";
-import { sequelize } from "../database/database";
 
 export const WarenkorbController = express.Router();
 

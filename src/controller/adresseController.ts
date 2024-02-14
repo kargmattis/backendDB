@@ -7,8 +7,6 @@ import {
   findCurrentAdresse
 } from "../database/adresse/operation/findAdresse";
 import { errorValidation } from "../utilities/errorChecking";
-import putAdresse from "../database/adresse/operation/putAdresse";
-import Adresse from "../database/adresse/adresse";
 
 export const AdresseController = express.Router();
 

@@ -31,7 +31,6 @@ BestellungsController.get(
     try {
       const kundeId = req.params.kundenId;
       const bestellungen = await findSingleBestellung(kundeId);
-
       res.status(200).json(bestellungen);
     } catch (error) {
       const customError = errorValidation(error);
