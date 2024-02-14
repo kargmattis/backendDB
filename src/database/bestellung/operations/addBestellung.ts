@@ -14,7 +14,10 @@ export async function addOrOpenWarenkorbBestellung(
   bestellungCreation: addOrOpenWarenkorbBestellungCreationAttributes
 ): Promise<Bestellungposition> {
   try {
-    const bestellungsId = await getBestellungsId(bestellungCreation.kundenId);
+    const bestellungsId = await getBestellungsId(
+      bestellungCreation.kundenId,
+      bestellungCreation.laufendeAdressenId
+    );
     console.log("bestellungsId", bestellungsId);
 
     const newBestellung = Bestellungposition.create({
@@ -30,7 +33,10 @@ export async function addOrOpenWarenkorbBestellung(
   }
 }
 
-export async function getBestellungsId(kundenId: string): Promise<string> {
+export async function getBestellungsId(
+  kundenId: string,
+  laufendeAdressenId: number
+): Promise<string> {
   try {
     const bestellung = await Bestellung.findOne({
       where: { kundenId, laufendeZahlungsId: null }

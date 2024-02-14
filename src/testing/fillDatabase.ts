@@ -102,6 +102,7 @@ export const fillDatabase = async (): Promise<
     console.log("test 4 started: Warenkorb");
 
     await addOrOpenWarenkorbBestellung({
+      laufendeAdressenId: createdAdresse.laufendeAdressenId,
       kundenId: createdKunde.kundenId,
       produktId: createdProduct.produktId,
       produktMenge: 200
@@ -110,6 +111,7 @@ export const fillDatabase = async (): Promise<
       throw new Error(error);
     });
     await addOrOpenWarenkorbBestellung({
+      laufendeAdressenId: createdAdresse.laufendeAdressenId,
       kundenId: createdKunde.kundenId,
       produktId: createdProducts[1].produktId,
       produktMenge: 200
@@ -132,6 +134,7 @@ export const fillDatabase = async (): Promise<
     console.log("test 6 started: ZutatenPosition");
     const openWarenkor = await addOrOpenWarenkorbBestellung({
       kundenId: createdKunde.kundenId,
+      laufendeAdressenId: createdAdresse.laufendeAdressenId,
       produktId: createdProduct.produktId,
       produktMenge: 200
     });

@@ -37,6 +37,7 @@ export type ZutatCreationAttributes = {
 
 export type addOrOpenWarenkorbBestellungCreationAttributes = {
   kundenId: string;
+  laufendeAdressenId: number;
   produktId: string;
   produktMenge: number;
 };

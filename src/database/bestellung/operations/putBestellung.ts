@@ -12,7 +12,10 @@ export async function putWarenkorb(
   bestellungAdding: addOrOpenWarenkorbBestellungCreationAttributes
 ): Promise<Bestellungposition> {
   try {
-    const bestellungsId = await getBestellungsId(bestellungAdding.kundenId);
+    const bestellungsId = await getBestellungsId(
+      bestellungAdding.kundenId,
+      bestellungAdding.laufendeAdressenId
+    );
     const bestellungsPostion = await Bestellungposition.findOne({
       where: {
         bestellungsId,
@@ -45,7 +48,10 @@ export async function putOrPostWarenkorb(
   try {
     console.log("in put or post");
 
-    const bestellungsId = await getBestellungsId(bestellungAdding.kundenId);
+    const bestellungsId = await getBestellungsId(
+      bestellungAdding.kundenId,
+      bestellungAdding.laufendeAdressenId
+    );
     const findWarenkorb = await Bestellungposition.findOne({
       where: {
         bestellungsId,
