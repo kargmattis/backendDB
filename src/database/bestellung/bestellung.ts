@@ -48,10 +48,10 @@ Bestellung.init(
     laufendeZahlungsId: {
       type: DataTypes.INTEGER,
       unique: false,
-      references: {
-        model: "zahlungsMoeglichkeit",
-        key: "laufendeZahlungsId"
-      },
+      // references: {
+      //   model: "zahlungsMoeglichkeit",
+      //   key: "laufendeZahlungsId"
+      // },
       allowNull: true
     },
     bestellDatum: {

@@ -3,7 +3,6 @@ import { createProdukt } from "../database/produkt/operations/createProdukt";
 import CustomError from "../utilities/error";
 import {
   findProductWithoutKundeId,
-  findProductWithoutKundeIdOnlyDrink,
   findProduktByKundeId,
   findProduktByPk
 } from "../database/produkt/operations/findProdukt";
@@ -24,7 +23,6 @@ ProduktController.get("/produkt", (_req, res) => {
 });
 
 ProduktController.post("/produkt", async (req, res) => {
-  // ToDo: body sollte noch gecheckt werden wird gerade einfach so übergeben
   createProdukt(req.body)
     .then((produkt) => res.status(201).json(produkt))
     .catch((error: CustomError) => {
@@ -78,14 +76,4 @@ ProduktController.put("/produkt", (_req, res) => {
 
 ProduktController.delete("/produkt", (_req, res) => {
   res.send("Delete delete product request");
-});
-
-ProduktController.get("/generalProdukts/Drinks", (_req, res) => {
-  findProductWithoutKundeIdOnlyDrink()
-    .then((produkt) => {
-      res.status(200).json(produkt);
-    })
-    .catch((error: CustomError) => {
-      res.status(error.statusCode).send(error.message);
-    });
 });

@@ -15,8 +15,8 @@ BestellungsController.get(
   "/bestellungen/:kundenId",
   async (req: Request, res) => {
     try {
-      const kundeId = req.params.kundenId;
-      const allBestellungen = await findAllBestellungen(kundeId);
+      const kundenId = req.params.kundenId;
+      const allBestellungen = await findAllBestellungen(kundenId);
       res.status(200).json(allBestellungen);
     } catch (error) {
       const customError = errorValidation(error);
@@ -31,7 +31,6 @@ BestellungsController.get(
     try {
       const kundeId = req.params.kundenId;
       const bestellungen = await findSingleBestellung(kundeId);
-
       res.status(200).json(bestellungen);
     } catch (error) {
       const customError = errorValidation(error);

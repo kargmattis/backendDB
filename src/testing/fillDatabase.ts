@@ -144,7 +144,7 @@ export const fillDatabase = async (): Promise<
     const createdZutatenPosition = await addProduktZutatRelation({
       produktId: createdProduct.produktId,
       zutatIdWithAmount: [
-        { zutatenId: createdZutat.zutatsId, zutatenMenge: "100" }
+        { zutatsId: createdZutat.zutatsId, zutatenMenge: "100" }
       ]
     }).catch((error) => {
       console.log("test 6 failed: ZutatenPosition");

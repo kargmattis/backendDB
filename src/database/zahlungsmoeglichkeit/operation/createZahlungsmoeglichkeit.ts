@@ -12,9 +12,23 @@ export async function createZahlungsmöglichkeit(
   try {
     const { kundenId, bankname, bic, iban, paypalEmail } =
       zahlungsMöglichkeitenData;
+
+    const latestZahlungsMoeglichkeiten = await ZahlungsMoeglichkeiten.findOne({
+      where: { kundenId },
+      order: [["laufendeZahlungsId", "DESC"]]
+    });
+
+    const laufendeZahlungsId = latestZahlungsMoeglichkeiten
+      ? latestZahlungsMoeglichkeiten.laufendeZahlungsId + 1
+      : 1;
+
     if (bankname && bic && iban) {
-      const newZahlungsId = await ZahlungsMoeglichkeiten.create({ kundenId });
-      const laufendeZahlungsId = newZahlungsId.laufendeZahlungsId;
+      const newZahlungsId = await ZahlungsMoeglichkeiten.create({
+        kundenId,
+        laufendeZahlungsId
+      });
+      console.log("newZahlungsId: ", newZahlungsId);
+
       const lastschrift = await Lastschrift.create({
         laufendeZahlungsId,
         kundenId,
@@ -27,8 +41,15 @@ export async function createZahlungsmöglichkeit(
       return lastschrift;
     }
     if (paypalEmail) {
-      const newZahlungsId = await ZahlungsMoeglichkeiten.create({ kundenId });
-      const laufendeZahlungsId = newZahlungsId.laufendeZahlungsId;
+      const latestZahlungsMoeglichkeiten = await ZahlungsMoeglichkeiten.findOne(
+        {
+          where: { kundenId },
+          order: [["laufendeZahlungsId", "DESC"]]
+        }
+      );
+      const laufendeZahlungsId = latestZahlungsMoeglichkeiten
+        ? latestZahlungsMoeglichkeiten.laufendeZahlungsId + 1
+        : 1;
 
       const payPal = await PayPal.create({
         laufendeZahlungsId,

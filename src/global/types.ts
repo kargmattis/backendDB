@@ -48,7 +48,7 @@ export type ZutatenPositionCreationAttributes = {
 };
 
 type ZutatenPostitionObject = {
-  zutatenId: string;
+  zutatsId: string;
   zutatenMenge: string;
 };
 
