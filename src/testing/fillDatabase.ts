@@ -123,7 +123,8 @@ export const fillDatabase = async (): Promise<
     console.log(createdLastschrift.dataValues);
 
     const placedOrder = await placeOrder({
-      isPaypal: false,
+      laufendeAdressenId: createdAdresse.laufendeAdressenId,
+      laufendeZahlungsId: 1,
       kundenId: createdKunde.kundenId,
       gewünschtesLieferdatum: new Date()
     }).catch((error) => {

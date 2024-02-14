@@ -62,16 +62,13 @@ export async function placeOrder(orderData: PlaceOrderApiAttributes) {
   try {
     const warenkorb = await findWarenkorb(orderData.kundenId);
     const date = new Date();
-    const laufendeZahlungsId = await findCurrentZahlungsmöglichkeiten(
-      orderData.kundenId
-    );
-    console.log("laufendeZahlungsId", warenkorb.dataValues);
-    console.log("laufendeZahlungsId", laufendeZahlungsId.dataValues);
+
+    console.log("laufendeZahlungsId", orderData);
     const orderedBestellung = await warenkorb.update({
       ...warenkorb.dataValues,
-      laufendeZahlungsId: laufendeZahlungsId.laufendeZahlungsId,
+      laufendeZahlungsId: orderData.laufendeZahlungsId,
       kundenId: orderData.kundenId,
-      isPaypal: orderData.isPaypal,
+      laufendeAdressenId: orderData.laufendeAdressenId,
       bestellDatum: date,
       gewünschtesLieferdatum: orderData.gewünschtesLieferdatum
     });

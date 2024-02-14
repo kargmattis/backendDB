@@ -43,7 +43,7 @@ Bestellung.init(
       //   model: "adresse",
       //   key: "laufendeAdressenId"
       // },
-      allowNull: false
+      allowNull: true
     },
     laufendeZahlungsId: {
       type: DataTypes.INTEGER,
