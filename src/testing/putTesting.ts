@@ -1,5 +1,4 @@
 import type Adresse from "../database/adresse/adresse";
-import putAdresse from "../database/adresse/operation/putAdresse";
 import type Bestellung from "../database/bestellung/bestellung";
 import type Kunde from "../database/kunde/kunde";
 import putKunde from "../database/kunde/operation/putKunde";
