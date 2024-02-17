@@ -116,54 +116,54 @@ const Products: ProduktCreationAttributes[] = [
     bild: "Drinks/heißeSchokolade.webp",
     sparte: "Drink"
   },
-  {
-    titel: "Das kleine Osterfrühstück",
-    preis: 5.99,
-    bild: "Food/Osterfruehstueck.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Bayrisches Menü",
-    preis: 7.99,
-    bild: "Food/bayrisches_Essen.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Wecken mit Kaffee",
-    preis: 6.99,
-    bild: "Food/BötchenmitKaffee.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Obstmenü",
-    preis: 5.99,
-    bild: "Food/BrotEiTeeUndObst.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Eiermenü",
-    preis: 5.99,
-    bild: "Food/EigetränkUndEierbrot.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Klassisches Menü",
-    preis: 5.99,
-    bild: "Food/KaffeeMitEiUndBrot.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Veggiemenü",
-    preis: 5.99,
-    bild: "Food/OSaftMitFrüchtebrot.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Morgensonne",
-    preis: 5.99,
-    bild: "Food/OSaftUndOrangenbrot.webp",
-    sparte: "Menu"
-  },
+  // {
+  //   titel: "Das kleine Osterfrühstück",
+  //   preis: 5.99,
+  //   bild: "Food/Osterfruehstueck.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Bayrisches Menü",
+  //   preis: 7.99,
+  //   bild: "Food/bayrisches_Essen.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Wecken mit Kaffee",
+  //   preis: 6.99,
+  //   bild: "Food/BötchenmitKaffee.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Obstmenü",
+  //   preis: 5.99,
+  //   bild: "Food/BrotEiTeeUndObst.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Eiermenü",
+  //   preis: 5.99,
+  //   bild: "Food/EigetränkUndEierbrot.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Klassisches Menü",
+  //   preis: 5.99,
+  //   bild: "Food/KaffeeMitEiUndBrot.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Veggiemenü",
+  //   preis: 5.99,
+  //   bild: "Food/OSaftMitFrüchtebrot.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Morgensonne",
+  //   preis: 5.99,
+  //   bild: "Food/OSaftUndOrangenbrot.webp",
+  //   sparte: "Menu"
+  // },
   {
     titel: "Zeitung",
     preis: 1.0,

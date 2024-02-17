@@ -38,7 +38,7 @@ const Zutaten: ZutatCreationAttributes[] = [
   {
     zutatsname: "Toast",
     zutatseigenschaft: "vegan",
-    zutatspreis: 1.00,
+    zutatspreis: 1.0,
     zutatseinheit: "Stück",
     zutatBild: "Toast.webp",
     zutatensparte: "Brot"
@@ -64,7 +64,7 @@ const Zutaten: ZutatCreationAttributes[] = [
   {
     zutatsname: "Rinderpatty",
     zutatseigenschaft: "not vegan",
-    zutatspreis: 1.20,
+    zutatspreis: 1.2,
     zutatseinheit: "Scheiben",
     zutatBild: "rinderpatty.webp",
     zutatensparte: "Topping"
@@ -80,7 +80,7 @@ const Zutaten: ZutatCreationAttributes[] = [
   {
     zutatsname: "Butter",
     zutatseigenschaft: "vegan",
-    zutatspreis: 0.30,
+    zutatspreis: 0.3,
     zutatseinheit: "Portion",
     zutatBild: "Butter.webp",
     zutatensparte: "Topping"
@@ -96,7 +96,7 @@ const Zutaten: ZutatCreationAttributes[] = [
   {
     zutatsname: "Erdbeermarmelade",
     zutatseigenschaft: "vegan",
-    zutatspreis: 0.40,
+    zutatspreis: 0.4,
     zutatseinheit: "Portion",
     zutatBild: "Erdbeermarmelade.webp",
     zutatensparte: "Topping"
@@ -104,7 +104,7 @@ const Zutaten: ZutatCreationAttributes[] = [
   {
     zutatsname: "Pfirsichmarmelade",
     zutatseigenschaft: "vegan",
-    zutatspreis: 0.40,
+    zutatspreis: 0.4,
     zutatseinheit: "Portion",
     zutatBild: "Pfirsichmarmelade.webp",
     zutatensparte: "Topping"
@@ -112,7 +112,7 @@ const Zutaten: ZutatCreationAttributes[] = [
   {
     zutatsname: "Kirschmarmelade",
     zutatseigenschaft: "vegan",
-    zutatspreis: 0.40,
+    zutatspreis: 0.4,
     zutatseinheit: "Portion",
     zutatBild: "Kirschmarmelade.webp",
     zutatensparte: "Topping"
@@ -120,7 +120,7 @@ const Zutaten: ZutatCreationAttributes[] = [
   {
     zutatsname: "Nutella",
     zutatseigenschaft: "vegan",
-    zutatspreis: 0.50,
+    zutatspreis: 0.5,
     zutatseinheit: "Portion",
     zutatBild: "Nutella.webp",
     zutatensparte: "Topping"
@@ -128,7 +128,7 @@ const Zutaten: ZutatCreationAttributes[] = [
   {
     zutatsname: "vegane Salami",
     zutatseigenschaft: "vegan",
-    zutatspreis: 0.90,
+    zutatspreis: 0.9,
     zutatseinheit: "Scheiben",
     zutatBild: "VeganeSalami.webp",
     zutatensparte: "Topping"
@@ -136,14 +136,11 @@ const Zutaten: ZutatCreationAttributes[] = [
   {
     zutatsname: "veganer Käse",
     zutatseigenschaft: "vegan",
-    zutatspreis: 0.90,
+    zutatspreis: 0.9,
     zutatseinheit: "Scheiben",
     zutatBild: "veganerKaese.webp",
     zutatensparte: "Topping"
   },
-  
-  
-
   //Other only for Products
   {
     zutatsname: "Zwiebel",
@@ -281,65 +278,62 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatBild: "Nothing.webp",
     zutatensparte: "Other"
   },
-
-//Extras
-{
-  zutatsname: "Frühstücksei (gekocht)",
-  zutatseigenschaft: "vegan",
-  zutatspreis: 1.20,
-  zutatseinheit: "Stück",
-  zutatBild: "Fruestuecksei.webp",
-  zutatensparte: "Extra"
-},
-{
-  zutatsname: "Rührei",
-  zutatseigenschaft: "vegan",
-  zutatspreis: 1.50,
-  zutatseinheit: "Stück",
-  zutatBild: "Ruehrei.webp",
-  zutatensparte: "Extra"
-},
-{
-  zutatsname: "Omlette",
-  zutatseigenschaft: "vegan",
-  zutatspreis: 1.50,
-  zutatseinheit: "Stück",
-  zutatBild: "Omelette.webp",
-  zutatensparte: "Extra"
-},
-{
-  zutatsname: "Spiegelei",
-  zutatseigenschaft: "vegan",
-  zutatspreis: 1.50,
-  zutatseinheit: "Stück",
-  zutatBild: "Spiegelei.webp",
-  zutatensparte: "Extra"
-},{
-  zutatsname: "Apfel",
-  zutatseigenschaft: "vegan",
-  zutatspreis: 1.10,
-  zutatseinheit: "Stück",
-  zutatBild: "Apfel.webp",
-  zutatensparte: "Extra"
-},{
-  zutatsname: "Banane",
-  zutatseigenschaft: "vegan",
-  zutatspreis: 1.10,
-  zutatseinheit: "Stück",
-  zutatBild: "Banane.webp",
-  zutatensparte: "Extra"
-},{
-  zutatsname: "Birne",
-  zutatseigenschaft: "vegan",
-  zutatspreis: 1.10,
-  zutatseinheit: "Stück",
-  zutatBild: "Birne.webp",
-  zutatensparte: "Extra"
-}
-
-
-
-
+  {
+    zutatsname: "Frühstücksei (gekocht)",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1.2,
+    zutatseinheit: "Stück",
+    zutatBild: "Fruestuecksei.webp",
+    zutatensparte: "Extra"
+  },
+  {
+    zutatsname: "Rührei",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1.5,
+    zutatseinheit: "Stück",
+    zutatBild: "Ruehrei.webp",
+    zutatensparte: "Extra"
+  },
+  {
+    zutatsname: "Omlette",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1.5,
+    zutatseinheit: "Stück",
+    zutatBild: "Omelette.webp",
+    zutatensparte: "Extra"
+  },
+  {
+    zutatsname: "Spiegelei",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1.5,
+    zutatseinheit: "Stück",
+    zutatBild: "Spiegelei.webp",
+    zutatensparte: "Extra"
+  },
+  {
+    zutatsname: "Apfel",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1.1,
+    zutatseinheit: "Stück",
+    zutatBild: "Apfel.webp",
+    zutatensparte: "Extra"
+  },
+  {
+    zutatsname: "Banane",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1.1,
+    zutatseinheit: "Stück",
+    zutatBild: "Banane.webp",
+    zutatensparte: "Extra"
+  },
+  {
+    zutatsname: "Birne",
+    zutatseigenschaft: "vegan",
+    zutatspreis: 1.1,
+    zutatseinheit: "Stück",
+    zutatBild: "Birne.webp",
+    zutatensparte: "Extra"
+  }
 ];
 
 export default Zutaten;
