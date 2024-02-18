@@ -299,7 +299,7 @@ const Zutaten: ZutatCreationAttributes[] = [
     zutatseigenschaft: "vegan",
     zutatspreis: 1.5,
     zutatseinheit: "Stück",
-    zutatBild: "Omelette.webp",
+    zutatBild: "Omelett.webp",
     zutatensparte: "Extra"
   },
   {
