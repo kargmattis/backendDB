@@ -8,6 +8,7 @@ import { findCurrentAdresse } from "../../adresse/operation/findAdresse";
 import Bestellungposition from "../../bestellungsPosition/bestellungsPosition";
 import { findCurrentZahlungsmöglichkeiten } from "../../zahlungsmoeglichkeit/operation/findZahlungsmoeglichkeiten";
 import Bestellung from "../bestellung";
+import newAboEndDate from "./NewAboEndDate";
 import { findWarenkorb } from "./findBestellung";
 
 export async function addOrOpenWarenkorbBestellung(
@@ -65,6 +66,7 @@ export async function placeOrder(orderData: PlaceOrderApiAttributes) {
     );
     console.log("laufendeZahlungsId", warenkorb.dataValues);
     console.log("laufendeZahlungsId", laufendeZahlungsId.dataValues);
+    await newAboEndDate(orderData.kundenId);
     const orderedBestellung = await warenkorb.update({
       ...warenkorb.dataValues,
       laufendeZahlungsId: laufendeZahlungsId.laufendeZahlungsId,
