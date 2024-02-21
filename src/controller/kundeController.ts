@@ -1,7 +1,8 @@
 import express, { type Request, type Response } from "express";
 import {
   findKunde,
-  findKundeByEmail
+  findKundeByEmail,
+  getKundeAboenddate
 } from "../database/kunde/operation/findKunde";
 import { postRequestKunde } from "./kundeHelper/postRequestKunde";
 import CustomError from "../utilities/error";
@@ -18,6 +19,21 @@ KundeController.get("/kunde", async (req: Request, res) => {
     const kunde = await findKunde(id as string)
       .then((kunde) => {
         res.status(200).json(kunde);
+      })
+      .catch((error: CustomError) => {
+        res.status(error.statusCode).send(error.message);
+      });
+  } catch (error) {
+    res.status(500).send("An error occurred while creating the product");
+  }
+});
+
+KundeController.get("/kundeEndDate/:kundenId", async (req: Request, res) => {
+  try {
+    const kundenId = req.params.kundenId;
+    const EndDate = await getKundeAboenddate(kundenId as string)
+      .then((getKundeAboenddate) => {
+        res.status(200).json(getKundeAboenddate);
       })
       .catch((error: CustomError) => {
         res.status(error.statusCode).send(error.message);
