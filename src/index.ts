@@ -10,6 +10,7 @@ import helmet from "helmet";
 import { WarenkorbController } from "./controller/warenkorbController";
 import { ZahlungsMöglichkeitenController } from "./controller/zahlungsMöglichkeitenController";
 import { ZutatenPositionController } from "./controller/zutatenPositionController";
+import { AdminController } from "./controller/adminController";
 
 const app = express();
 const port = 3001;
@@ -29,7 +30,8 @@ app.use(
   BestellungsController,
   ZahlungsMöglichkeitenController,
   WarenkorbController,
-  ZutatenPositionController
+  ZutatenPositionController,
+  AdminController
 );
 app.get("/", (req, res) => {
   res.send("Hello World!");

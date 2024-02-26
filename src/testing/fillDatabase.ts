@@ -37,6 +37,15 @@ const testKunde = {
   zeitungsaboablaufdatum: new Date()
 };
 
+const adminKunde = {
+  email: "dbreakfast@gmail.com",
+  vorname: "delivery",
+  nachname: "breakfast",
+  passwort: "123456",
+  telefonnummer: "0123456789",
+  zeitungsaboablaufdatum: new Date(),
+  istAdmin: true
+};
 // Erstellen einer Testadresse mit den notwendigen Eigenschaften
 const testAdresse = {
   kundenId: "",
@@ -54,7 +63,7 @@ export const fillDatabase = async (): Promise<
     // wartet auf alles Promises und gibt die Ergebnisse in der Reihenfolge zurück, in der sie aufgerufen wurden
     console.log("fillDatabase started");
     console.log("test 1 started: kunde, produkte");
-
+    const createAdmin = await createKunde(adminKunde);
     const createdKunde = await createKunde(testKunde);
     const createdProducts = await Promise.all(
       Products.map(async (element) => {
