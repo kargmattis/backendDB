@@ -31,6 +31,9 @@ class CustomError extends Error {
       case ErrorHandle.NotFound:
         this.message = `Not Found ${customMessage}`;
         return 404;
+      case ErrorHandle.Unauthorized:
+        this.message = `Unauthorized ${customMessage}`;
+        return 401;
       default:
         this.message = "Inernal server error";
         return 500;
