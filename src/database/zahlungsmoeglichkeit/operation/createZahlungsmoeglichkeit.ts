@@ -50,7 +50,11 @@ export async function createZahlungsmöglichkeit(
       const laufendeZahlungsId = latestZahlungsMoeglichkeiten
         ? latestZahlungsMoeglichkeiten.laufendeZahlungsId + 1
         : 1;
-
+      const newZahlungsId = await ZahlungsMoeglichkeiten.create({
+        kundenId,
+        laufendeZahlungsId
+      });
+      console.log("newZahlungsId: ", newZahlungsId);
       const payPal = await PayPal.create({
         laufendeZahlungsId,
         paypalEmail,
