@@ -15,7 +15,13 @@ import { AdminController } from "./controller/adminController";
 const app = express();
 const port = 3001;
 
-app.use(cors()); // Enable CORS for all routes
+// app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // replace with your client-side domain
+    credentials: true
+  })
+);
 app.use(helmet()); // Enable Security for Backend
 
 // ... (other middleware and route definitions)

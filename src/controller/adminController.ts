@@ -11,7 +11,8 @@ AdminController.use(cookieParser());
 AdminController.use(async (req, res, next) => {
   // cookie steht kundenId drin diese soll hier herausgelsen werden
   try {
-    console.log(req.cookies.kundenId);
+    console.log("cookie kundenId", req.cookies.kundenId);
+    console.log("cookie", req.cookies);
 
     const kundenId = req.cookies.kundenId;
     const admin = await checkAdmin(kundenId);
@@ -44,6 +45,24 @@ AdminController.put("/admin/deliver/:bestellId", async (req: Request, res) => {
     deliveredbestellung.lieferdatum = newDate;
     await deliveredbestellung.save();
     res.status(200).json(deliveredbestellung);
+  } catch (error) {
+    const err = errorValidation(error);
+    res.status(err.statusCode).send(err.message);
+  }
+});
+
+AdminController.get("/admin/todayDeliveries", async (_req, res) => {
+  try {
+    const today = new Date();
+    const todayDeliveries = await Bestellung.findAll({
+      where: {
+        gewünschtesLieferdatum: today
+      }
+    });
+    if (!todayDeliveries) {
+      throw new CustomError(ErrorHandle.NotFound, "No deliveries today");
+    }
+    res.status(200).json(todayDeliveries);
   } catch (error) {
     const err = errorValidation(error);
     res.status(err.statusCode).send(err.message);

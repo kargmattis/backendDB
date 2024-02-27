@@ -64,7 +64,7 @@ KundeController.post("/kunde/login", async (req: Request, res: Response) => {
     // Wenn der Benutzer gefunden wurde, überprüfe das Passwort
     if (kunde && password === kunde.passwort) {
       // Wenn das Passwort übereinstimmt, sende eine Erfolgsmeldung zurück
-      res.status(200).json({ message: "Successful login" });
+      res.status(200).json({ kundenId: kunde.kundenId });
     } else {
       // Wenn der Benutzer nicht gefunden wurde oder das Passwort nicht übereinstimmt, sende einen Fehler zurück
       throw new CustomError(
