@@ -5,15 +5,17 @@ import Zutat from "../database/zutat/zutat";
 import { addProduktZutatRelation } from "../database/zutatenPostion/operation/addProduktZutatRelation";
 import {
   ProduktCreationAttributes,
-  ZutatenPositionCreationAttributes
+  ZutatenPositionCreationAttributes,
+  ZutatenPostitionObject
 } from "../global/types";
 export const ZutatenPositionController = express.Router();
 import { createProdukt } from "../database/produkt/operations/createProdukt";
 import { createZutat } from "../database/zutat/operations/createZutat";
+import ZutatenPosition from "../database/zutatenPostion/zutatenPosition";
 
 interface AusgewählteZutat {
   zutatId: string;
-  zutatMenge: number;
+  zutatMenge: string;
 }
 
 interface KonfiguriertesProdukt {
@@ -24,6 +26,11 @@ interface KonfiguriertesProdukt {
   sparte: string;
   zutat: Array<AusgewählteZutat>;
 }
+
+/* interface AusgewählteZutat {
+  zutatId: string;
+  zutatMenge: number;
+} */
 
 ZutatenPositionController.get("/KundenProdukt", (_req, res) => {
   findAllProductsIngridiendsRelations()
@@ -46,17 +53,18 @@ ZutatenPositionController.post("/KundenProdukt", (req, res) => {
     zutat: req.body.zutat
   };
 
-  const zwischenspeicherung: ProduktCreationAttributes = {
+  const zwischenspeicherungprodukt: ProduktCreationAttributes = {
     titel: importedProduct.titel,
     preis: importedProduct.preis,
     bild: importedProduct.bild,
-    sparte: importedProduct.sparte
+    sparte: importedProduct.sparte,
+    kundenId: importedProduct.kundenId
   };
 
   let productID = "";
 
   // 2. Produkt erstellen
-  createProdukt(zwischenspeicherung)
+  createProdukt(zwischenspeicherungprodukt)
     .then((produkt) => {
       res.status(201).json(produkt);
       productID = produkt.produktId;
@@ -66,6 +74,54 @@ ZutatenPositionController.post("/KundenProdukt", (req, res) => {
     });
 
   console.log(productID);
+
+  if (importedProduct.zutat.length > 0) {
+    const zutatenPosition: ZutatenPositionCreationAttributes = {
+      produktId: productID,
+      zutatIdWithAmount: [
+        {
+          zutatsId: importedProduct.zutat[0].zutatId,
+          zutatenMenge: importedProduct.zutat[0].zutatMenge
+        }
+      ]
+    };
+  }
+
+  /*interface KonfiguriertesProdukt {
+    kundenId: string;
+    titel: string;
+    preis: number;
+    bild: string;
+    sparte: string;
+    zutat: Array<AusgewählteZutat>;
+  }
+  
+  interface AusgewählteZutat {
+    zutatId: string;
+    zutatMenge: number;  ---> Achtung
+  } 
+  
+  export type ZutatenPositionCreationAttributes = {
+  produktId: string;
+  zutatIdWithAmount: ZutatenPostitionObject[];
+};
+
+export type ZutatenPostitionObject = {
+  zutatsId: string;
+  zutatenMenge: string;  ---> Achtung
+};*/
+
+  // 3. ZutatenPosition speichern
+  // addProduktZutatRelation(zutatenPosition)
+  //   .then((zutatenPosition) => {
+  //     res.status(200).json(zutatenPosition);
+  //   })
+  //   .catch((error: any) => {
+  //     console.error(error);
+  //     res
+  //       .status(error.statusCode || 500)
+  //       .send(error.message || "An error occurred");
+  //   });
 
   // const pro =  await Promise.all(
   //    async (importedProduct) => {
