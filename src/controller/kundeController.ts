@@ -51,7 +51,11 @@ KundeController.post("/kunde", async (req: Request, res) => {
     .catch((error: CustomError) => {
       console.log(error);
 
-      res.status(error.statusCode).send(error.message);
+      if (error.message.includes("the key is unique and already exists")) {
+        res.status(409).send("EmailExists");
+      } else {
+        res.status(error.statusCode).send(error.message);
+      }
     });
 });
 
