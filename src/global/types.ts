@@ -65,7 +65,8 @@ export type SingleBestellungType = {
 
 export type PlaceOrderApiAttributes = {
   kundenId: string;
-  isPaypal: boolean;
+  laufendeZahlungsId: number;
+  laufendeAdressenId: number;
   gewünschtesLieferdatum: Date;
 };
 export type ProduktWithBestellmenge = Produkt & {

@@ -43,10 +43,16 @@ BestellungsController.post("/bestellung", async (req: Request, res) => {
   try {
     console.log(req.body);
 
-    const { kundenId, gewünschtesLieferdatum, isPaypal } = req.body;
-    const bestellungen = await placeOrder({
+    const {
       kundenId,
-      isPaypal,
+      gewünschtesLieferdatum,
+      laufendeAdressenId,
+      laufendeZahlungsId
+    } = req.body;
+    const bestellungen = await placeOrder({
+      laufendeAdressenId,
+      laufendeZahlungsId,
+      kundenId,
       gewünschtesLieferdatum
     });
     res.status(200).json(bestellungen);
