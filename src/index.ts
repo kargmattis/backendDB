@@ -18,7 +18,10 @@ const port = 3001;
 // app.use(cors());
 app.use(
   cors({
-    origin: "http://localhost:3000", // replace with your client-side domain
+    origin: [
+      "http://localhost:3000",
+      "http://delivery-breakfast.projekt.dhbw-heidenheim.de"
+    ], // replace with your client-side domain
     credentials: true
   })
 );
