@@ -1,26 +1,20 @@
-import { ZahlungsmöglichkeitenCreationAttributes } from "../../../global/types";
+import { ZahlungsmöglichkeitenDeactivate } from "../../../global/types";
 import { errorChecking } from "../../../utilities/errorChecking";
-import ZahlungsMoeglichkeiten from "../zahlungsMoeglichkeiten";
-import { findCurrentZahlungsmöglichkeiten } from "./findZahlungsmoeglichkeiten";
+import { findZahlungsmöglichkeitByPKs } from "./findZahlungsmoeglichkeiten";
 
-export async function putZahlungsmöglichkeiten(
-  putZahlungsData: ZahlungsmöglichkeitenCreationAttributes
+export async function deactivateZahlungsmöglichkeit(
+  pkInput: ZahlungsmöglichkeitenDeactivate
 ) {
   try {
-    const currentZahlungsmöglichkeiten = await findCurrentZahlungsmöglichkeiten(
-      putZahlungsData.kundenId
-    );
-    const updatetZahlungsmöglichkeitId =
-      await currentZahlungsmöglichkeiten.increment("laufendeZahlungsId");
-    const newZahlungsMoeglichkeitenObject = {
-      ...currentZahlungsmöglichkeiten,
-      putZahlungsData,
-      laufendeZahlungsId: updatetZahlungsmöglichkeitId
-    };
-    const newZahlungsMoeglichkeiten = await ZahlungsMoeglichkeiten.create({
-      newZahlungsMoeglichkeitenObject
+    const zahlungsmöglichkeit = await findZahlungsmöglichkeitByPKs(pkInput);
+    if (!zahlungsmöglichkeit) {
+      throw new Error("Zahlungsmöglichkeit not found");
+    }
+    const deactivatedZahlungsmöglichkeit = await zahlungsmöglichkeit.update({
+      aktiv: false
     });
-    return newZahlungsMoeglichkeiten;
+
+    return deactivatedZahlungsmöglichkeit;
   } catch (error) {
     throw errorChecking(error);
   }

@@ -16,7 +16,7 @@ Bestellungposition.init(
       allowNull: false,
       primaryKey: true,
       references: {
-        model: "Bestellung",
+        model: "bestellung",
         key: "bestellungsId"
       }
     },
@@ -25,7 +25,7 @@ Bestellungposition.init(
       allowNull: false,
       primaryKey: true,
       references: {
-        model: "Produkt",
+        model: "produkt",
         key: "produktId"
       }
     },
@@ -35,7 +35,7 @@ Bestellungposition.init(
     }
   },
   {
-    tableName: "Bestellungposition",
+    tableName: "bestellungposition",
     sequelize
   }
 );

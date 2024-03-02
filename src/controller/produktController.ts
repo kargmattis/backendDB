@@ -1,11 +1,20 @@
 import express from "express";
 import { createProdukt } from "../database/produkt/operations/createProdukt";
-import type CustomError from "../utilities/error";
+import CustomError from "../utilities/error";
 import {
   findProductWithoutKundeId,
   findProduktByKundeId,
   findProduktByPk
 } from "../database/produkt/operations/findProdukt";
+import { errorValidation } from "../utilities/errorChecking";
+import { ErrorHandle } from "../global/enums";
+import {
+  findZutat,
+  findZutatById
+} from "../database/zutat/operations/findZutat";
+import { ProduktUndZutaten, ZutatenMitProduktId } from "./productHelper";
+import Produkt from "../database/produkt/produkt";
+import Zutat from "../database/zutat/zutat";
 
 export const ProduktController = express.Router();
 
@@ -14,21 +23,40 @@ ProduktController.get("/produkt", (_req, res) => {
 });
 
 ProduktController.post("/produkt", async (req, res) => {
-  // ToDo: body sollte noch gecheckt werden wird gerade einfach so übergeben
   createProdukt(req.body)
     .then((produkt) => res.status(201).json(produkt))
     .catch((error: CustomError) => {
       res.status(error.statusCode).send(error.message);
     });
 });
-ProduktController.get("/generalProdukts", (_req, res) => {
-  findProductWithoutKundeId()
-    .then((produkt) => {
-      res.status(200).json(produkt);
-    })
-    .catch((error: CustomError) => {
-      res.status(error.statusCode).send(error.message);
-    });
+
+ProduktController.get("/generalProdukts", async (_req, res) => {
+  try {
+    const productWithIngredients: Array<ProduktUndZutaten> = [];
+    const products = await findProductWithoutKundeId();
+    if (!products) {
+      throw new CustomError(ErrorHandle.NotFound, "General Products");
+    }
+    for (const product of products) {
+      const zutaten = await ZutatenMitProduktId(product.produktId);
+      const produktUndZutaten: ProduktUndZutaten = {
+        produktId: product.produktId,
+        titel: product.titel,
+        preis: product.preis,
+        bild: product.bild,
+        sparte: product.sparte,
+        kundenId: null,
+        createdAt: product.createdAt,
+        updatedAt: product.updatedAt,
+        Zutaten: zutaten
+      };
+      productWithIngredients.push(produktUndZutaten);
+    }
+    res.status(200).json(productWithIngredients);
+  } catch (error) {
+    const err = errorValidation(error);
+    res.status(err.statusCode).send(err.message);
+  }
 });
 
 ProduktController.get("/CustomerProdukts/:id", (_req, res) => {

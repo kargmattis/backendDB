@@ -13,9 +13,13 @@ import { createZutat } from "../database/zutat/operations/createZutat";
 import type Zutat from "../database/zutat/zutat";
 import { addProduktZutatRelation } from "../database/zutatenPostion/operation/addProduktZutatRelation";
 import Products from "./ProduktArray";
+import { createIngredientsToProducts } from "./ProduktinhaltArray";
 import Zutaten from "./ZutatenArray";
 import ZahlungsMoeglichkeiten from "../database/zahlungsmoeglichkeit/zahlungsMoeglichkeiten";
 import { createZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/createZahlungsmoeglichkeit";
+import { deactivateZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/putZahlungsmöglichkeiten";
+import PayPal from "../database/zahlungsmoeglichkeit/paypal";
+import Lastschrift from "../database/zahlungsmoeglichkeit/lastschrift";
 // Erstellen eines Testprodukts mit den notwendigen Eigenschaften
 const testLastschrift = {
   kundenId: "",
@@ -33,6 +37,15 @@ const testKunde = {
   zeitungsaboablaufdatum: new Date()
 };
 
+const adminKunde = {
+  email: "dbreakfast@gmail.com",
+  vorname: "delivery",
+  nachname: "breakfast",
+  passwort: "123456",
+  telefonnummer: "0123456789",
+  zeitungsaboablaufdatum: new Date(),
+  istAdmin: true
+};
 // Erstellen einer Testadresse mit den notwendigen Eigenschaften
 const testAdresse = {
   kundenId: "",
@@ -44,14 +57,13 @@ const testAdresse = {
 };
 // Die Funktion fillDatabase ist eine asynchrone Funktion, die beim Aufruf versucht, eine Reihe von Operationen auszuführen.
 export const fillDatabase = async (): Promise<
-  | [Produkt, Kunde, ZahlungsMoeglichkeiten, Adresse, Zutat, Bestellung]
-  | undefined
+  [Produkt, Kunde, PayPal | Lastschrift, Adresse, Zutat, Bestellung] | undefined
 > => {
   try {
     // wartet auf alles Promises und gibt die Ergebnisse in der Reihenfolge zurück, in der sie aufgerufen wurden
     console.log("fillDatabase started");
     console.log("test 1 started: kunde, produkte");
-
+    const createAdmin = await createKunde(adminKunde);
     const createdKunde = await createKunde(testKunde);
     const createdProducts = await Promise.all(
       Products.map(async (element) => {
@@ -86,11 +98,10 @@ export const fillDatabase = async (): Promise<
     testAdresse.kundenId = createdKunde.kundenId;
     testLastschrift.kundenId = createdKunde.kundenId;
     console.log("test 3 started: Zahlungsmöglichkeit:Lastschrift, Adresse");
+    console.log(testLastschrift);
 
     const [createdLastschrift, createdAdresse] = await Promise.all([
-      createZahlungsmöglichkeit({
-        ...testLastschrift
-      }),
+      createZahlungsmöglichkeit(testLastschrift),
       createAdresse(testAdresse)
     ]).catch((error) => {
       console.log("test 3 failed: lastschrift, adresse, zutat");
@@ -116,9 +127,9 @@ export const fillDatabase = async (): Promise<
       throw new Error(error);
     });
     console.log("test 5 started: Bestellung aufgeben");
+    console.log(createdLastschrift.dataValues);
+
     const placedOrder = await placeOrder({
-      laufendeZahlungsId: createdLastschrift.laufendeZahlungsId,
-      bestellDatum: new Date(),
       isPaypal: false,
       kundenId: createdKunde.kundenId,
       gewünschtesLieferdatum: new Date()
@@ -139,12 +150,14 @@ export const fillDatabase = async (): Promise<
     const createdZutatenPosition = await addProduktZutatRelation({
       produktId: createdProduct.produktId,
       zutatIdWithAmount: [
-        { zutatenId: createdZutat.zutatsId, zutatenMenge: "100" }
+        { zutatsId: createdZutat.zutatsId, zutatenMenge: "100" }
       ]
     }).catch((error) => {
       console.log("test 6 failed: ZutatenPosition");
       throw new Error(error);
     });
+
+    createIngredientsToProducts();
 
     return [
       createdProduct,

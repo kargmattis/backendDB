@@ -46,8 +46,8 @@ export type ZutatenPositionCreationAttributes = {
   zutatIdWithAmount: ZutatenPostitionObject[];
 };
 
-type ZutatenPostitionObject = {
-  zutatenId: string;
+export type ZutatenPostitionObject = {
+  zutatsId: string;
   zutatenMenge: string;
 };
 
@@ -65,8 +65,6 @@ export type SingleBestellungType = {
 
 export type PlaceOrderApiAttributes = {
   kundenId: string;
-  laufendeZahlungsId: number;
-  bestellDatum: Date;
   isPaypal: boolean;
   gewünschtesLieferdatum: Date;
 };
@@ -76,8 +74,19 @@ export type ProduktWithBestellmenge = Produkt & {
 
 export type ZahlungsmöglichkeitenCreationAttributes = {
   kundenId: string;
-  bankname?: string;
-  bic?: string;
-  iban?: string;
-  paypalEmail?: string;
+} & Partial<PayPaylPaymentAttributes & LastschriftPaymentAttributes>;
+
+export type ZahlungsmöglichkeitenDeactivate = {
+  kundenId: string;
+  laufendeZahlungsId: number;
+};
+
+export type PayPaylPaymentAttributes = {
+  paypalEmail: string;
+};
+
+export type LastschriftPaymentAttributes = {
+  bankname: string;
+  bic: string;
+  iban: string;
 };

@@ -27,13 +27,28 @@ export async function findCurrentAdresse(kundenId: string): Promise<Adresse> {
       where: {
         kundenId
       },
-      order: [["laufendeAdressenId", "DESC"]],
-      limit: 1
+      order: [["laufendeAdressenId", "DESC"]]
     });
     if (result.count === 0) {
       throw new CustomError(ErrorHandle.NotFound, "Adresse not found");
     }
     return result.rows[0];
+  } catch (error) {
+    throw errorChecking(error);
+  }
+}
+
+export async function findAllAdressen(kundenId: string): Promise<Adresse[]> {
+  try {
+    const result = await Adresse.findAll({
+      where: {
+        kundenId
+      }
+    });
+    if (result.length === 0) {
+      throw new CustomError(ErrorHandle.NotFound, "Adresse not found");
+    }
+    return result;
   } catch (error) {
     throw errorChecking(error);
   }

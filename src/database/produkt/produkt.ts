@@ -38,13 +38,13 @@ Produkt.init(
       type: DataTypes.UUID,
       allowNull: true,
       references: {
-        model: "Kunde",
+        model: "kunde",
         key: "kundenId"
       }
     }
   },
   {
-    tableName: "Produkt",
+    tableName: "produkt",
     sequelize
   }
 );

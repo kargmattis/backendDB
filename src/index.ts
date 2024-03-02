@@ -9,11 +9,22 @@ import { BestellungsController } from "./controller/bestellungscontroller";
 import helmet from "helmet";
 import { WarenkorbController } from "./controller/warenkorbController";
 import { ZahlungsMöglichkeitenController } from "./controller/zahlungsMöglichkeitenController";
+import { ZutatenPositionController } from "./controller/zutatenPositionController";
+import { AdminController } from "./controller/adminController";
 
 const app = express();
 const port = 3001;
 
-app.use(cors()); // Enable CORS for all routes
+// app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://delivery-breakfast.projekt.dhbw-heidenheim.de"
+    ], // replace with your client-side domain
+    credentials: true
+  })
+);
 app.use(helmet()); // Enable Security for Backend
 
 // ... (other middleware and route definitions)
@@ -27,7 +38,9 @@ app.use(
   AdresseController,
   BestellungsController,
   ZahlungsMöglichkeitenController,
-  WarenkorbController
+  WarenkorbController,
+  ZutatenPositionController,
+  AdminController
 );
 app.get("/", (req, res) => {
   res.send("Hello World!");

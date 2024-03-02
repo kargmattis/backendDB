@@ -7,7 +7,6 @@ import ZahlungsMoeglichkeiten from "../../zahlungsmoeglichkeit/zahlungsMoeglichk
 import Adresse from "../../adresse/adresse";
 import Produkt from "../../produkt/produkt";
 import { errorChecking } from "../../../utilities/errorChecking";
-import e from "express";
 
 export async function findAllBestellungen(
   kundenId: string

@@ -46,7 +46,7 @@ Zutat.init(
     }
   },
   {
-    tableName: "Zutat",
+    tableName: "zutat",
     sequelize
   }
 );

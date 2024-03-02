@@ -7,7 +7,7 @@ export async function addProduktZutatRelation(
   const zutatenPositionen: ZutatenPosition[] = [];
   for (const zutatenId of input.zutatIdWithAmount) {
     const zutatenPostion = await ZutatenPosition.create({
-      zutatsId: zutatenId.zutatenId,
+      zutatsId: zutatenId.zutatsId,
       produktId: input.produktId,
       zutatenMenge: zutatenId.zutatenMenge
     });

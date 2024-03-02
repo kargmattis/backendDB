@@ -1,7 +1,8 @@
 import {
   type BelongsToManyAddAssociationMixin,
   DataTypes,
-  Model
+  Model,
+  DATE
 } from "sequelize";
 import { sequelize } from "../database";
 import type Product from "../produkt/produkt";
@@ -13,7 +14,7 @@ class Bestellung extends Model {
   public laufendeZahlungsId!: string;
   public bestellDatum!: Date;
   public gewünschtesLieferdatum!: Date;
-  public isPaypal!: boolean;
+  public lieferdatum!: Date;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public addProduct!: BelongsToManyAddAssociationMixin<Product, string>;
@@ -29,34 +30,29 @@ Bestellung.init(
     kundenId: {
       type: DataTypes.UUID,
       unique: false,
-      references: {
-        model: "Kunde",
-        key: "kundenId"
-      },
+      // references: {
+      //   model: "adresse",
+      //   key: "kundenId"
+      // },
       allowNull: false
     },
     laufendeAdressenId: {
       type: DataTypes.INTEGER,
       unique: false,
       // references: {
-      //   model: "Adresse",
+      //   model: "adresse",
       //   key: "laufendeAdressenId"
       // },
       allowNull: false
     },
     laufendeZahlungsId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       unique: false,
-      references: {
-        model: "zahlungsMoeglichkeiten",
-        key: "laufendeZahlungsId"
-      },
+      // references: {
+      //   model: "zahlungsMoeglichkeit",
+      //   key: "laufendeZahlungsId"
+      // },
       allowNull: true
-    },
-    isPaypal: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: null
     },
     bestellDatum: {
       type: DataTypes.DATE,
@@ -65,10 +61,14 @@ Bestellung.init(
     gewünschtesLieferdatum: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    lieferdatum: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   },
   {
-    tableName: "Bestellung",
+    tableName: "bestellung",
     sequelize
   }
 );

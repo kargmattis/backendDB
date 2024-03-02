@@ -3,5 +3,6 @@ export enum ErrorHandle {
   DatabaseError,
   ServerError,
   BadRequest,
-  NotFound
+  NotFound,
+  Unauthorized
 }

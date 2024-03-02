@@ -87,15 +87,21 @@ const Products: ProduktCreationAttributes[] = [
     sparte: "Drink"
   },
   {
-    titel: "Früchtetee",
-    preis: 5.99,
-    bild: "Drinks/Fruechtetee.webp",
-    sparte: "Drink"
-  },
-  {
     titel: "Wasser",
     preis: 5.99,
     bild: "Drinks/Wasser.webp",
+    sparte: "Drink"
+  },
+  {
+    titel: "Schwarzer Tee",
+    preis: 5.99,
+    bild: "Drinks/SchwarzerTee.webp",
+    sparte: "Drink"
+  },
+  {
+    titel: "Früchtetee",
+    preis: 5.99,
+    bild: "Drinks/Fruechtetee.webp",
     sparte: "Drink"
   },
   {
@@ -110,58 +116,58 @@ const Products: ProduktCreationAttributes[] = [
     bild: "Drinks/heißeSchokolade.webp",
     sparte: "Drink"
   },
-  {
-    titel: "Das kleine Osterfrühstück",
-    preis: 5.99,
-    bild: "Food/Osterfruehstueck.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Bayrisches Menü",
-    preis: 7.99,
-    bild: "Food/bayrisches_Essen.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Wecken mit Kaffee",
-    preis: 6.99,
-    bild: "Food/BötchenmitKaffee.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Obstmenü",
-    preis: 5.99,
-    bild: "Food/BrotEiTeeUndObst.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Eiermenü",
-    preis: 5.99,
-    bild: "Food/EigetränkUndEierbrot.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Klassisches Menü",
-    preis: 5.99,
-    bild: "Food/KaffeeMitEiUndBrot.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Veggiemenü",
-    preis: 5.99,
-    bild: "Food/OSaftMitFrüchtebrot.webp",
-    sparte: "Menu"
-  },
-  {
-    titel: "Orangenmenü",
-    preis: 5.99,
-    bild: "Food/OSaftUndOrangenbrot.webp",
-    sparte: "Menu"
-  },
+  // {
+  //   titel: "Das kleine Osterfrühstück",
+  //   preis: 5.99,
+  //   bild: "Food/Osterfruehstueck.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Bayrisches Menü",
+  //   preis: 7.99,
+  //   bild: "Food/bayrisches_Essen.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Wecken mit Kaffee",
+  //   preis: 6.99,
+  //   bild: "Food/BötchenmitKaffee.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Obstmenü",
+  //   preis: 5.99,
+  //   bild: "Food/BrotEiTeeUndObst.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Eiermenü",
+  //   preis: 5.99,
+  //   bild: "Food/EigetränkUndEierbrot.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Klassisches Menü",
+  //   preis: 5.99,
+  //   bild: "Food/KaffeeMitEiUndBrot.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Veggiemenü",
+  //   preis: 5.99,
+  //   bild: "Food/OSaftMitFrüchtebrot.webp",
+  //   sparte: "Menu"
+  // },
+  // {
+  //   titel: "Morgensonne",
+  //   preis: 5.99,
+  //   bild: "Food/OSaftUndOrangenbrot.webp",
+  //   sparte: "Menu"
+  // },
   {
     titel: "Zeitung",
     preis: 1.0,
-    bild: "Food/OSaftUndOrangenbrot.webp", // TODO: Bild austauschen
+    bild: "Zeitung.webp",
     sparte: "Newspaper"
   }
 ];

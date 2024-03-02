@@ -1,3 +1,4 @@
+import { ProgramUpdateLevel } from "typescript";
 import Adresse from "./adresse/adresse";
 import Bestellung from "./bestellung/bestellung";
 import Bestellungposition from "./bestellungsPosition/bestellungsPosition";
@@ -6,7 +7,7 @@ import Produkt from "./produkt/produkt";
 import ZahlungsMoeglichkeiten from "./zahlungsmoeglichkeit/zahlungsMoeglichkeiten";
 import Zutat from "./zutat/zutat";
 import ZutatenPosition from "./zutatenPostion/zutatenPosition";
-// m zu n Beziehung
+//m zu n Beziehung
 Produkt.belongsToMany(Bestellung, {
   through: Bestellungposition
 });
@@ -27,6 +28,8 @@ Adresse.belongsTo(Kunde);
 Produkt.belongsToMany(Zutat, {
   through: ZutatenPosition
 });
+Produkt.belongsTo(Kunde);
+Kunde.hasMany(Produkt);
 
 Zutat.belongsToMany(Produkt, {
   through: ZutatenPosition
