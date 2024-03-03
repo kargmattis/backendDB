@@ -20,6 +20,7 @@ import { createZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/ope
 import { deactivateZahlungsmöglichkeit } from "../database/zahlungsmoeglichkeit/operation/putZahlungsmöglichkeiten";
 import PayPal from "../database/zahlungsmoeglichkeit/paypal";
 import Lastschrift from "../database/zahlungsmoeglichkeit/lastschrift";
+import { putOrPostWarenkorb } from "../database/bestellung/operations/putBestellung";
 // Erstellen eines Testprodukts mit den notwendigen Eigenschaften
 const testLastschrift = {
   kundenId: "",
@@ -140,7 +141,7 @@ export const fillDatabase = async (): Promise<
     });
 
     console.log("test 6 started: Bestellung aufgeben");
-    const openWarenkor = await addOrOpenWarenkorbBestellung({
+    const openWarenkor = await putOrPostWarenkorb({
       kundenId: createdKunde.kundenId,
       produktId: createdProduct.produktId,
       produktMenge: 200

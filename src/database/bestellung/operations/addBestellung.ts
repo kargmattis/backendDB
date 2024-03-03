@@ -18,13 +18,14 @@ export async function addOrOpenWarenkorbBestellung(
     const bestellungsId = await getBestellungsId(bestellungCreation.kundenId);
     console.log("bestellungsId", bestellungsId);
 
-    const newBestellung = Bestellungposition.create({
+    const newBestellung = await Bestellungposition.create({
       bestellungsId,
       produktId: bestellungCreation.produktId,
       bestellmenge: bestellungCreation.produktMenge
     });
+    console.log("newBestellung", newBestellung);
 
-    return await newBestellung;
+    return newBestellung;
   } catch (error) {
     console.log("error ist here", error);
     throw error;
