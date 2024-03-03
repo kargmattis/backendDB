@@ -130,9 +130,10 @@ export const fillDatabase = async (): Promise<
     console.log(createdLastschrift.dataValues);
 
     const placedOrder = await placeOrder({
-      isPaypal: false,
       kundenId: createdKunde.kundenId,
-      gewünschtesLieferdatum: new Date()
+      gewünschtesLieferdatum: new Date(),
+      laufendeAdressenId: createdAdresse.dataValues.adressenId,
+      laufendeZahlungsId: createdLastschrift.dataValues.zahlungsId
     }).catch((error) => {
       console.log("test 5 failed: Bestellung aufgeben");
       throw new Error(error);
