@@ -139,7 +139,7 @@ export const fillDatabase = async (): Promise<
       throw new Error(error);
     });
 
-    console.log("test 6 started: ZutatenPosition");
+    console.log("test 6 started: Bestellung aufgeben");
     const openWarenkor = await addOrOpenWarenkorbBestellung({
       kundenId: createdKunde.kundenId,
       produktId: createdProduct.produktId,
