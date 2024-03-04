@@ -59,16 +59,47 @@ ProduktController.get("/generalProdukts", async (_req, res) => {
   }
 });
 
-ProduktController.get("/CustomerProdukts/:id", (_req, res) => {
-  const { id } = _req.params;
-  findProduktByKundeId(id)
-    .then((produkt) => {
-      res.status(200).json(produkt);
-    })
-    .catch((error: CustomError) => {
-      res.status(error.statusCode).send(error.message);
-    });
+ProduktController.get("/CustomerProducts/:id", async (_req, res) => {
+  try {
+    const { id } = _req.params;
+    const productWithIngredients: Array<ProduktUndZutaten> = [];
+    const products = await findProduktByKundeId(id);
+    if (!products) {
+      throw new CustomError(ErrorHandle.NotFound, "General Products");
+    }
+    for (const product of products) {
+      const zutaten = await ZutatenMitProduktId(product.produktId);
+      const produktUndZutaten: ProduktUndZutaten = {
+        produktId: product.produktId,
+        titel: product.titel,
+        preis: product.preis,
+        bild: product.bild,
+        sparte: product.sparte,
+        kundenId: id,
+        createdAt: product.createdAt,
+        updatedAt: product.updatedAt,
+        Zutaten: zutaten
+      };
+      productWithIngredients.push(produktUndZutaten);
+    }
+    res.status(200).json(productWithIngredients);
+  } catch (error) {
+    const err = errorValidation(error);
+    res.status(err.statusCode).send(err.message);
+  }
 });
+
+// ProduktController.get("/CustomerProducts/:id", (_req, res) => {
+//   const { id } = _req.params;
+//   const productWithIngredients: Array<ProduktUndZutaten> = [];
+//   findProduktByKundeId(id)
+//     .then((produkt) => {
+//       res.status(200).json(produkt);
+//     })
+//     .catch((error: CustomError) => {
+//       res.status(error.statusCode).send(error.message);
+//     });
+// });
 
 ProduktController.put("/produkt", (_req, res) => {
   res.send("Create Put product request");
