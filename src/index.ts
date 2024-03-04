@@ -9,7 +9,7 @@ import { BestellungsController } from "./controller/bestellungscontroller";
 import helmet from "helmet";
 import { WarenkorbController } from "./controller/warenkorbController";
 import { ZahlungsMöglichkeitenController } from "./controller/zahlungsMöglichkeitenController";
-import { ZutatenPositionController } from "./controller/zutatenPositionController";
+import { ZutatenPositionController } from "./controller/konfiguriertesProduktController";
 import { AdminController } from "./controller/adminController";
 
 const app = express();
