@@ -44,8 +44,13 @@ export async function findKundeByEmail(email: string): Promise<Kunde | null> {
 export async function getKundeAboenddate(id: string): Promise<string> {
   try {
     const kunde = await Kunde.findByPk(id);
+
     if (kunde) {
-      return kunde.zeitungsaboablaufdatum.toISOString().split("T")[0]; //COnvert Date in String with format: yyyy-mm-dd
+      if (kunde?.zeitungsaboablaufdatum)
+        return kunde.zeitungsaboablaufdatum
+          .toISOString()
+          .split("T")[0]; //COnvert Date in String with format: yyyy-mm-dd
+      else return "";
     } else {
       throw new Error("Kunde nicht gefunden");
     }
