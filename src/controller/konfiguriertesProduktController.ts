@@ -12,6 +12,7 @@ export const ZutatenPositionController = express.Router();
 import { createProdukt } from "../database/produkt/operations/createProdukt";
 import { createZutat } from "../database/zutat/operations/createZutat";
 import ZutatenPosition from "../database/zutatenPostion/zutatenPosition";
+import { Request, Response } from "express";
 
 interface AusgewählteZutat {
   zutatsId: string;
@@ -37,11 +38,22 @@ ZutatenPositionController.get("/KundenProdukt", (_req, res) => {
     });
 });
 
-ZutatenPositionController.post("/KundenProdukt", (req, res) => {
+async function getZutaten(zutaten: Array<AusgewählteZutat>): Promise<number> {
+  let preis: number = 0;
+  for (const zutat1 of zutaten) {
+    const zutat = await Zutat.findByPk(zutat1.zutatsId);
+    if (zutat) {
+      preis += zutat.zutatspreis * parseInt(zutat1.zutatenMenge);
+    }
+  }
+  return parseFloat(preis.toFixed(2));
+}
+
+async function gesamtPreis(req: Request, res: Response) {
   // 1. vom Frontend kommen Zutatid, Zutatenmenge, Kundenid
   const importedProduct: KonfiguriertesProdukt = {
     titel: req.body.titel,
-    preis: 11, // automatische Berechnung im Backend -> aktuell noch banaler Wert
+    preis: await getZutaten(req.body.zutat), // await the getZutaten function to resolve the promise
     bild: "Logo.webp", //jedes Kundenprodukt erhält als Produktbild das Logo
     sparte: "KundenProdukt",
     kundenId: req.body.kundenId,
@@ -75,7 +87,8 @@ ZutatenPositionController.post("/KundenProdukt", (req, res) => {
   // .catch((error: CustomError) => {
   //  res.status(error.statusCode).send(error.message);
   //  });
+}
 
-  console.log(productID);
-  console.log(importedProduct.zutaten);
+ZutatenPositionController.post("/KundenProdukt", (req, res) => {
+  gesamtPreis(req, res);
 });
