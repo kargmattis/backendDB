@@ -51,14 +51,16 @@ async function getZutaten(zutaten: Array<AusgewählteZutat>): Promise<number> {
 
 async function gesamtPreis(req: Request, res: Response) {
   // 1. vom Frontend kommen Zutatid, Zutatenmenge, Kundenid
+
   const importedProduct: KonfiguriertesProdukt = {
     titel: req.body.titel,
     preis: await getZutaten(req.body.zutat), // await the getZutaten function to resolve the promise
     bild: "Logo.webp", //jedes Kundenprodukt erhält als Produktbild das Logo
     sparte: "KundenProdukt",
     kundenId: req.body.kundenId,
-    zutaten: req.body.zutat //alle Zutaten in einem Array
+    zutaten: req.body.zutat
   };
+  // console.log(importedProduct);
 
   const zwischenspeicherungprodukt: ProduktCreationAttributes = {
     titel: importedProduct.titel,
@@ -80,13 +82,14 @@ async function gesamtPreis(req: Request, res: Response) {
     .then(() => {
       const zutatenPosition: ZutatenPositionCreationAttributes = {
         produktId: productID,
-        zutatIdWithAmount: importedProduct.zutaten //TODO Umformatierung Datentyp aufs Passende!!!
+        zutatIdWithAmount: importedProduct.zutaten
       };
-      addProduktZutatRelation(zutatenPosition);
+      try {
+        addProduktZutatRelation(zutatenPosition);
+      } catch (error) {
+        res.status(500);
+      }
     });
-  // .catch((error: CustomError) => {
-  //  res.status(error.statusCode).send(error.message);
-  //  });
 }
 
 ZutatenPositionController.post("/KundenProdukt", (req, res) => {
