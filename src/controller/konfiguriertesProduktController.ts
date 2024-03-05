@@ -80,7 +80,7 @@ async function gesamtPreis(req: Request, res: Response) {
     .then(() => {
       const zutatenPosition: ZutatenPositionCreationAttributes = {
         produktId: productID,
-        zutatIdWithAmount: importedProduct.zutaten
+        zutatIdWithAmount: importedProduct.zutaten //TODO Umformatierung Datentyp aufs Passende!!!
       };
       addProduktZutatRelation(zutatenPosition);
     });
