@@ -15,7 +15,7 @@ export type AdresseCreationAttributes = {
   strasse: string;
   hausnummer: string;
   ort: string;
-  hausnummerzusatz: string;
+  hausnummerzusatz?: string;
 };
 
 export type ProduktCreationAttributes = {

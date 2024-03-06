@@ -39,7 +39,7 @@ const testKunde = {
 };
 
 const adminKunde = {
-  email: "dbreakfast@gmail.com",
+  email: "delivery-breakfast@outlook.de",
   vorname: "delivery",
   nachname: "breakfast",
   passwort: "123456",
@@ -95,6 +95,21 @@ export const fillDatabase = async (): Promise<
     }).catch((error) => {
       console.log("test 2 failed: paypal");
       throw new Error(error);
+    });
+    const createPaypalforAdmin = await createZahlungsmöglichkeit({
+      kundenId: createAdmin.kundenId,
+      paypalEmail: createAdmin.email
+    }).catch((error) => {
+      console.log("test 2 failed: paypal");
+      throw new Error(error);
+    });
+
+    const createdAdresseAdmin = await createAdresse({
+      hausnummer: "20",
+      kundenId: createAdmin.kundenId,
+      ort: "Frühhausen",
+      postleitzahl: "89518",
+      strasse: "Frühstückstraße"
     });
     testAdresse.kundenId = createdKunde.kundenId;
     testLastschrift.kundenId = createdKunde.kundenId;
