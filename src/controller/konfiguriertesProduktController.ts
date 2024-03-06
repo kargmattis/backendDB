@@ -73,23 +73,26 @@ async function gesamtPreis(req: Request, res: Response) {
   let productID = "";
 
   // 2. Produkt erstellen
-  createProdukt(zwischenspeicherungprodukt)
-    .then((produkt) => {
-      res.status(201).json(produkt);
-      productID = produkt.produktId;
-    })
-    // 3. Zutatrelationen erstellen
-    .then(() => {
-      const zutatenPosition: ZutatenPositionCreationAttributes = {
-        produktId: productID,
-        zutatIdWithAmount: importedProduct.zutaten
-      };
-      try {
+  try {
+    createProdukt(zwischenspeicherungprodukt)
+      .then((produkt) => {
+        productID = produkt.produktId;
+      })
+      // 3. Zutatrelationen erstellen
+      .then(() => {
+        const zutatenPosition: ZutatenPositionCreationAttributes = {
+          produktId: productID,
+          zutatIdWithAmount: importedProduct.zutaten
+        };
         addProduktZutatRelation(zutatenPosition);
-      } catch (error) {
-        res.status(500);
-      }
-    });
+      })
+      .then(() => {
+        res.status(201).json(productID);
+      });
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+  }
 }
 
 ZutatenPositionController.post("/KundenProdukt", (req, res) => {

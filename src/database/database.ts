@@ -20,6 +20,7 @@ if (process.env.DATABASE === "sqlite") {
     host,
     port: 5432,
     dialect: "postgres",
+    timezone: "+01:00",
     define: {
       timestamps: false // für das Lesen von Legacy-Tabellen
     }

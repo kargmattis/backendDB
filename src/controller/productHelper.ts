@@ -24,6 +24,9 @@ export async function ZutatenMitProduktId(
   for (const element of zutatenpositionen) {
     const zutat = await findZutatById(element.zutatsId);
     if (zutat) {
+      zutat.zutatsname = `${element.zutatenMenge} ${zutat.zutatseinheit} ${zutat.zutatsname}`;
+    }
+    if (zutat) {
       zutaten.push(zutat);
     }
   }
