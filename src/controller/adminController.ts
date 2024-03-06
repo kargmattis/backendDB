@@ -4,7 +4,11 @@ import CustomError from "../utilities/error";
 import cookieParser from "cookie-parser";
 import { ErrorHandle } from "../global/enums";
 import Bestellung from "../database/bestellung/bestellung";
-import { checkAdmin } from "./adminHelper/adminHelper";
+import {
+  checkAdmin,
+  findBestellungDependencies
+} from "./adminHelper/adminHelper";
+import { Sequelize } from "sequelize";
 
 export const AdminController = express.Router();
 AdminController.use(cookieParser());
@@ -19,9 +23,10 @@ AdminController.use(async (req, res, next) => {
     if (admin) {
       next();
     }
+    // res.status(401).send("Not authorized");
   } catch (error) {
     const customError = errorValidation(error);
-    res.status(customError.statusCode).send(customError.message);
+    res.status(401).send("Not authorized");
   }
 });
 
@@ -54,15 +59,34 @@ AdminController.put("/admin/deliver/:bestellId", async (req: Request, res) => {
 AdminController.get("/admin/todayDeliveries", async (_req, res) => {
   try {
     const today = new Date();
+    const formattedToday = `${today.getFullYear()}-${(
+      "0" +
+      (today.getMonth() + 1)
+    ).slice(-2)}-${("0" + today.getDate()).slice(-2)}`;
+
+    console.log("ft", formattedToday);
     const todayDeliveries = await Bestellung.findAll({
-      where: {
-        gewünschtesLieferdatum: today
-      }
+      where: Sequelize.where(
+        Sequelize.fn("date", Sequelize.col("gewünschtesLieferdatum")),
+        "=",
+        formattedToday
+      )
     });
+    console.log("td", todayDeliveries);
+    const bestellungWithDependencies = await Promise.all(
+      todayDeliveries.map(async (bestellung) => {
+        const bestellungWithDependencies = await findBestellungDependencies(
+          bestellung
+        );
+        console.log("bw", bestellungWithDependencies);
+        return bestellungWithDependencies;
+      })
+    );
+    console.log("-", todayDeliveries);
     if (!todayDeliveries) {
       throw new CustomError(ErrorHandle.NotFound, "No deliveries today");
     }
-    res.status(200).json(todayDeliveries);
+    res.status(200).json(bestellungWithDependencies);
   } catch (error) {
     const err = errorValidation(error);
     res.status(err.statusCode).send(err.message);
