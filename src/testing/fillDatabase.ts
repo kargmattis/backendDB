@@ -92,7 +92,7 @@ export const fillDatabase = async (): Promise<
     console.log("test 2 started: Zahlungsmöglichkeit, paypal");
     const createPaypal = await createZahlungsmöglichkeit({
       kundenId: createdKunde.kundenId,
-      paypalEmail: createdKunde.email
+      paypalEmail: "sb-jucgl28884030@personal.example.com"
     }).catch((error) => {
       console.log("test 2 failed: paypal");
       throw new Error(error);
@@ -113,7 +113,9 @@ export const fillDatabase = async (): Promise<
       strasse: "Frühstückstraße"
     });
     testAdresse.kundenId = createdKunde.kundenId;
+    createdAdresseAdmin.kundenId = createAdmin.kundenId;
     testLastschrift.kundenId = createdKunde.kundenId;
+    createPaypalforAdmin.kundenId = createAdmin.kundenId;
     console.log("test 3 started: Zahlungsmöglichkeit:Lastschrift, Adresse");
     console.log(testLastschrift);
 
