@@ -39,13 +39,28 @@ const testKunde = {
 };
 
 const adminKunde = {
-  email: "dbreakfast@gmail.com",
+  email: "delivery-breakfast@outlook.de",
   vorname: "delivery",
   nachname: "breakfast",
   passwort: "123456",
   telefonnummer: "0123456789",
   zeitungsaboablaufdatum: new Date(),
   istAdmin: true
+};
+// Erstellen einer Admin-Adresse mit den notwendigen Eigenschaften
+const adminAdresse = {
+  kundenId: "",
+  postleitzahl: "12345",
+  strasse: "Adminstraße",
+  hausnummer: "123",
+  ort: "Adminort",
+  hausnummerzusatz: "a"
+};
+
+// Erstellen einer Admin-Zahlungsmöglichkeit mit den notwendigen Eigenschaften
+const adminPaypal = {
+  kundenId: "",
+  paypalEmail: "delivery-breakfast@outlook.de"
 };
 // Erstellen einer Testadresse mit den notwendigen Eigenschaften
 const testAdresse = {
@@ -65,6 +80,10 @@ export const fillDatabase = async (): Promise<
     console.log("fillDatabase started");
     console.log("test 1 started: kunde, produkte");
     const createAdmin = await createKunde(adminKunde);
+    adminAdresse.kundenId = createAdmin.kundenId;
+    adminPaypal.kundenId = createAdmin.kundenId;
+    const createdAdminAdresse = await createAdresse(adminAdresse);
+    const createdAdminPaypal = await createZahlungsmöglichkeit(adminPaypal);
     const createdKunde = await createKunde(testKunde);
     const createdProducts = await Promise.all(
       Products.map(async (element) => {
