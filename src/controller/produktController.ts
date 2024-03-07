@@ -15,6 +15,7 @@ import {
 import { ProduktUndZutaten, ZutatenMitProduktId } from "./productHelper";
 import Produkt from "../database/produkt/produkt";
 import Zutat from "../database/zutat/zutat";
+import { deleteProdukt } from "../database/produkt/operations/deleteProdukt";
 
 export const ProduktController = express.Router();
 
@@ -25,6 +26,14 @@ ProduktController.get("/produkt", (_req, res) => {
 ProduktController.post("/produkt", async (req, res) => {
   createProdukt(req.body)
     .then((produkt) => res.status(201).json(produkt))
+    .catch((error: CustomError) => {
+      res.status(error.statusCode).send(error.message);
+    });
+});
+
+ProduktController.put("/produkt/loeschen", async (req, res) => {
+  deleteProdukt(req.body.produktId)
+    .then((success) => res.status(201).json(success))
     .catch((error: CustomError) => {
       res.status(error.statusCode).send(error.message);
     });
