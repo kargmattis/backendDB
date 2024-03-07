@@ -81,11 +81,18 @@ async function gesamtPreis(zutaten: Array<AusgewählteZutat>): Promise<number> {
 
 async function makeProduct(req: Request, res: Response) {
   // 1. vom Frontend kommen Zutatid, Zutatenmenge, Kundenid
+  let bildpfad = "";
+  if (req.body.bild) {
+    bildpfad = req.body.bild;
+  } else {
+    //wenn kein Produktbild angegeben wird, da optionales Feld, dann Stdbild einfügen.
+    bildpfad = "Logo.webp";
+  }
 
   const importedProduct: KonfiguriertesProdukt = {
     titel: req.body.titel,
     preis: await gesamtPreis(req.body.zutat), // await the getZutaten function to resolve the promise
-    bild: "Logo.webp", //jedes Kundenprodukt erhält als Produktbild das Logo
+    bild: bildpfad,
     sparte: req.body.sparte,
     kundenId: req.body.kundenId,
     zutaten: req.body.zutat
