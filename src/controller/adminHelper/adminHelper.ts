@@ -9,8 +9,8 @@ import { errorChecking } from "../../utilities/errorChecking";
 export async function checkAdmin(kundenId: string): Promise<boolean> {
   try {
     const kunde = await Kunde.findByPk(kundenId);
-    console.log(kundenId);
-    console.log(kunde);
+    // console.log(kundenId);
+    // console.log(kunde);
 
     if (kunde?.dataValues.istAdmin === true) {
       return true;
@@ -33,8 +33,6 @@ export async function findBestellungDependencies(
     );
 
     const bestellungsKunde = await findKunde(bestellung.kundenId);
-    console.log("bestellungsKunde", bestellungsKunde);
-    console.log("partlyBestellung", partlyBestellung);
     if (bestellungsKunde && partlyBestellung) {
       return { kunde: bestellungsKunde.dataValues, ...partlyBestellung };
     } else {
