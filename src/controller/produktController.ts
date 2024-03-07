@@ -149,14 +149,6 @@ ProduktController.put("/produkt/loeschen", async (req, res) => {
     });
 });
 
-ProduktController.put("/produkt/loeschen", async (req, res) => {
-  deleteProdukt(req.body.produktId)
-    .then((success) => res.status(201).json(success))
-    .catch((error: CustomError) => {
-      res.status(error.statusCode).send(error.message);
-    });
-});
-
 ProduktController.get("/generalProdukts", async (_req, res) => {
   try {
     const productWithIngredients: Array<ProduktUndZutaten> = [];
