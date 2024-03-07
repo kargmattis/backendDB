@@ -8,7 +8,7 @@ import {
   checkAdmin,
   findBestellungDependencies
 } from "./adminHelper/adminHelper";
-import { Sequelize } from "sequelize";
+import { Sequelize, Op } from "sequelize";
 
 export const AdminController = express.Router();
 AdminController.use(cookieParser());
@@ -57,6 +57,46 @@ AdminController.put("/admin/deliver/:bestellId", async (req: Request, res) => {
 });
 
 AdminController.get("/admin/todayDeliveries", async (_req, res) => {
+  try {
+    const today = new Date();
+    const formattedToday = `${today.getFullYear()}-${(
+      "0" +
+      (today.getMonth() + 1)
+    ).slice(-2)}-${("0" + today.getDate()).slice(-2)}`;
+
+    console.log("ft", formattedToday);
+    const todayDeliveries = await Bestellung.findAll({
+      where: Sequelize.and(
+        Sequelize.where(
+          Sequelize.fn("date", Sequelize.col("gewünschtesLieferdatum")),
+          "=",
+          formattedToday
+        ),
+        { lieferdatum: { [Op.ne]: null } }
+      )
+    });
+    console.log("td", todayDeliveries);
+    const bestellungWithDependencies = await Promise.all(
+      todayDeliveries.map(async (bestellung) => {
+        const bestellungWithDependencies = await findBestellungDependencies(
+          bestellung
+        );
+        console.log("bw", bestellungWithDependencies);
+        return bestellungWithDependencies;
+      })
+    );
+    console.log("-", todayDeliveries);
+    if (!todayDeliveries) {
+      throw new CustomError(ErrorHandle.NotFound, "No deliveries today");
+    }
+    res.status(200).json(bestellungWithDependencies);
+  } catch (error) {
+    const err = errorValidation(error);
+    res.status(err.statusCode).send(err.message);
+  }
+});
+
+AdminController.get("/admin/sumTodayDeliveries", async (_req, res) => {
   try {
     const today = new Date();
     const formattedToday = `${today.getFullYear()}-${(

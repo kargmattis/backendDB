@@ -69,7 +69,7 @@ export async function findSingleBestellung(
       produkte.push({
         ...dataValues,
         bestellmenge: singlePosition.bestellmenge,
-        summe: singlePosition.bestellmenge * dataValues.preis
+        summe: +(singlePosition.bestellmenge * dataValues.preis).toFixed(2)
       });
     }
     console.log("bestellung", bestellung.laufendeAdressenId);
@@ -97,7 +97,7 @@ export async function findSingleBestellung(
         zahlungsinformation: zahlungsInformation.dataValues,
         addressenInformation: adressInformation.dataValues,
         produktInformationen: produkte,
-        gesamtpreis: sumPrice,
+        gesamtpreis: +sumPrice.toFixed(2),
         isPaypal: bestellung.dataValues.isPaypal,
         bestellungsId: bestellungsPosition[0].bestellungsId, // [0] because every position has the same bestellungsId
         bestellDatum: bestellung.dataValues.bestellDatum,
