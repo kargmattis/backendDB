@@ -35,6 +35,8 @@ interface KonfiguriertesProdukt {
   sparte: string;
   zutaten: Array<AusgewählteZutat>;
 }
+import { deleteProdukt } from "../database/produkt/operations/deleteProdukt";
+
 export const ProduktController = express.Router();
 
 ProduktController.get("/produkt", async (_req, res) => {
@@ -130,6 +132,22 @@ ProduktController.post("/produkt", (req, res) => {
   //   .catch((error: CustomError) => {
   //     res.status(error.statusCode).send(error.message);
   //   });
+});
+
+ProduktController.put("/produkt/loeschen", async (req, res) => {
+  deleteProdukt(req.body.produktId)
+    .then((success) => res.status(201).json(success))
+    .catch((error: CustomError) => {
+      res.status(error.statusCode).send(error.message);
+    });
+});
+
+ProduktController.put("/produkt/loeschen", async (req, res) => {
+  deleteProdukt(req.body.produktId)
+    .then((success) => res.status(201).json(success))
+    .catch((error: CustomError) => {
+      res.status(error.statusCode).send(error.message);
+    });
 });
 
 ProduktController.get("/generalProdukts", async (_req, res) => {
