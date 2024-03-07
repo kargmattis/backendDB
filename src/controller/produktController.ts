@@ -164,7 +164,11 @@ ProduktController.get("/generalProdukts", async (_req, res) => {
     if (!products) {
       throw new CustomError(ErrorHandle.NotFound, "General Products");
     }
-    for (const product of products) {
+    const filteredProducts = products.filter(
+      (product) => product.sparte !== null
+    ); //filtert alle deaktivierten (gelöschten) Produkte heraus
+
+    for (const product of filteredProducts) {
       const zutaten = await ZutatenMitProduktId(product.produktId);
       const produktUndZutaten: ProduktUndZutaten = {
         produktId: product.produktId,

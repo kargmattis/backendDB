@@ -12,7 +12,10 @@ ZutatController.get("/zutat", async (_req, res) => {
   try {
     findZutat()
       .then((zutat) => {
-        res.status(200).json(zutat);
+        const filteredZutat = zutat.filter(
+          (item) => item.zutatensparte !== null //herausfiltern der deaktivierten (gelöschten) Zutaten
+        );
+        res.status(200).json(filteredZutat);
       })
       .catch((error: CustomError) => {
         res.status(error.statusCode).send(error.message);
