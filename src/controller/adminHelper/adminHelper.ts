@@ -33,16 +33,16 @@ export async function findBestellungDependencies(
     );
 
     const bestellungsKunde = await findKunde(bestellung.kundenId);
-
-    if (bestellungsKunde) {
+    console.log("bestellungsKunde", bestellungsKunde);
+    console.log("partlyBestellung", partlyBestellung);
+    if (bestellungsKunde && partlyBestellung) {
       return { kunde: bestellungsKunde.dataValues, ...partlyBestellung };
     } else {
-      throw new CustomError(
-        ErrorHandle.NotFound,
-        "Bestellungsdependencies not found"
-      );
+      throw new CustomError(ErrorHandle.NotFound, "Bestellung not found");
     }
   } catch (error) {
+    console.log("error", error);
+
     throw errorChecking(error);
   }
 }

@@ -72,25 +72,36 @@ AdminController.get("/admin/todayDeliveries", async (_req, res) => {
           "=",
           formattedToday
         ),
-        { lieferdatum: { [Op.ne]: null } }
+        { lieferdatum: { [Op.is]: null } }
       )
     });
     console.log("td", todayDeliveries);
-    const bestellungWithDependencies = await Promise.all(
+    const bestellungWithDependency = await Promise.all(
       todayDeliveries.map(async (bestellung) => {
-        const bestellungWithDependencies = await findBestellungDependencies(
-          bestellung
-        );
-        console.log("bw", bestellungWithDependencies);
-        return bestellungWithDependencies;
+        try {
+          const bestellungWithDependencies = await findBestellungDependencies(
+            bestellung
+          );
+          console.log("bw", bestellungWithDependencies);
+          return bestellungWithDependencies;
+        } catch (error) {
+          console.log("error", error);
+        }
       })
     );
-    console.log("-", todayDeliveries);
+    console.log("----------------------", bestellungWithDependency);
     if (!todayDeliveries) {
       throw new CustomError(ErrorHandle.NotFound, "No deliveries today");
     }
-    res.status(200).json(bestellungWithDependencies);
+    console.log("abw!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    console.log("abw", bestellungWithDependency);
+    const filteredBestellung = bestellungWithDependency.filter(
+      (bestellung) => bestellung !== undefined
+    );
+    res.status(200).json(filteredBestellung);
   } catch (error) {
+    console.log("error status code", error);
+
     const err = errorValidation(error);
     res.status(err.statusCode).send(err.message);
   }
