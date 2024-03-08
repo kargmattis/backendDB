@@ -39,14 +39,6 @@ ZutatController.post("/zutat", async (req, res) => {
   }
 });
 
-ZutatController.put("/zutat/loeschen", async (req, res) => {
-  deleteIngredient(req.body.zutatsId)
-    .then((success) => res.status(201).json(success))
-    .catch((error: CustomError) => {
-      res.status(error.statusCode).send(error.message);
-    });
-});
-
 ZutatController.put("/zutat", (_req, res) => {
   try {
     res.send("Create Put ingredient request");
