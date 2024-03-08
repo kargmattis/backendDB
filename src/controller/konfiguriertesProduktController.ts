@@ -13,6 +13,7 @@ import { createProdukt } from "../database/produkt/operations/createProdukt";
 import { createZutat } from "../database/zutat/operations/createZutat";
 import ZutatenPosition from "../database/zutatenPostion/zutatenPosition";
 import { Request, Response } from "express";
+import { errorChecking } from "../utilities/errorChecking";
 
 interface AusgewählteZutat {
   zutatsId: string;
@@ -51,29 +52,28 @@ async function getZutaten(zutaten: Array<AusgewählteZutat>): Promise<number> {
 
 async function gesamtPreis(req: Request, res: Response) {
   // 1. vom Frontend kommen Zutatid, Zutatenmenge, Kundenid
-
-  const importedProduct: KonfiguriertesProdukt = {
-    titel: req.body.titel,
-    preis: await getZutaten(req.body.zutat), // await the getZutaten function to resolve the promise
-    bild: "Logo.webp", //jedes Kundenprodukt erhält als Produktbild das Logo
-    sparte: "KundenProdukt",
-    kundenId: req.body.kundenId,
-    zutaten: req.body.zutat
-  };
-  // console.log(importedProduct);
-
-  const zwischenspeicherungprodukt: ProduktCreationAttributes = {
-    titel: importedProduct.titel,
-    preis: importedProduct.preis,
-    bild: importedProduct.bild,
-    sparte: importedProduct.sparte,
-    kundenId: importedProduct.kundenId
-  };
-
-  let productID = "";
-
-  // 2. Produkt erstellen
   try {
+    const importedProduct: KonfiguriertesProdukt = {
+      titel: req.body.titel,
+      preis: await getZutaten(req.body.zutat), // await the getZutaten function to resolve the promise
+      bild: "Logo.webp", //jedes Kundenprodukt erhält als Produktbild das Logo
+      sparte: "KundenProdukt",
+      kundenId: req.body.kundenId,
+      zutaten: req.body.zutat
+    };
+    // console.log(importedProduct);
+
+    const zwischenspeicherungprodukt: ProduktCreationAttributes = {
+      titel: importedProduct.titel,
+      preis: importedProduct.preis,
+      bild: importedProduct.bild,
+      sparte: importedProduct.sparte,
+      kundenId: importedProduct.kundenId
+    };
+
+    let productID = "";
+
+    // 2. Produkt erstellen
     createProdukt(zwischenspeicherungprodukt)
       .then((produkt) => {
         productID = produkt.produktId;
@@ -88,13 +88,21 @@ async function gesamtPreis(req: Request, res: Response) {
       })
       .then(() => {
         res.status(201).json(productID);
+      })
+      .catch((error: CustomError) => {
+        const err = errorChecking(error);
+        throw new CustomError(err.statusCode, err.message);
       });
   } catch (err) {
     console.log(err);
-    res.status(500);
+    res.status(500).send("unknown error");
   }
 }
 
-ZutatenPositionController.post("/KundenProdukt", (req, res) => {
-  gesamtPreis(req, res);
+ZutatenPositionController.post("/KundenProdukt", async (req, res) => {
+  try {
+    await gesamtPreis(req, res);
+  } catch (error) {
+    res.status(500).send("unknown error");
+  }
 });
