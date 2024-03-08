@@ -76,18 +76,23 @@ async function makeProduct(req: Request, res: Response) {
   try {
     createProdukt(zwischenspeicherungprodukt)
       .then((produkt) => {
-        productID = produkt.produktId;
+        if (produkt) {
+          productID = produkt.produktId;
+        }
       })
       // 3. Zutatrelationen erstellen
       .then(() => {
-        const zutatenPosition: ZutatenPositionCreationAttributes = {
-          produktId: productID,
-          zutatIdWithAmount: importedProduct.zutaten
-        };
-        addProduktZutatRelation(zutatenPosition);
-      })
-      .then(() => {
-        res.status(201).json(productID);
+        if (productID !== "") {
+          const zutatenPosition: ZutatenPositionCreationAttributes = {
+            produktId: productID,
+            zutatIdWithAmount: importedProduct.zutaten
+          };
+          addProduktZutatRelation(zutatenPosition);
+          res.status(201).json(productID);
+        } else {
+          console.error("ProduktID ist leer!");
+          res.status(404).json("ProduktID ist leer!");
+        }
       });
   } catch (err) {
     console.log(err);
