@@ -54,7 +54,7 @@ ProduktController.get("/produkt", async (_req, res) => {
         preis: product.preis,
         bild: product.bild,
         sparte: product.sparte,
-        kundenId: null,
+        kundenId: product.kundenId,
         createdAt: product.createdAt,
         updatedAt: product.updatedAt,
         Zutaten: zutaten
@@ -190,7 +190,12 @@ ProduktController.get("/CustomerProducts/:id", async (_req, res) => {
     if (!products) {
       throw new CustomError(ErrorHandle.NotFound, "General Products");
     }
-    for (const product of products) {
+
+    const filteredProducts = products.filter(
+      (product) => product.sparte !== null
+    ); //filtert alle deaktivierten (gelöschten) Produkte heraus
+
+    for (const product of filteredProducts) {
       const zutaten = await ZutatenMitProduktId(product.produktId);
       const produktUndZutaten: ProduktUndZutaten = {
         produktId: product.produktId,
