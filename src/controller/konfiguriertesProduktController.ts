@@ -39,7 +39,9 @@ ZutatenPositionController.get("/KundenProdukt", (_req, res) => {
     });
 });
 
-async function gesamtPreis(zutaten: Array<AusgewählteZutat>): Promise<number> {
+async function getGesamtpreis(
+  zutaten: Array<AusgewählteZutat>
+): Promise<number> {
   let preis: number = 0;
   for (const zutat1 of zutaten) {
     const zutat = await Zutat.findByPk(zutat1.zutatsId);
@@ -51,27 +53,15 @@ async function gesamtPreis(zutaten: Array<AusgewählteZutat>): Promise<number> {
 }
 
 async function makeProduct(req: Request, res: Response) {
-  // 1. vom Frontend kommen Zutatid, Zutatenmenge, Kundenid
-
-  const importedProduct: KonfiguriertesProdukt = {
-    titel: req.body.titel,
-    preis: await gesamtPreis(req.body.zutat), // await the getZutaten function to resolve the promise
-    bild: "Logo.webp", //jedes Kundenprodukt erhält als Produktbild das Logo
-    sparte: "KundenProdukt",
-    kundenId: req.body.kundenId,
-    zutaten: req.body.zutat
-  };
-  // console.log(importedProduct);
   try {
     const importedProduct: KonfiguriertesProdukt = {
       titel: req.body.titel,
-      preis: await getZutaten(req.body.zutat), // await the getZutaten function to resolve the promise
+      preis: await getGesamtpreis(req.body.zutat), // await the getZutaten function to resolve the promise
       bild: "Logo.webp", //jedes Kundenprodukt erhält als Produktbild das Logo
       sparte: "KundenProdukt",
       kundenId: req.body.kundenId,
       zutaten: req.body.zutat
     };
-    // console.log(importedProduct);
 
     const zwischenspeicherungprodukt: ProduktCreationAttributes = {
       titel: importedProduct.titel,
@@ -113,7 +103,7 @@ async function makeProduct(req: Request, res: Response) {
 
 ZutatenPositionController.post("/KundenProdukt", async (req, res) => {
   try {
-    await gesamtPreis(req, res);
+    await makeProduct(req, res);
   } catch (error) {
     res.status(500).send("unknown error");
   }
