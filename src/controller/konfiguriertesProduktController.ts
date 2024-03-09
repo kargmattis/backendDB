@@ -39,7 +39,7 @@ ZutatenPositionController.get("/KundenProdukt", (_req, res) => {
     });
 });
 
-async function getZutaten(zutaten: Array<AusgewählteZutat>): Promise<number> {
+async function gesamtPreis(zutaten: Array<AusgewählteZutat>): Promise<number> {
   let preis: number = 0;
   for (const zutat1 of zutaten) {
     const zutat = await Zutat.findByPk(zutat1.zutatsId);
@@ -50,8 +50,18 @@ async function getZutaten(zutaten: Array<AusgewählteZutat>): Promise<number> {
   return parseFloat(preis.toFixed(2));
 }
 
-async function gesamtPreis(req: Request, res: Response) {
+async function makeProduct(req: Request, res: Response) {
   // 1. vom Frontend kommen Zutatid, Zutatenmenge, Kundenid
+
+  const importedProduct: KonfiguriertesProdukt = {
+    titel: req.body.titel,
+    preis: await gesamtPreis(req.body.zutat), // await the getZutaten function to resolve the promise
+    bild: "Logo.webp", //jedes Kundenprodukt erhält als Produktbild das Logo
+    sparte: "KundenProdukt",
+    kundenId: req.body.kundenId,
+    zutaten: req.body.zutat
+  };
+  // console.log(importedProduct);
   try {
     const importedProduct: KonfiguriertesProdukt = {
       titel: req.body.titel,
@@ -76,7 +86,9 @@ async function gesamtPreis(req: Request, res: Response) {
     // 2. Produkt erstellen
     createProdukt(zwischenspeicherungprodukt)
       .then((produkt) => {
-        productID = produkt.produktId;
+        if (produkt) {
+          productID = produkt.produktId;
+        }
       })
       // 3. Zutatrelationen erstellen
       .then(() => {

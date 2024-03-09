@@ -3,7 +3,7 @@ import { errorChecking } from "../../../utilities/errorChecking";
 
 export async function deleteProdukt(id: string) {
   try {
-    await Produkt.update({ sparte: "deleted" }, { where: { produktId: id } });
+    await Produkt.update({ sparte: null }, { where: { produktId: id } });
     return true;
   } catch (error) {
     console.error("Error finding product:", error);

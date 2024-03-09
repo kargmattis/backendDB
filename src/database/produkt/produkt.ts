@@ -7,6 +7,7 @@ class Produkt extends Model {
   public preis!: number;
   public bild!: string;
   public sparte!: string;
+  public kundenId!: string | null;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }

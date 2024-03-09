@@ -9,6 +9,7 @@ import {
   findBestellungDependencies
 } from "./adminHelper/adminHelper";
 import { Sequelize, Op } from "sequelize";
+import { deleteIngredient } from "../database/zutat/operations/deleteZutat";
 
 export const AdminController = express.Router();
 AdminController.use(cookieParser());
@@ -54,6 +55,14 @@ AdminController.put("/admin/deliver/:bestellId", async (req: Request, res) => {
     const err = errorValidation(error);
     res.status(err.statusCode).send(err.message);
   }
+});
+
+AdminController.put("/admin/zutatenloeschen", async (req, res) => {
+  deleteIngredient(req.body.zutatsId)
+    .then((success) => res.status(201).json(success))
+    .catch((error: CustomError) => {
+      res.status(error.statusCode).send(error.message);
+    });
 });
 
 AdminController.get("/admin/todayDeliveries", async (_req, res) => {
@@ -109,6 +118,9 @@ AdminController.get("/admin/todayDeliveries", async (_req, res) => {
 
 AdminController.get("/admin/sumLieferdatum/:date", async (req, res) => {
   console.log("im here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+  console.log(
+    "Matthis warum hast du das console.log nicht entfernt?!?!?!?!?!?!?!?!?!"
+  );
   try {
     console.log("date", req.params.date);
 
