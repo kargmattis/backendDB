@@ -28,6 +28,9 @@ ZutatController.get("/zutat", async (_req, res) => {
 
 ZutatController.post("/zutat", async (req, res) => {
   try {
+    if (req.body.zutatspreis < 0) {
+      return res.status(400).send("Der Preis darf nicht negativ sein");
+    }
     createZutat(req.body)
       .then((zutat) => res.status(201).json(zutat))
       .catch((error: CustomError) => {
