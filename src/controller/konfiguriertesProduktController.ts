@@ -95,6 +95,7 @@ ZutatenPositionController.post("/KundenProdukt", async (req, res) => {
     await makeProduct(req, res);
   } catch (error) {
     console.log(error, "error");
-    res.status(500).send("unknown error");
+    const customError = errorValidation(error);
+    res.status(customError.statusCode).send(customError.message);
   }
 });
