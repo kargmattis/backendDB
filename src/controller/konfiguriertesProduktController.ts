@@ -13,7 +13,7 @@ import { createProdukt } from "../database/produkt/operations/createProdukt";
 import { createZutat } from "../database/zutat/operations/createZutat";
 import ZutatenPosition from "../database/zutatenPostion/zutatenPosition";
 import { Request, Response } from "express";
-import { errorChecking } from "../utilities/errorChecking";
+import { errorChecking, errorValidation } from "../utilities/errorChecking";
 
 interface AusgewählteZutat {
   zutatsId: string;
@@ -56,8 +56,8 @@ async function makeProduct(req: Request, res: Response) {
   try {
     const importedProduct: KonfiguriertesProdukt = {
       titel: req.body.titel,
-      preis: await getGesamtpreis(req.body.zutat), // await the getZutaten function to resolve the promise
-      bild: "Logo.webp", //jedes Kundenprodukt erhält als Produktbild das Logo
+      preis: await getGesamtpreis(req.body.zutat),
+      bild: "Logo.webp",
       sparte: "KundenProdukt",
       kundenId: req.body.kundenId,
       zutaten: req.body.zutat
@@ -73,31 +73,20 @@ async function makeProduct(req: Request, res: Response) {
 
     let productID = "";
 
-    // 2. Produkt erstellen
-    createProdukt(zwischenspeicherungprodukt)
-      .then((produkt) => {
-        if (produkt) {
-          productID = produkt.produktId;
-        }
-      })
-      // 3. Zutatrelationen erstellen
-      .then(() => {
-        const zutatenPosition: ZutatenPositionCreationAttributes = {
-          produktId: productID,
-          zutatIdWithAmount: importedProduct.zutaten
-        };
-        addProduktZutatRelation(zutatenPosition);
-      })
-      .then(() => {
-        res.status(201).json(productID);
-      })
-      .catch((error: CustomError) => {
-        const err = errorChecking(error);
-        throw new CustomError(err.statusCode, err.message);
-      });
+    const produkt = await createProdukt(zwischenspeicherungprodukt);
+    if (produkt) {
+      productID = produkt.produktId;
+    }
+
+    const zutatenPosition: ZutatenPositionCreationAttributes = {
+      produktId: productID,
+      zutatIdWithAmount: importedProduct.zutaten
+    };
+    await addProduktZutatRelation(zutatenPosition);
+    res.status(201).json(productID);
   } catch (err) {
     console.log(err);
-    res.status(500).send("unknown error");
+    throw errorChecking(err);
   }
 }
 
@@ -105,6 +94,7 @@ ZutatenPositionController.post("/KundenProdukt", async (req, res) => {
   try {
     await makeProduct(req, res);
   } catch (error) {
+    console.log(error, "error");
     res.status(500).send("unknown error");
   }
 });
