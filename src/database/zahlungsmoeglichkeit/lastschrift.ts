@@ -3,7 +3,10 @@ import { sequelize } from "../database";
 
 class Lastschrift extends Model {
   public kundenId!: string;
-  public istAktiv!: boolean;
+  public laufendeZahlungsId!: number;
+  public BIC!: string;
+  public IBAN!: string;
+  public Bankname!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -39,10 +42,6 @@ Lastschrift.init(
     Bankname: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    aktiv: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true
     }
   },
   {
