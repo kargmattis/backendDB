@@ -17,19 +17,10 @@ Lastschrift.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
-      // references: {
-      //   model: "zahlungsMoeglichkeit",
-      //   key: "laufendeZahlungsId"
-      // }
     },
     kundenId: {
       type: DataTypes.UUID,
-      allowNull: false,
-      primaryKey: true
-      // references: {
-      //   model: "kunde",
-      //   key: "kundenId"
-      // }
+      allowNull: false
     },
     BIC: {
       type: DataTypes.STRING(11),
