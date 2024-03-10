@@ -24,9 +24,29 @@ export async function ZutatenMitProduktId(
   for (const element of zutatenpositionen) {
     const zutat = await findZutatById(element.zutatsId);
     if (zutat) {
-      zutat.zutatsname = `${element.zutatenMenge} ${zutat.zutatseinheit} ${zutat.zutatsname}`;
-    }
-    if (zutat) {
+      switch (zutat.zutatseinheit) {
+        case "Gramm":
+          zutat.zutatsname = `${element.zutatenMenge}g ${zutat.zutatsname}`;
+          break;
+        case "Milliliter":
+          zutat.zutatsname = `${element.zutatenMenge}ml ${zutat.zutatsname}`;
+          break;
+        case "Stück":
+          zutat.zutatsname = `${element.zutatenMenge}x ${zutat.zutatsname}`;
+          break;
+        case "Scheiben":
+          zutat.zutatsname = `${element.zutatenMenge} ${
+            element.zutatenMenge === 1 ? "Scheibe" : "Scheiben"
+          } ${zutat.zutatsname}`;
+          break;
+        case "Portion":
+          zutat.zutatsname = `${element.zutatenMenge} ${
+            element.zutatenMenge === 1 ? "Portion" : "Portionen"
+          } ${zutat.zutatsname}`;
+          break;
+        default:
+          zutat.zutatsname = `${element.zutatenMenge} ${zutat.zutatseinheit} ${zutat.zutatsname}`;
+      }
       zutaten.push(zutat);
     }
   }
