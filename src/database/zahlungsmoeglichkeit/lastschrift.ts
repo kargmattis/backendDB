@@ -32,11 +32,11 @@ Lastschrift.init(
       // }
     },
     BIC: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(11),
       allowNull: false
     },
     IBAN: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(22),
       allowNull: false
     },
     Bankname: {

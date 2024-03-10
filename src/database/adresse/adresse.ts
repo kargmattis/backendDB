@@ -30,7 +30,7 @@ Adresse.init(
       }
     },
     postleitzahl: {
-      type: new DataTypes.STRING(10),
+      type: new DataTypes.STRING(5),
       allowNull: false
     },
     strasse: {
