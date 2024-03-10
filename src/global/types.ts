@@ -59,6 +59,7 @@ export type SingleBestellungType = {
   produktInformationen: ProduktCreationAttributes[];
   gesamtpreis: number;
   bestellDatum: Date;
+  lieferdatum: Date;
   gewünschtesLieferdatum: Date;
   createdAt: Date;
 };

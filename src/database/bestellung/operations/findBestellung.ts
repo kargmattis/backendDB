@@ -101,6 +101,7 @@ export async function findSingleBestellung(
         isPaypal: bestellung.dataValues.isPaypal,
         bestellungsId: bestellungsPosition[0].bestellungsId, // [0] because every position has the same bestellungsId
         bestellDatum: bestellung.dataValues.bestellDatum,
+        lieferdatum: bestellung.dataValues.lieferdatum,
         gewünschtesLieferdatum: bestellung.dataValues.gewünschtesLieferdatum,
         createdAt: bestellung.dataValues.createdAt
       };

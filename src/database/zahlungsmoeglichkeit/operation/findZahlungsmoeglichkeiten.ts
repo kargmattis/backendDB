@@ -25,8 +25,8 @@ export async function findCurrentZahlungsmöglichkeiten(kundenId: string) {
 
 export async function findActiveZahlungsmöglichkeiten(kundenId: string) {
   try {
-    const paypalArray: Array<PayPal> = [];
-    const lastschriftArray: Array<Lastschrift> = [];
+    const paypal: Array<PayPal> = [];
+    const lastschrift: Array<Lastschrift> = [];
     const allZahlungsmöglichkeiten = await ZahlungsMoeglichkeiten.findAll({
       where: { kundenId, istAktiv: true }
     });
@@ -37,36 +37,36 @@ export async function findActiveZahlungsmöglichkeiten(kundenId: string) {
         "zahlungsmöglichkeit"
       );
 
-      const paypal = await PayPal.findOne({
+      const singlePaypal = await PayPal.findOne({
         where: {
           kundenId: zahlungsmöglichkeit.dataValues.kundenId,
           laufendeZahlungsId: zahlungsmöglichkeit.dataValues.laufendeZahlungsId
         }
       });
-      console.log(paypal, "paypal");
+      console.log(singlePaypal, "paypal");
 
-      if (paypal) {
-        paypalArray.push(paypal);
+      if (singlePaypal) {
+        paypal.push(singlePaypal);
         continue;
       }
-      console.log(paypalArray, "paypalArray");
+      console.log(paypal, "paypalArray");
 
-      const lastschrift = await Lastschrift.findOne({
+      const singleLastschrift = await Lastschrift.findOne({
         where: {
           kundenId: zahlungsmöglichkeit.dataValues.kundenId,
           laufendeZahlungsId: zahlungsmöglichkeit.dataValues.laufendeZahlungsId
         }
       });
-      if (lastschrift) {
-        lastschriftArray.push(lastschrift);
+      if (singleLastschrift) {
+        lastschrift.push(singleLastschrift);
         continue;
       }
     }
-    console.log(paypalArray, "paypalArray");
+    console.log(paypal, "paypalArray");
 
     return {
-      paypalArray,
-      lastschriftArray
+      paypal,
+      lastschrift
     };
   } catch (error) {
     throw errorChecking(error);
