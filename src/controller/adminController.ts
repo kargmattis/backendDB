@@ -1,4 +1,4 @@
-import express, { type Request } from "express";
+import express, { type Request, Response } from "express";
 import { errorValidation } from "../utilities/errorChecking";
 import CustomError from "../utilities/error";
 import cookieParser from "cookie-parser";
@@ -10,6 +10,26 @@ import {
 } from "./adminHelper/adminHelper";
 import { Sequelize, Op } from "sequelize";
 import { deleteIngredient } from "../database/zutat/operations/deleteZutat";
+import { createProdukt } from "../database/produkt/operations/createProdukt";
+import {
+  ProduktCreationAttributes,
+  ZutatenPositionCreationAttributes
+} from "../global/types";
+import { addProduktZutatRelation } from "../database/zutatenPostion/operation/addProduktZutatRelation";
+import Zutat from "../database/zutat/zutat";
+
+interface AusgewählteZutat {
+  zutatsId: string;
+  zutatenMenge: string;
+}
+interface KonfiguriertesProdukt {
+  kundenId: string;
+  titel: string;
+  preis: number;
+  bild: string;
+  sparte: string;
+  zutaten: Array<AusgewählteZutat>;
+}
 
 export const AdminController = express.Router();
 AdminController.use(cookieParser());
@@ -168,4 +188,78 @@ AdminController.get("/admin/sumLieferdatum/:date", async (req, res) => {
     const err = errorValidation(error);
     res.status(err.statusCode).send(err.message);
   }
+});
+
+async function gesamtPreis(zutaten: Array<AusgewählteZutat>): Promise<number> {
+  let preis: number = 0;
+  for (const zutat1 of zutaten) {
+    const zutat = await Zutat.findByPk(zutat1.zutatsId);
+    if (zutat) {
+      preis += zutat.zutatspreis * parseInt(zutat1.zutatenMenge);
+    }
+  }
+  return parseFloat(preis.toFixed(2));
+}
+
+async function makeProduct(req: Request, res: Response) {
+  // 1. vom Frontend kommen Zutatid, Zutatenmenge, Kundenid
+  let bildpfad = "";
+  if (req.body.bild) {
+    bildpfad = req.body.bild;
+  } else {
+    //wenn kein Produktbild angegeben wird, da optionales Feld, dann Stdbild einfügen.
+    bildpfad = "Logo.webp";
+  }
+
+  const importedProduct: KonfiguriertesProdukt = {
+    titel: req.body.titel,
+    preis: await gesamtPreis(req.body.zutat), // await the getZutaten function to resolve the promise
+    bild: bildpfad,
+    sparte: req.body.sparte,
+    kundenId: req.body.kundenId,
+    zutaten: req.body.zutat
+  };
+  // console.log(importedProduct);
+
+  const zwischenspeicherungprodukt: ProduktCreationAttributes = {
+    titel: importedProduct.titel,
+    preis: importedProduct.preis,
+    bild: importedProduct.bild,
+    sparte: importedProduct.sparte,
+    kundenId: importedProduct.kundenId
+  };
+
+  let productID = "";
+
+  // 2. Produkt erstellen
+  try {
+    createProdukt(zwischenspeicherungprodukt)
+      .then((produkt) => {
+        if (produkt) {
+          productID = produkt.produktId;
+        }
+      })
+      // 3. Zutatrelationen erstellen
+      .then(() => {
+        if (productID !== "") {
+          const zutatenPosition: ZutatenPositionCreationAttributes = {
+            produktId: productID,
+            zutatIdWithAmount: importedProduct.zutaten
+          };
+          addProduktZutatRelation(zutatenPosition);
+        } else {
+          console.error("ProduktID ist null");
+        }
+      })
+      .then(() => {
+        res.status(201).json(productID);
+      });
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+  }
+}
+
+AdminController.post("/admin/createProduct", (req: Request, res: Response) => {
+  makeProduct(req, res);
 });
