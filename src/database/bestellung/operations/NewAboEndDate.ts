@@ -57,14 +57,14 @@ function AddToEndDate(days: number, endDate: Date) {
 }
 function AddToToday(days: number) {
   const today = new Date();
-  today.setHours(today.getHours() + 1);
+  today.setHours(today.getHours() - 1);
   today.setDate(today.getDate() + days);
   return today;
 }
 
 function DateInFuture(EndDate: Date): boolean {
   const today = new Date();
-  today.setHours(today.getHours() + 1);
+  today.setHours(today.getHours() - 1);
   today.setHours(0, 0, 0, 0);
   return EndDate.getTime() > today.getTime();
 }
