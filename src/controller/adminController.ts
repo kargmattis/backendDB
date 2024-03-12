@@ -213,7 +213,7 @@ async function makeProduct(req: Request, res: Response) {
 
   const importedProduct: KonfiguriertesProdukt = {
     titel: req.body.titel,
-    preis: await gesamtPreis(req.body.zutat), // await the getZutaten function to resolve the promise
+    preis: req.body.preis, // await the getZutaten function to resolve the promise
     bild: bildpfad,
     sparte: req.body.sparte,
     kundenId: req.body.kundenId,
