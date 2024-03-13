@@ -61,6 +61,7 @@ export async function getBestellungsId(kundenId: string): Promise<string> {
 export async function placeOrder(orderData: PlaceOrderApiAttributes) {
   try {
     const warenkorb = await findWarenkorb(orderData.kundenId);
+    await newAboEndDate(orderData.kundenId);
     const date = new Date();
 
     console.log("laufendeZahlungsId", orderData);
