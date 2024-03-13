@@ -8,8 +8,8 @@
 # Lokal laufen lassen
 
 1. Die aktuellsten notwendigen Komponenten installieren mit `npm i`. 
-2. `npm run test` befüllt die Datenbank mit einem Datensatz
-3. `npm start` startet das Backend
+2. `npm test` befüllt die Datenbank mit einem Datensatz. Die  durch `npm test` erstellte Datenbank mit dem Titel productionEnvironment.sqlite kann mit dem https://sqliteviewer.app/ oder direkt in VS Code mit der Extension SQLite Viewer betrachtet werden. 
+3. `npm start` startet das Backend.
  
 
 
