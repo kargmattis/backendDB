@@ -3,6 +3,7 @@
 # Requirement
 1. Terminal in VSCode starten (Shortcut Str+J). 
 2. Anforderung: node.js `Node Version 19.3.0`für die bequeme Nutzung von npm. Falls der nvm Manager für Windows eingesetzt wird `nvm use 19.3.0`. Wenn die Version nicht installiert ist, den Command `nvm install 19.3.0`verwenden.
+3. Hinzufügen einer .env Datei im Verzeichnis unter Ordner backendDB mit dem Inhalt `DATABASE = "sqlite"`.
 
 
 # Lokal laufen lassen
