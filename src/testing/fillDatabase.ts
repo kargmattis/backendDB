@@ -113,9 +113,9 @@ export const fillDatabase = async (): Promise<
       strasse: "Frühstückstraße"
     });
     testAdresse.kundenId = createdKunde.kundenId;
-    createdAdresseAdmin.kundenId = createAdmin.kundenId;
+    // createdAdresseAdmin.kundenId = createAdmin.kundenId;
     testLastschrift.kundenId = createdKunde.kundenId;
-    createPaypalforAdmin.kundenId = createAdmin.kundenId;
+    // createPaypalforAdmin.kundenId = createAdmin.kundenId;
     console.log("test 3 started: Zahlungsmöglichkeit:Lastschrift, Adresse");
     console.log(testLastschrift);
 
@@ -147,16 +147,18 @@ export const fillDatabase = async (): Promise<
     });
     console.log("test 5 started: Bestellung aufgeben");
     console.log(createdLastschrift.dataValues);
+    console.log(createdLastschrift.dataValues.zahlungsId);
 
     const placedOrder = await placeOrder({
       kundenId: createdKunde.kundenId,
       gewünschtesLieferdatum: new Date(),
       laufendeAdressenId: createdAdresse.dataValues.adressenId,
-      laufendeZahlungsId: createdLastschrift.dataValues.zahlungsId
+      laufendeZahlungsId: 1
     }).catch((error) => {
       console.log("test 5 failed: Bestellung aufgeben");
       throw new Error(error);
     });
+    console.log("order", placedOrder);
 
     console.log("test 6 started: Bestellung aufgeben");
     const openWarenkor = await putOrPostWarenkorb({
