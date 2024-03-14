@@ -2,6 +2,7 @@ import express from "express";
 import { createProdukt } from "../database/produkt/operations/createProdukt";
 import CustomError from "../utilities/error";
 import {
+  findAllProducts,
   findProductWithoutKundeId,
   findProduktByKundeId,
   findProduktByPk
@@ -15,16 +16,61 @@ import {
 import { ProduktUndZutaten, ZutatenMitProduktId } from "./productHelper";
 import Produkt from "../database/produkt/produkt";
 import Zutat from "../database/zutat/zutat";
+import { Request, Response } from "express";
+import { addProduktZutatRelation } from "../database/zutatenPostion/operation/addProduktZutatRelation";
+import {
+  ProduktCreationAttributes,
+  ZutatenPositionCreationAttributes
+} from "../global/types";
+
+interface AusgewählteZutat {
+  zutatsId: string;
+  zutatenMenge: string;
+}
+interface KonfiguriertesProdukt {
+  kundenId: string;
+  titel: string;
+  preis: number;
+  bild: string;
+  sparte: string;
+  zutaten: Array<AusgewählteZutat>;
+}
+import { deleteProdukt } from "../database/produkt/operations/deleteProdukt";
 
 export const ProduktController = express.Router();
 
-ProduktController.get("/produkt", (_req, res) => {
-  res.send("Create Get product request");
+ProduktController.get("/produkt", async (_req, res) => {
+  try {
+    const productWithIngredients: Array<ProduktUndZutaten> = [];
+    const products = await findAllProducts();
+    if (!products) {
+      throw new CustomError(ErrorHandle.NotFound, "General Products");
+    }
+    for (const product of products) {
+      const zutaten = await ZutatenMitProduktId(product.produktId);
+      const produktUndZutaten: ProduktUndZutaten = {
+        produktId: product.produktId,
+        titel: product.titel,
+        preis: product.preis,
+        bild: product.bild,
+        sparte: product.sparte,
+        kundenId: product.kundenId,
+        createdAt: product.createdAt,
+        updatedAt: product.updatedAt,
+        Zutaten: zutaten
+      };
+      productWithIngredients.push(produktUndZutaten);
+    }
+    res.status(200).json(productWithIngredients);
+  } catch (error) {
+    const err = errorValidation(error);
+    res.status(err.statusCode).send(err.message);
+  }
 });
 
-ProduktController.post("/produkt", async (req, res) => {
-  createProdukt(req.body)
-    .then((produkt) => res.status(201).json(produkt))
+ProduktController.put("/produkt/loeschen", async (req, res) => {
+  deleteProdukt(req.body.produktId)
+    .then((success) => res.status(201).json(success))
     .catch((error: CustomError) => {
       res.status(error.statusCode).send(error.message);
     });
@@ -37,7 +83,11 @@ ProduktController.get("/generalProdukts", async (_req, res) => {
     if (!products) {
       throw new CustomError(ErrorHandle.NotFound, "General Products");
     }
-    for (const product of products) {
+    const filteredProducts = products.filter(
+      (product) => product.sparte !== null
+    ); //filtert alle deaktivierten (gelöschten) Produkte heraus
+
+    for (const product of filteredProducts) {
       const zutaten = await ZutatenMitProduktId(product.produktId);
       const produktUndZutaten: ProduktUndZutaten = {
         produktId: product.produktId,
@@ -67,7 +117,12 @@ ProduktController.get("/CustomerProducts/:id", async (_req, res) => {
     if (!products) {
       throw new CustomError(ErrorHandle.NotFound, "General Products");
     }
-    for (const product of products) {
+
+    const filteredProducts = products.filter(
+      (product) => product.sparte !== null
+    ); //filtert alle deaktivierten (gelöschten) Produkte heraus
+
+    for (const product of filteredProducts) {
       const zutaten = await ZutatenMitProduktId(product.produktId);
       const produktUndZutaten: ProduktUndZutaten = {
         produktId: product.produktId,

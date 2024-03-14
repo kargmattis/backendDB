@@ -5,6 +5,7 @@ import { HookReturn } from "sequelize/types/hooks";
 class ZahlungsMoeglichkeiten extends Model {
   public kundenId!: string;
   public laufendeZahlungsId!: number;
+  public istAktiv!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -25,6 +26,10 @@ ZahlungsMoeglichkeiten.init(
         model: "kunde",
         key: "kundenId"
       }
+    },
+    istAktiv: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     }
   },
   {

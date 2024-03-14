@@ -42,7 +42,7 @@ Zutat.init(
     },
     zutatensparte: {
       type: new DataTypes.STRING(128),
-      allowNull: false
+      allowNull: true
     }
   },
   {

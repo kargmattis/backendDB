@@ -4,6 +4,7 @@ import type CustomError from "../utilities/error";
 import Zutat from "../database/zutat/zutat";
 import { findZutat } from "../database/zutat/operations/findZutat";
 import { errorValidation } from "../utilities/errorChecking";
+import { deleteIngredient } from "../database/zutat/operations/deleteZutat";
 
 export const ZutatController = express.Router();
 
@@ -11,7 +12,10 @@ ZutatController.get("/zutat", async (_req, res) => {
   try {
     findZutat()
       .then((zutat) => {
-        res.status(200).json(zutat);
+        const filteredZutat = zutat.filter(
+          (item) => item.zutatensparte !== null //herausfiltern der deaktivierten (gelöschten) Zutaten
+        );
+        res.status(200).json(filteredZutat);
       })
       .catch((error: CustomError) => {
         res.status(error.statusCode).send(error.message);
@@ -24,6 +28,9 @@ ZutatController.get("/zutat", async (_req, res) => {
 
 ZutatController.post("/zutat", async (req, res) => {
   try {
+    if (req.body.zutatspreis < 0) {
+      return res.status(400).send("Der Preis darf nicht negativ sein");
+    }
     createZutat(req.body)
       .then((zutat) => res.status(201).json(zutat))
       .catch((error: CustomError) => {
@@ -88,3 +95,6 @@ ZutatController.get("/zutatById/:id", async (req, res) => {
     res.status(CustomError.statusCode || 500).send(CustomError.message);
   }
 });
+function deleteZutat(produktId: any) {
+  throw new Error("Function not implemented.");
+}

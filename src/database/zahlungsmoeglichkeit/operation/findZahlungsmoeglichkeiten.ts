@@ -25,10 +25,44 @@ export async function findCurrentZahlungsmöglichkeiten(kundenId: string) {
 
 export async function findActiveZahlungsmöglichkeiten(kundenId: string) {
   try {
-    const paypal = await PayPal.findAll({ where: { kundenId, aktiv: true } });
-    const lastschrift = await Lastschrift.findAll({
-      where: { kundenId, aktiv: true }
+    const paypal: Array<PayPal> = [];
+    const lastschrift: Array<Lastschrift> = [];
+    const allZahlungsmöglichkeiten = await ZahlungsMoeglichkeiten.findAll({
+      where: { kundenId, istAktiv: true }
     });
+    for (const zahlungsmöglichkeit of allZahlungsmöglichkeiten) {
+      console.log(
+        zahlungsmöglichkeit.dataValues.kundenId,
+        zahlungsmöglichkeit.dataValues.laufendeZahlungsId,
+        "zahlungsmöglichkeit"
+      );
+
+      const singlePaypal = await PayPal.findOne({
+        where: {
+          kundenId: zahlungsmöglichkeit.dataValues.kundenId,
+          laufendeZahlungsId: zahlungsmöglichkeit.dataValues.laufendeZahlungsId
+        }
+      });
+      console.log(singlePaypal, "paypal");
+
+      if (singlePaypal) {
+        paypal.push(singlePaypal);
+        continue;
+      }
+      console.log(paypal, "paypalArray");
+
+      const singleLastschrift = await Lastschrift.findOne({
+        where: {
+          kundenId: zahlungsmöglichkeit.dataValues.kundenId,
+          laufendeZahlungsId: zahlungsmöglichkeit.dataValues.laufendeZahlungsId
+        }
+      });
+      if (singleLastschrift) {
+        lastschrift.push(singleLastschrift);
+        continue;
+      }
+    }
+    console.log(paypal, "paypalArray");
 
     return {
       paypal,

@@ -6,7 +6,7 @@ class Lastschrift extends Model {
   public laufendeZahlungsId!: number;
   public BIC!: string;
   public IBAN!: string;
-  public istAktiv!: boolean;
+  public Bankname!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -17,35 +17,22 @@ Lastschrift.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
-      // references: {
-      //   model: "zahlungsMoeglichkeit",
-      //   key: "laufendeZahlungsId"
-      // }
     },
     kundenId: {
       type: DataTypes.UUID,
-      allowNull: false,
-      primaryKey: true
-      // references: {
-      //   model: "kunde",
-      //   key: "kundenId"
-      // }
+      allowNull: false
     },
     BIC: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(11),
       allowNull: false
     },
     IBAN: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(22),
       allowNull: false
     },
     Bankname: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    aktiv: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true
     }
   },
   {

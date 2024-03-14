@@ -39,7 +39,7 @@ const testKunde = {
 };
 
 const adminKunde = {
-  email: "dbreakfast@gmail.com",
+  email: "delivery-breakfast@outlook.de",
   vorname: "delivery",
   nachname: "breakfast",
   passwort: "123456",
@@ -47,6 +47,7 @@ const adminKunde = {
   zeitungsaboablaufdatum: new Date(),
   istAdmin: true
 };
+
 // Erstellen einer Testadresse mit den notwendigen Eigenschaften
 const testAdresse = {
   kundenId: "",
@@ -91,13 +92,30 @@ export const fillDatabase = async (): Promise<
     console.log("test 2 started: Zahlungsmöglichkeit, paypal");
     const createPaypal = await createZahlungsmöglichkeit({
       kundenId: createdKunde.kundenId,
-      paypalEmail: createdKunde.email
+      paypalEmail: "sb-jucgl28884030@personal.example.com"
     }).catch((error) => {
       console.log("test 2 failed: paypal");
       throw new Error(error);
     });
+    const createPaypalforAdmin = await createZahlungsmöglichkeit({
+      kundenId: createAdmin.kundenId,
+      paypalEmail: createAdmin.email
+    }).catch((error) => {
+      console.log("test 2 failed: paypal");
+      throw new Error(error);
+    });
+
+    const createdAdresseAdmin = await createAdresse({
+      hausnummer: "20",
+      kundenId: createAdmin.kundenId,
+      ort: "Frühhausen",
+      postleitzahl: "89518",
+      strasse: "Frühstückstraße"
+    });
     testAdresse.kundenId = createdKunde.kundenId;
+    // createdAdresseAdmin.kundenId = createAdmin.kundenId;
     testLastschrift.kundenId = createdKunde.kundenId;
+    // createPaypalforAdmin.kundenId = createAdmin.kundenId;
     console.log("test 3 started: Zahlungsmöglichkeit:Lastschrift, Adresse");
     console.log(testLastschrift);
 
@@ -129,16 +147,18 @@ export const fillDatabase = async (): Promise<
     });
     console.log("test 5 started: Bestellung aufgeben");
     console.log(createdLastschrift.dataValues);
+    console.log(createdLastschrift.dataValues.zahlungsId);
 
     const placedOrder = await placeOrder({
       kundenId: createdKunde.kundenId,
       gewünschtesLieferdatum: new Date(),
       laufendeAdressenId: createdAdresse.dataValues.adressenId,
-      laufendeZahlungsId: createdLastschrift.dataValues.zahlungsId
+      laufendeZahlungsId: 1
     }).catch((error) => {
       console.log("test 5 failed: Bestellung aufgeben");
       throw new Error(error);
     });
+    console.log("order", placedOrder);
 
     console.log("test 6 started: Bestellung aufgeben");
     const openWarenkor = await putOrPostWarenkorb({
@@ -152,7 +172,7 @@ export const fillDatabase = async (): Promise<
     const createdZutatenPosition = await addProduktZutatRelation({
       produktId: createdProduct.produktId,
       zutatIdWithAmount: [
-        { zutatsId: createdZutat.zutatsId, zutatenMenge: "100" }
+        { zutatsId: createdZutat.zutatsId, zutatenMenge: "1" }
       ]
     }).catch((error) => {
       console.log("test 6 failed: ZutatenPosition");

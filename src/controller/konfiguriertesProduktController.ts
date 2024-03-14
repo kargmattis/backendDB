@@ -12,6 +12,8 @@ export const ZutatenPositionController = express.Router();
 import { createProdukt } from "../database/produkt/operations/createProdukt";
 import { createZutat } from "../database/zutat/operations/createZutat";
 import ZutatenPosition from "../database/zutatenPostion/zutatenPosition";
+import { Request, Response } from "express";
+import { errorChecking, errorValidation } from "../utilities/errorChecking";
 
 interface AusgewählteZutat {
   zutatsId: string;
@@ -37,45 +39,63 @@ ZutatenPositionController.get("/KundenProdukt", (_req, res) => {
     });
 });
 
-ZutatenPositionController.post("/KundenProdukt", (req, res) => {
-  // 1. vom Frontend kommen Zutatid, Zutatenmenge, Kundenid
-  const importedProduct: KonfiguriertesProdukt = {
-    titel: req.body.titel,
-    preis: 11, // automatische Berechnung im Backend -> aktuell noch banaler Wert
-    bild: "Logo.webp", //jedes Kundenprodukt erhält als Produktbild das Logo
-    sparte: "KundenProdukt",
-    kundenId: req.body.kundenId,
-    zutaten: req.body.zutat //alle Zutaten in einem Array
-  };
+async function getGesamtpreis(
+  zutaten: Array<AusgewählteZutat>
+): Promise<number> {
+  let preis: number = 0;
+  for (const zutat1 of zutaten) {
+    const zutat = await Zutat.findByPk(zutat1.zutatsId);
+    if (zutat) {
+      preis += zutat.zutatspreis * parseInt(zutat1.zutatenMenge);
+    }
+  }
+  return parseFloat(preis.toFixed(2));
+}
 
-  const zwischenspeicherungprodukt: ProduktCreationAttributes = {
-    titel: importedProduct.titel,
-    preis: importedProduct.preis,
-    bild: importedProduct.bild,
-    sparte: importedProduct.sparte,
-    kundenId: importedProduct.kundenId
-  };
+async function makeProduct(req: Request, res: Response) {
+  try {
+    const importedProduct: KonfiguriertesProdukt = {
+      titel: req.body.titel,
+      preis: await getGesamtpreis(req.body.zutat),
+      bild: "Logo.webp",
+      sparte: "KundenProdukt",
+      kundenId: req.body.kundenId,
+      zutaten: req.body.zutat
+    };
 
-  let productID = "";
+    const zwischenspeicherungprodukt: ProduktCreationAttributes = {
+      titel: importedProduct.titel,
+      preis: importedProduct.preis,
+      bild: importedProduct.bild,
+      sparte: importedProduct.sparte,
+      kundenId: importedProduct.kundenId
+    };
 
-  // 2. Produkt erstellen
-  createProdukt(zwischenspeicherungprodukt)
-    .then((produkt) => {
-      res.status(201).json(produkt);
+    let productID = "";
+
+    const produkt = await createProdukt(zwischenspeicherungprodukt);
+    if (produkt) {
       productID = produkt.produktId;
-    })
-    // 3. Zutatrelationen erstellen
-    .then(() => {
-      const zutatenPosition: ZutatenPositionCreationAttributes = {
-        produktId: productID,
-        zutatIdWithAmount: importedProduct.zutaten
-      };
-      addProduktZutatRelation(zutatenPosition);
-    });
-  // .catch((error: CustomError) => {
-  //  res.status(error.statusCode).send(error.message);
-  //  });
+    }
 
-  console.log(productID);
-  console.log(importedProduct.zutaten);
+    const zutatenPosition: ZutatenPositionCreationAttributes = {
+      produktId: productID,
+      zutatIdWithAmount: importedProduct.zutaten
+    };
+    await addProduktZutatRelation(zutatenPosition);
+    res.status(201).json(productID);
+  } catch (err) {
+    console.log(err);
+    throw errorChecking(err);
+  }
+}
+
+ZutatenPositionController.post("/KundenProdukt", async (req, res) => {
+  try {
+    await makeProduct(req, res);
+  } catch (error) {
+    console.log(error, "error");
+    const customError = errorValidation(error);
+    res.status(customError.statusCode).send(customError.message);
+  }
 });

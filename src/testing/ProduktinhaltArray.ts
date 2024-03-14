@@ -8,28 +8,28 @@ export function createIngredientsToProducts() {
 
 const productsToIngredients = [
   {
-    Produkt: "Baguette",
-    Zutaten: [{ name: "Baguette", quantity: 200 }]
-  },
-  {
     Produkt: "Käsebaguette",
     Zutaten: [
-      { name: "Baguette", quantity: 200 },
-      { name: "Käse", quantity: 20 },
-      { name: "Butter", quantity: 5 }
+      { name: "Baguette", quantity: 1 },
+      { name: "Käse", quantity: 4 },
+      { name: "Butter", quantity: 1 }
     ]
+  },
+  {
+    Produkt: "Baguette",
+    Zutaten: [{ name: "Baguette", quantity: 1 }]
   },
   {
     Produkt: "Veganes Käsebaguette",
     Zutaten: [
-      { name: "Baguette", quantity: 200 },
-      { name: "vegane Käse", quantity: 20 },
-      { name: "Butter", quantity: 5 }
+      { name: "Baguette", quantity: 1 },
+      { name: "vegane Käse", quantity: 4 },
+      { name: "Butter", quantity: 1 }
     ]
   },
   {
     Produkt: "Brezel",
-    Zutaten: [{ name: "Brezel", quantity: 200 }]
+    Zutaten: [{ name: "Brezel", quantity: 1 }]
   },
   {
     Produkt: "Türkisches Menemen",
@@ -42,18 +42,18 @@ const productsToIngredients = [
   },
   {
     Produkt: "Brötchen",
-    Zutaten: [{ name: "Brötchen", quantity: 200 }]
+    Zutaten: [{ name: "Brötchen", quantity: 1 }]
   },
   {
     Produkt: "Croissant",
-    Zutaten: [{ name: "Croissant", quantity: 200 }]
+    Zutaten: [{ name: "Croissant", quantity: 1 }]
   },
   {
     Produkt: "Fresh Chicken",
     Zutaten: [
-      { name: "Baguette", quantity: 200 },
-      { name: "Schinken", quantity: 10 },
-      { name: "Salami", quantity: 10 },
+      { name: "Baguette", quantity: 1 },
+      { name: "Schinken", quantity: 4 },
+      { name: "Salami", quantity: 4 },
       { name: "Tomate", quantity: 25 },
       { name: "Ei", quantity: 25 },
       { name: "Eisbergsalat", quantity: 25 }
@@ -62,8 +62,8 @@ const productsToIngredients = [
   {
     Produkt: "Veganer Toast",
     Zutaten: [
-      { name: "Toast", quantity: 200 },
-      { name: "vegane Salami", quantity: 10 },
+      { name: "Toast", quantity: 1 },
+      { name: "vegane Salami", quantity: 4 },
       { name: "Tomate", quantity: 25 },
       { name: "vegane Käse", quantity: 25 },
       { name: "Eisbergsalat", quantity: 25 }
@@ -72,8 +72,8 @@ const productsToIngredients = [
   {
     Produkt: "Toast mit Rinderpatty",
     Zutaten: [
-      { name: "Toast", quantity: 200 },
-      { name: "Rinderpatty", quantity: 10 },
+      { name: "Toast", quantity: 1 },
+      { name: "Rinderpatty", quantity: 4 },
       { name: "Tomate", quantity: 25 },
       { name: "Käse", quantity: 25 },
       { name: "Eisbergsalat", quantity: 25 }
@@ -142,7 +142,7 @@ const productsToIngredients = [
   {
     Produkt: "Das kleine Osterfrühstück",
     Zutaten: [
-      { name: "Croissant", quantity: 200 },
+      { name: "Croissant", quantity: 1 },
       { name: "Ei", quantity: 100 },
       { name: "Kaffee", quantity: 100 },
       { name: "Milch", quantity: 200 }
@@ -151,7 +151,7 @@ const productsToIngredients = [
   {
     Produkt: "Bayrisches Menü",
     Zutaten: [
-      { name: "Brezel", quantity: 200 },
+      { name: "Brezel", quantity: 1 },
       { name: "Alkoholfreies Bier", quantity: 300 },
       { name: "Weißwurst", quantity: 100 }
     ]
@@ -159,7 +159,7 @@ const productsToIngredients = [
   {
     Produkt: "Wecken mit Kaffee",
     Zutaten: [
-      { name: "Brötchen", quantity: 200 },
+      { name: "Brötchen", quantity: 1 },
       { name: "Kaffee", quantity: 150 },
       { name: "Wasser", quantity: 150 }
     ]
@@ -167,7 +167,7 @@ const productsToIngredients = [
   {
     Produkt: "Obstmenü",
     Zutaten: [
-      { name: "Toast", quantity: 200 },
+      { name: "Toast", quantity: 1 },
       { name: "Ei", quantity: 25 },
       { name: "Saisonales Obst", quantity: 150 },
       { name: "Waldbeerenfrüchtetee", quantity: 15 },
@@ -177,7 +177,7 @@ const productsToIngredients = [
   {
     Produkt: "Eiermenü",
     Zutaten: [
-      { name: "Toast", quantity: 200 },
+      { name: "Toast", quantity: 1 },
       { name: "Ei", quantity: 25 },
       { name: "Zitronentee", quantity: 15 },
       { name: "Wasser", quantity: 285 }
@@ -186,7 +186,7 @@ const productsToIngredients = [
   {
     Produkt: "Klassisches Menü",
     Zutaten: [
-      { name: "Toast", quantity: 200 },
+      { name: "Toast", quantity: 1 },
       { name: "Ei", quantity: 25 },
       { name: "Kaffee", quantity: 25 },
       { name: "Wasser", quantity: 25 },
@@ -196,7 +196,7 @@ const productsToIngredients = [
   {
     Produkt: "Veggiemenü",
     Zutaten: [
-      { name: "Toast", quantity: 200 },
+      { name: "Toast", quantity: 1 },
       { name: "frische gepresste Orangen", quantity: 100 },
       { name: "Wasser", quantity: 200 },
       { name: "Broccoli", quantity: 25 },
@@ -206,7 +206,7 @@ const productsToIngredients = [
   {
     Produkt: "Morgensonne",
     Zutaten: [
-      { name: "Toast", quantity: 200 },
+      { name: "Toast", quantity: 1 },
       { name: "Pfirsichmarmelade", quantity: 15 },
       { name: "Saisonales Obst", quantity: 100 }
     ]
