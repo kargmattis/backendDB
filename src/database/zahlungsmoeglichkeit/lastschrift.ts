@@ -20,6 +20,7 @@ Lastschrift.init(
     },
     kundenId: {
       type: DataTypes.UUID,
+      primaryKey: true,
       allowNull: false
     },
     BIC: {
