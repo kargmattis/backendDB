@@ -13,16 +13,18 @@ export async function createZahlungsmöglichkeit(
     const { kundenId, bankname, bic, iban, paypalEmail } =
       zahlungsMöglichkeitenData;
 
-    const latestZahlungsMoeglichkeiten = await ZahlungsMoeglichkeiten.findOne({
-      where: { kundenId },
-      order: [["laufendeZahlungsId", "DESC"]]
-    });
-
-    const laufendeZahlungsId = latestZahlungsMoeglichkeiten
-      ? latestZahlungsMoeglichkeiten.laufendeZahlungsId + 1
-      : 1;
-
     if (bankname && bic && iban) {
+      const latestZahlungsMoeglichkeiten = await ZahlungsMoeglichkeiten.findOne(
+        {
+          where: { kundenId },
+          order: [["laufendeZahlungsId", "DESC"]]
+        }
+      );
+
+      const laufendeZahlungsId = latestZahlungsMoeglichkeiten
+        ? latestZahlungsMoeglichkeiten.laufendeZahlungsId + 1
+        : 1;
+
       const newZahlungsId = await ZahlungsMoeglichkeiten.create({
         kundenId,
         laufendeZahlungsId
