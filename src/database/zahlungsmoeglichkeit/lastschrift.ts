@@ -3,6 +3,9 @@ import { sequelize } from "../database";
 
 class Lastschrift extends Model {
   public kundenId!: string;
+  public laufendeZahlungsId!: number;
+  public BIC!: string;
+  public IBAN!: string;
   public istAktiv!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
